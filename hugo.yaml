@@ -3,80 +3,81 @@ languageCode: en-us
 title: La Porte étroite
 theme: ["PaperMod"]
 
+enableInlineShortcodes: true
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
+enableEmoji: true
+mainsections: ["posts", "papermod"]
 
 minify:
   disableXML: true
-  minifyOutput: true
-
-pagination:
-  disableAliases: false
-  pagerSize: 5
-
-languages:
-  en:
-    languageName: "English"
-    weight: 1
-    taxonomies:
-      category: categories
-      tag: tags
-      series: series
-    menu:
-      main:
-        - name: Posts
-          url: posts/
-          weight: 10
-        - name: Tags
-          url: tags/
-          weight: 20
-        # - name: About
-        #   url: about/
-        #   weight: 30
-          
-outputs:
-  home:
-    - HTML
-    - RSS
-    - JSON
+  # minifyOutput: true
 
 params:
   env: production
   DateFormat: "January 2, 2006"
-  defaultTheme: dark
+  defaultTheme: auto
   disableThemeToggle: true
-  ShowReadingTime: false
   ShowShareButtons: false
-  ShowPostNavLinks: false
-  ShowBreadCrumbs: false
-  ShowCodeCopyButtons: true
-  ShowWordCount: true
-  ShowRssButtonInSectionTermList: false
-  UseHugoToc: true
+  ShowReadingTime: false
   disableSpecial1stPost: true
-  disableScrollToTop: false
-  comments: false
-  hidemeta: true
-  hideSummary: false
-  showtoc: false
-  tocopen: false
-
+  displayFullLangName: true
+  ShowPostNavLinks: false
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowPageNums: true
+  ShowToc: false
+  
   footer:
     hideCopyright: true
 
   assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
     favicon: "assets/favicon.ico"
+    favicon16x16: "<link / abs url>"
+    favicon32x32: "<link / abs url>"
+    apple_touch_icon: "<link / abs url>"
+    safari_pinned_tab: "<link / abs url>"
+
+  label:
+    text: "La Porte étroite"
+    # icon: /apple-touch-icon.png
+    # iconHeight: 35
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - name: GitHub
+      url: https://github.com/unifuu
+
 markup:
-  goldmark:
-    renderer:
-      unsafe: true
   highlight:
     noClasses: false
-
-services:
-  instagram:
-    disableInlineCSS: true
-  x:
-    disableInlineCSS: true
