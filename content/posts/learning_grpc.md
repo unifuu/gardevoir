@@ -105,3 +105,55 @@ Client's Recv()	    Reading messages from others sent by the server.
 Server's Recv()	    Reading the messages you send.
 Stream Open	        Maintaining a persistent connection for the chat session.
 ```
+
+## REST  vs RPC
+
+### REST: Mobile Phone Initiates a REST API Call (HTTP/1.1)
+
+Assume the mobile app makes a request to fetch user data, for example: GET https://api.example.com/users/123.
+
+| Phase | Step | Detail | Protocol/DAta Format |
+| ----- | ---- | ------ | --------------- |
+| Application Layer | 1. Function Call | The App calls a method in the HTTP Client Library (e.g., Retrofit/Alamofire) | Programming Language Function |
+| | 2. Request Construction | The client library assembles the HTTP Request: Method (GET), URL, and Headers (Accept: application/json) | HTTP Request Format (Plain Text) |
+| Protocol Layer | 3. DNS Resolution | The system resolves the domain name api.example.com to the server's IP address | DNS Protocol |
+| | 4. Connection Establishment | The App initiates a TCP connection with the server's IP, usually followed by a TLS/SSL Handshake (for HTTPS). | TCP/IP, TLS/SSL |
+| Transport Layer | 5. Request Transmission | The HTTP Request (in plain text) is packaged by the transport layer and sent to the server over the TCP connection | TCP/IP |
+| | 6. Server Receive | The server receives the TCP/IP packets and reassembles the complete HTTP Request | |
+| | 7. Business Logic | The server application executes the business logic | |
+| Response | 8. Response Construction | The server packages the data into a JSON formatted text, setting the HTTP Status Code and headers | JSON (Plain Text) |
+| | 9. Response Transmission | The HTTP Response is sent back to the phone over the TCP connection | TCP/IP |
+| Client Processing | 10. Receive & Parse | The mobile app receives the response, and the HTTP Client Library parses the HTTP headers and status code | |
+| | 11. Deserialization | The Client Library deserializes the JSON text into a programming language object | JSON Parser (High CPU usage) |
+| | 12. Result Presentation | The App receives the User object and updates the User Interface | Programming Language Function |
+
+### RPC: Mobile Phone Initiates a gRPC Call
+
+Assume the App calls a gRPC service method, such as UserService.GetUser(id: 123).
+
+| Phase | Step | Detail | Protocol/Data Format |
+| ----- | ---- | ------ | --------------- |
+| Application Layer | 1. Stub Call | The App calls a function on the locally generated gRPC Client Stub, passing the parameters | Programming Language Function |
+| | 2. Serialization (Protobuf) | The Stub uses Protocol Buffers to efficiently serialize the parameters into a highly compact binary format (the Payload) | Protocol Buffers (Binary) |
+| Protocol Layer (HTTP/2) | 3. HTTP/2 Frame | The gRPC framework encapsulates the serialized binary Payload into an HTTP/2 Data Frame, and the service method name is carried in the Header Frame | HTTP/2 (Binary) |
+| | 4. Connection Management | gRPC typically uses a single, persistent HTTP/2 connection. If not established, DNS resolution and TLS handshake occur | TCP/IP, TLS/SSL |
+| Transport Layer | 5. Request Transmission | The HTTP/2 frames are sent to the server over the TCP connection. Multiple requests/responses can be processed in parallel on the same connection | TCP/IP |
+| | 6. Server Deserialization | The server receives the HTTP/2 frames, and the gRPC Server Library very quickly deserializes the Protobuf binary Payload back into an object in the server's language | Protocol Buffers (Efficient CPU usage) |
+| | 7. Business Logic | The server executes the business logic | |
+| Response Construction | 8. Response Serialization | The server serializes the result object back into a binary Payload using Protobuf | Protocol Buffers (Binary) |
+| | 9. Response Transmission | The server encapsulates the Protobuf Payload into HTTP/2 frames and sends them back to the client | HTTP/2 (Binary) |
+| Client Processing | 10. Receive & Deserialization | The mobile App receives the response, and the Stub very quickly deserializes the Protobuf Payload into the result object | Protocol Buffers (Efficient CPU usage) |
+| | 11. Result Presentation	| The App receives the result object and updates the UI | Programming Language Function |
+
+### Key Differences Comparison
+
+| Feature | REST API (HTTP/1.1 & JSON) | gRPC (HTTP/2 & Protobuf) |
+| ------- | -------------------------- | ------------------------ |
+| Underlying Protocol | HTTP/1.1 (Common) | HTTP/2 (Mandatory) |
+| Connection Efficiency | Prone to "Head-of-Line Blocking," typically short-lived connections. | Supports Multiplexing, typically long-lived connections |
+| Data Format | JSON/XML (Plain Text, Human-Readable) | Protocol Buffers (Binary, Machine-Efficient) |
+| Serialization/Deserialization | Slower, high CPU overhead (text parsing) | Extremely Fast, low CPU overhead (binary encoding/decoding) |
+| Transmission Size | Larger (redundant text headers, verbose JSON keys) | Extremely Small (compressed headers, compact binary payload) |
+| Abstraction Level | Focuses on Resources (/users/123) and Standard Actions (GET/POST) | Focuses on Operations/Functions |
+| Interface Contract | Loose, relies on documentation | Strict, enforced via Protobuf definition files |
+| Real-time Comms | Requires external solutions (WebSockets) | Built-in Streaming, handles bidirectional real-time communication |
