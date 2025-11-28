@@ -1,7 +1,7 @@
 ---
-title: "Book List"
+title: "Reading List"
 date: "2025-11-23"
-summary: "📚 My book list..."
+summary: "📚 My reading list..."
 tags: ["books"]
 ---
 

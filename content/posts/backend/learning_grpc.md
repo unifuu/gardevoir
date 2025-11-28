@@ -27,7 +27,7 @@ In a Server Streaming RPC, the connection between the client and the server does
 4. The stream remains active until the server is done sending responses.
 5. The connection is finally closed (or returned to the connection pool) when the server finishes sending all responses and sends a special status/trailer, which the client reads as an io.EOF error.
 
-#### Analogy: Live News Report
+#### An Analogy: Live News Report
 ```
 Streaming Concept   Live News Analogy
 Client Request      The client turns on the TV (sends a request for a specific news channel).
@@ -60,7 +60,7 @@ Stream Termination  The client turns off the TV or the broadcast ends (stream cl
     - Stream End: The server continues calling Recv() until it receives the end-of-stream signal (io.EOF), which was triggered by the client's CloseSend().
     - Final Response: Once the server knows the client is done streaming (it received io.EOF), it calculates the final result and sends the single response message by calling SendAndClose(response). This simultaneously sends the response and terminates the entire RPC.
 
-#### Analogy: Uploading a Large File
+#### An Analogy: Uploading a Large File
 ```
 Streaming Concept                   Data Upload Scenario
 Client	                            A local application with a large file
@@ -95,7 +95,7 @@ Server's SendAndClose(Response)     The server finishes processing all chunks, c
     - Sending: It repeatedly calls Send(response) to push response messages back to the client.
     - The server signals the end of its stream by returning the final status when the main handler function exits.
 
-#### Analogy: Interactive Chat or Real-Time Game
+#### An Analogy: Interactive Chat or Real-Time Game
 
 ```
 Streaming Concept	Real-Time Chat Application
