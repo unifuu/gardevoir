@@ -2,8 +2,92 @@
 title: "About gRPC"
 date: "2025-11-25"
 summary: "📝 Quick notes on gRPC..."
-tags: ["backend", "grpc"]
+tags: ["backend", "rpc"]
 ---
+
+## Definition
+
+- RPC: Remote Procedure Call
+    - It lets your frontend, backend, and services talk to each other fast, using Protocol Buffers (protobuf) instead of JSON.
+    - Call a function on another server as if it was local.
+
+## Core Concepts
+
+- Protocol Buffers (Protobuf)
+    - A language-agnostic way to define:
+        - data models
+        - service interfaces
+- Communication:
+    - HTTP/2
+    - Binary data (protobuf)
+    - Multiplex streaming
+        - gRPC (using HTTP/2) can run multiple independent streams inside one single TCP connection.
+        - Analogy: In one phone call, but you can talk about many topics at the same time, and none of them interrupt each other.
+    - Bi-directional streams
+        - The client and the server can both send multiple messages to each other at the same time.
+        - Analogy: Like a real-time chat (Discord):
+            - Send messages anytime, the other side can also send at the same time
+            - No need to wait for turns
+            - The stream stays open
+
+### Multiplex Streaming
+
+- In REST:
+    - Each request = new HTTP connection
+    - Sending many requests = opening many connections
+- But in gRPC:
+    - 1 TCP connection
+    - Many logical “streams” inside it
+    - Each stream carries its own request/response and doesn’t block others
+- Benefits:
+    - No need to reconnect multiple times
+    - Lower latency
+    - High throughput
+    - Parallel requests don’t block each other
+
+> This is also the core feature of HTTP/2.
+
+### Bi-directional Streaming
+
+- In REST:
+    - Request → Wait → Response
+- But in gRPC:
+    - Both sides send messages freely (full-duplex).
+
+### gRPC in Browser
+
+- Browsers cannot open raw HTTP/2 streams with custom framing, which gRPC requires.
+- Browser limitations:
+    - Cannot control low-level HTTP/2 frames
+    - Cannot access TCP sockets directly
+    - Cannot implement gRPC’s binary framing protocol
+
+> Therefore, React (or any browser app) cannot directly call normal gRPC.
+
+- Solutions:
+    1. Google created **gRPC-Web** specifically for browsers:
+        - a simplified version of gRPC
+        - designed for browsers
+        - works over HTTP/1.1 or HTTP/2
+        - supported by client-side JS/TS
+        - usually requires a proxy (Envoy, etc.)
+    2. Use a gateway to translate...?
+
+> envoy: /ˈen.vɔɪ/
+
+## Types
+
+1. Unary
+    - Request → Response (Like REST GET/POST)
+2. Server-Streaming
+    - Client sends 1 request → server sends many responses.
+3. Client-Streaming
+    - Client sends many requests → server sends 1 response.
+4. Bidirectional Streaming
+    - Both sides stream data continuously.
+    - Like chat apps, games, realtime apps.
+
+> unary: /ˈyü-nə-rē/
 
 ## stream_interfaces.go
 
