@@ -20,11 +20,11 @@ params:
     enabled: true
     title: Fū
     subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/posts/lists/reading_list) | [🎮 Gaming](/posts/lists/gaming_list)"
-    # buttons:
-    #     - name: Blog
-    #       url: posts
-    #     - name: Tags
-    #       url: tags
+    buttons:
+      - name: Blog
+        url: posts
+      - name: Tags
+        url: tags
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto
