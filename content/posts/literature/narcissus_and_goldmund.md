@@ -1,7 +1,7 @@
 ---
-title: "Narcissus and Goldmund"
+title: "About Narcissus and Goldmund"
 date: "2025-12-09"
-summary: "📖 Quotes from Narcissus and Goldmund"
+summary: "📖 Quotes from Narcissus and Goldmund..."
 tags: ["books"]
 ---
 
