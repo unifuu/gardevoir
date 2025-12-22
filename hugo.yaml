@@ -20,11 +20,11 @@ params:
     enabled: true
     title: Fū
     subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/posts/literature/reading_list) | [🎮 Gaming](https://unifuu.github.io/rowlet/)"
-    # buttons:
-    #   - name: Blog
-    #     url: posts
-    #   - name: Tags
-    #     url: tags
+    buttons:
+      - name: Blog
+        url: posts
+      - name: Tags
+        url: tags
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto
@@ -89,6 +89,8 @@ menu:
       name: Search
       url: /search/
       weight: 30
+    - name: Gamelog
+      url: https://unifuu.github.io/rowlet/
     - name: GitHub
       url: https://github.com/unifuu
 
