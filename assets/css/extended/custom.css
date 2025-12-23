@@ -167,3 +167,24 @@ details[open] > .books-year-header::before {
   font-size: 0.95rem;
   opacity: 0.9;
 }
+
+/* ===== Month Group Spacing ===== */
+/* Default spacing between month groups */
+.books-month-block {
+  margin-top: 1.8rem;
+}
+
+.books-year-block > .books-month-block:first-of-type {
+  margin-top: 0.5rem;
+}
+
+/* Month header spacing */
+.books-month-header {
+  margin-bottom: 0.5rem;
+  padding-top: 0.2rem;
+}
+
+/* Space between month header and grid */
+.books-month-block > .book-grid {
+  margin-top: 0.6rem;
+}

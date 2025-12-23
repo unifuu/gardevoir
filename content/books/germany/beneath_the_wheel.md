@@ -5,9 +5,9 @@ aliases:
 author: Hermann Hesse
 year: 1906
 origin: 🇩🇪
-rating: 
+rating: 9
 status: finished
-date: 
+date: 2025-11-30
 cover:
-  image: ""
+  image: "https://m.media-amazon.com/images/I/71sMu8T5tiL._SL1500_.jpg"
 ---
