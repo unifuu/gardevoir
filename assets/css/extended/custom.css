@@ -157,3 +157,13 @@ details[open] > .books-year-header::before {
 .books-year-header {
   font-size: 1.35rem;
 }
+
+.books-month-block {
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.books-month-header {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
