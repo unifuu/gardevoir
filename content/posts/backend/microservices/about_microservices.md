@@ -4,9 +4,7 @@ date: "2025-12-09"
 summary: "📝 Quick notes on Microservices..."
 tags: ["backend", "microservices"]
 ---
-
 ## Service Registry
-
 - A Service Registry is a central database + API where all active services register themselves.
 - The registry stores information such as:
     - Service name
@@ -17,7 +15,6 @@ tags: ["backend", "microservices"]
     - Registration (when a service starts)
     - Health checks (to remove unhealthy nodes)
     - Deregistration (when a service shuts down)
-
 ## Service Provider
 ## Service Consumer
 
@@ -69,7 +66,5 @@ Gateway handles REST ↔ gRPC conversion:
 Client → REST (JSON)
 Gateway → gRPC (binary)
 ```
-
 #### Observability (Logging / Metrics)
-
 #### Aggregation (a big plus for mobile/game development)

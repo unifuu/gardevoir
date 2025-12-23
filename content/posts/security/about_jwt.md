@@ -23,7 +23,6 @@ header.payload.signature
   "alg": "HS256",
   "typ": "JWT"
 }
-
 ```
 
 2. Payload: User data, claims

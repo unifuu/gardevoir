@@ -1,25 +1,14 @@
 ---
-title: "About Redis"
-date: "2025-12-18"
-summary: "📝 Quick notes on Redis..."
-tags: ["backend", "database", "redis"]
+title: About Redis
+date: 2025-12-18
+summary: 📝 Quick notes on Redis...
+tags:
+  - backend
+  - database
+  - redis
 ---
 
-## RTT
-
-- RTT: Round-Trip Time
-- The total time it takes for a request to go from the client to the server and for the response to come back.
-- `Client → Server → Client` full round trip = 1 RTT
-
-## Pipeline
-
-- Pipeline is mainly used to improve speed and throughput.
-- The operations put into a pipeline usually do not require strict consistency with each other.
-- Although Redis could execute them inside a transaction, doing so would introduce blocking and reduce performance, which goes against the original goal of using Pipeline.
-- It’s that the operations are independent or eventually consistent
-
 ## Distributed Lock
-
 - A correct Redis distributed lock requires SET NX with expiration and a Lua-based unlock to guarantee ownership.
 
 ``` go
@@ -106,27 +95,29 @@ func GrantReward(ctx context.Context, rdb *redis.Client, playerID, missionID str
 }
 ```
 
+## Pipeline
+- Pipeline is mainly used to improve speed and throughput.
+- The operations put into a pipeline usually do not require strict consistency with each other.
+- Although Redis could execute them inside a transaction, doing so would introduce blocking and reduce performance, which goes against the original goal of using Pipeline.
+- It’s that the operations are independent or eventually consistent
+
 ## Prefix
 
-| Prefix | Data Structure |
-| ------ | -------------- |
-| None | String |
-| H | Hash |
-| S | Set |
-| Z | Sorted Set |
-| L | List |
-| X | Stream | 
-
-## Z
-
+| Prefix | Data Structure |     |
+| ------ | -------------- | --- |
+| None   | String         |     |
+| H      | Hash           |     |
+| S      | Set            |     |
+| Z      | Sorted Set     |     |
+| L      | List           |     |
+| X      | Stream         |     |
+### Z
 - Sorted Set (ZSET)
 	- A Sorted Set:
 	- Stores unique members
 	- Each member has a score
 	- Members are ordered by score
-
-### ZREM
-
+#### ZREM
 ``` redis
 # Remove one or more members from a sorted set.
 # Return (integer) N: number of members actually removed.
@@ -135,23 +126,17 @@ ZREM key member [member ...]
 # Remove player1 and player2 from leaderboard.
 ZREM leaderboard player1 player2
 ```
-
-### ZRANK
-
+#### ZRANK
 ``` redis
 # Returns the rank of a member in a sorted set (low to high)
 ZRANK key member
 ```
-
-### ZREVRANK
-
+#### ZREVRANK
 ``` redis
 # Returns the rank of a member in a sorted set (high to low)
 ZREVRANK key member
 ```
-
-### ZINCRBY
-
+#### ZINCRBY
 ``` redis
 # Increment the score of a member in a Sorted Set.
 ZINCRBY key increment member
@@ -159,3 +144,8 @@ ZINCRBY key increment member
 # Add 10 points to player1’s score in the leaderboard sorted set.
 ZINCRBY leaderboard 10 player1
 ```
+
+## RTT
+- RTT: Round-Trip Time
+- The total time it takes for a request to go from the client to the server and for the response to come back.
+- `Client → Server → Client` full round trip = 1 RTT
