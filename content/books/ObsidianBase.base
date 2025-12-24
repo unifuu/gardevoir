@@ -1,0 +1,40 @@
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - file.inFolder("/books")
+        - file.ext == "md"
+    order:
+      - title
+      - aliases
+      - author
+      - year
+      - origin
+      - rating
+      - date
+    sort:
+      - property: rating
+        direction: DESC
+      - property: finished
+        direction: DESC
+      - property: status
+        direction: ASC
+    columnSize:
+      note.title: 307
+      note.aliases: 260
+      note.author: 181
+      note.year: 68
+      note.origin: 55
+      note.rating: 71
+  - type: cards
+    name: Cards
+    filters:
+      and:
+        - file.inFolder("books")
+    sort:
+      - property: finished
+        direction: ASC
+    imageAspectRatio: 1.5
+    image: note.cover
+    cardSize: 150
