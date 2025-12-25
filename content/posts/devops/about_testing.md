@@ -19,6 +19,18 @@ tags:
 	- Boundary Value Analysis (BVA): Test minimum, maximum, and just-outside-the-range values.
 	- Error handling: Ensure the system throws specific exceptions/errors for invalid inputs.
 	- Isolation: Use Mocks / Stubs for external dependencies.
+- Integration Testing (Component Interaction)
+	- Target: Repository layer and inter-module communication.
+	- Ephemeral Environments: Use Docker (Test containers) to simulate a real database/Redis instance for testing.
+		- `ephemeral: 一時的な`
+	- State Verification: Ensure that data written by the Repository can be correctly retrieved and follows schema constraints.
+	- Side Effects: Verify that events (MQ triggers) are correctly worked after a logic change.
+- API & Contract Testing
+	- Target: HTTP/gRPC request and response behavior (handler layer).
+	- Payload Validation: Ensure the API rejects malformed JSON and returns correct HTTP status codes.
+	- Authentication / Authorization: Test that protected routes are inaccessible without valid tokens.
+	- End-to-End Flow: A thin slice of testing:
+		- Request → Handler → Service → DB → Response.
 ## CI/CD
 ### Definition
 - CI: Continuous Integration
