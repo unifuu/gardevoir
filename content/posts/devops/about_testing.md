@@ -31,6 +31,17 @@ tags:
 	- Authentication / Authorization: Test that protected routes are inaccessible without valid tokens.
 	- End-to-End Flow: A thin slice of testing:
 		- Request → Handler → Service → DB → Response.
+- Continuous Quality Assurance
+	- Bug-Driven Development: Whenever a bug is found, write a test case that reproduces it _before_ fixing it to ensure it never returns.
+	- Idempotency Tests: Ensure that calling the same API/function multiple times doesn't result in inconsistent data states.
+		- `冪等性: ある操作を1回行っても、複数回繰り返しても、システムの状態や結果が全く同じになる性質のこと。`
+- Automation & CI Pipeline
+	- Configure CI (GitHub Actions) to block Merges if:
+		- Tests fail
+		- Test coverage decreases
+		- Linting/Style checks fail
+			- Dead Code: Variables declared but never used.
+			- Security Risks: Hardcoded passwords or insecure / deprecated function calls.
 ## CI/CD
 ### Definition
 - CI: Continuous Integration
