@@ -1,7 +1,7 @@
 ---
 title: Strait is the Gate
 aliases:
-  - La Porte Étroite
+  - La Porte étroite
 author: André Gide
 year: 1909
 origin: 🇫🇷

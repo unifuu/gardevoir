@@ -5,7 +5,7 @@ aliases:
 author: Han Kang
 year: 2007
 origin: 🇰🇷
-rating: 7
+rating: 6
 status: finished
 date: 2025-09-02
 cover:
