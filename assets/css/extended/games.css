@@ -1,0 +1,224 @@
+/* =========================================================
+   Game Grid
+   ========================================================= */
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  column-gap: 1.2rem;
+  row-gap: 2.0rem;
+}
+
+.game-card {
+  text-align: left;
+}
+
+/* =========================================================
+   Game Cover
+   ========================================================= */
+
+.game-cover-wrapper {
+  position: relative;
+}
+
+.game-cover-wrapper img {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Games often use landscape or 16:9 covers, adjusting from book's 2:3 */
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* =========================================================
+   Rating Badge
+   ========================================================= */
+
+.game-rating-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+
+  padding: 4px 8px;
+  min-height: 24px;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================================
+   Game Title & Meta
+   ========================================================= */
+
+.game-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.4rem 0 0.1rem;
+}
+
+.game-meta {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin: 0;
+}
+
+.game-finished {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 0.1rem;
+}
+
+/* =========================================================
+   Origin / Alias
+   ========================================================= */
+
+.game-origin {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin: 0.35rem 0 0.1rem;
+  line-height: 1;
+}
+
+.game-alias {
+  font-style: italic;
+}
+
+/* =========================================================
+   Playing Section
+   ========================================================= */
+
+.games-playing-block {
+  margin-bottom: 3.5rem;
+}
+
+/* =========================================================
+   Year Section
+   ========================================================= */
+
+.games-year-block {
+  margin-bottom: 3rem;
+}
+
+.games-year-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-size: 1.35rem;
+  font-weight: 600;
+
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+/* Hide native summary marker (year) */
+.games-year-header::-webkit-details-marker {
+  display: none;
+}
+.games-year-header::marker {
+  content: "";
+}
+
+.games-year-title {
+  margin-right: 0.5rem;
+}
+
+.games-year-count {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Custom fold indicator (year) */
+.games-year-header::before {
+  content: "▶";
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-right: 0.2rem;
+  transition: transform 0.2s ease;
+}
+
+details[open] > .games-year-header::before {
+  content: "▼";
+}
+
+/* =========================================================
+   Month Section
+   ========================================================= */
+
+.games-month-block {
+  margin-left: 1.5rem;
+  margin-top: 1.8rem;
+}
+
+/* Month header */
+.games-month-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.85;
+
+  margin-bottom: 0.5rem;
+  padding-top: 0.2rem;
+  letter-spacing: 0.02em;
+
+  list-style: none;
+}
+
+/* Hide native summary marker (month) */
+.games-month-header::-webkit-details-marker {
+  display: none;
+}
+.games-month-header::marker {
+  content: "";
+}
+
+/* Custom fold indicator (month) */
+.games-month-header::before {
+  content: "▶";
+  display: inline-block;
+
+  margin-right: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.7;
+
+  transition: transform 0.2s ease;
+}
+
+details[open] > .games-month-header::before {
+  content: "▼";
+}
+
+/* =========================================================
+   Month Spacing Rules
+   ========================================================= */
+
+/* Space between year header and first month */
+.games-year-block > .games-month-block:first-of-type {
+  margin-top: 0.3rem;
+}
+
+/* Space between month header and grid */
+.games-month-block > .game-grid {
+  margin-top: 0.6em;
+}
+
+.month-separator {
+  margin: 0 0.3rem;
+  opacity: 0.6;
+}

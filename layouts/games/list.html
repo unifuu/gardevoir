@@ -1,0 +1,160 @@
+{{ define "main" }}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</header>
+
+{{/* =========================================================
+   ====================== Playing ===========================
+========================================================= */}}
+
+{{ $playing := where .Pages "Params.status" "playing" }}
+
+{{ if gt (len $playing) 0 }}
+<details class="games-year-block games-playing-block" open>
+  <summary class="games-year-header">
+    <span class="games-year-title">Playing</span>
+    <span class="games-year-count">· {{ len $playing }} games</span>
+  </summary>
+
+  <div class="game-grid">
+    {{ range sort $playing "Title" }}
+    <article class="game-card">
+      <a href="{{ .RelPermalink }}">
+        <div class="game-cover-wrapper">
+          {{ with .Params.cover.image }}
+            <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+          {{ end }}
+          {{ with .Params.rating }}
+            <span class="game-rating-badge">{{ . }}</span>
+          {{ end }}
+        </div>
+
+        <h3 class="game-title">{{ .Title }}</h3>
+
+        {{ if or .Params.origin .Params.aliases }}
+        <p class="game-origin">
+          {{ with .Params.origin }}<span class="game-flag">{{ . }}</span>{{ end }}
+          {{ with .Params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
+        </p>
+        {{ end }}
+
+        <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
+      </a>
+    </article>
+    {{ end }}
+  </div>
+</details>
+{{ end }}
+
+{{/* =========================================================
+   ====================== Finished ==========================
+========================================================= */}}
+
+{{ $finished := where (where .Pages "Params.status" "finished") "Date" "gt" (time "0002-01-01") }}
+
+{{/* ---------- group by year ---------- */}}
+{{ $years := newScratch }}
+{{ $yearList := slice }}
+
+{{ range $finished }}
+  {{ $y := .Date.Format "2006" }}
+  {{ $existing := $years.Get $y }}
+
+  {{ if not $existing }}
+    {{ $years.Set $y (slice .) }}
+    {{ $yearList = $yearList | append $y }}
+  {{ else }}
+    {{ $tmp := slice }}
+    {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
+    {{ $tmp = $tmp | append . }}
+    {{ $years.Set $y $tmp }}
+  {{ end }}
+{{ end }}
+
+{{ $yearList = sort $yearList "value" "desc" }}
+
+{{/* ---------- render years ---------- */}}
+{{ range $yearList }}
+{{ $year := . }}
+{{ $yearGames := $years.Get $year }}
+
+<details class="games-year-block" open>
+  <summary class="games-year-header">
+    <span class="games-year-title">{{ $year }}</span>
+    <span class="games-year-count">· {{ len $yearGames }} games</span>
+  </summary>
+
+  {{/* ===== group by month ===== */}}
+  {{ $months := newScratch }}
+  {{ $monthList := slice }}
+
+  {{ range $yearGames }}
+    {{ $m := .Date.Format "01" }}
+    {{ $existing := $months.Get $m }}
+
+    {{ if not $existing }}
+      {{ $months.Set $m (slice .) }}
+      {{ $monthList = $monthList | append $m }}
+    {{ else }}
+      {{ $tmp := slice }}
+      {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
+      {{ $tmp = $tmp | append . }}
+      {{ $months.Set $m $tmp }}
+    {{ end }}
+  {{ end }}
+
+  {{ $monthList = sort $monthList "value" "desc" }}
+
+  {{ range $monthList }}
+  {{ $month := . }}
+  {{ $monthGames := $months.Get $month }}
+
+  <details class="games-month-block" open>
+    <summary class="games-month-header">
+      <span class="games-month-title">
+        🗓️ {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+      </span>
+      <span class="games-month-count">
+        <span class="month-separator">·</span>
+        {{ len $monthGames }} games
+      </span>
+    </summary>
+
+    <div class="game-grid">
+      {{ range sort $monthGames "Date" "desc" }}
+      <article class="game-card">
+        <a href="{{ .RelPermalink }}">
+
+          <div class="game-cover-wrapper">
+            {{ with .Params.cover.image }}
+              <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+            {{ end }}
+            {{ with .Params.rating }}
+              <span class="game-rating-badge">{{ . }}</span>
+            {{ end }}
+          </div>
+
+          <h3 class="game-title">{{ .Title }}</h3>
+
+          {{ if or .Params.origin .Params.aliases }}
+          <p class="game-origin">
+            {{ with .Params.origin }}<span class="game-flag">{{ . }}</span>{{ end }}
+            {{ with .Params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
+          </p>
+          {{ end }}
+
+          <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
+          <p class="game-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
+
+        </a>
+      </article>
+      {{ end }}
+    </div>
+  </details>
+  {{ end }}
+</details>
+{{ end }}
+
+{{ end }}
