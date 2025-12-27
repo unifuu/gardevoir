@@ -19,14 +19,12 @@ params:
   profileMode:
     enabled: true
     title: Fū
-    subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](https://unifuu.github.io/gengar/)"
+    subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](https://unifuu.github.io/gengar/) | [📚 Reading](/books/)"
     buttons:
       - name: 📑 Posts
         url: posts
-      - name: 📚 Books
-        url: books
-      # - name: 🔖 Others
-      #   url: others
+      - name: 🔖 Tags
+        url: tags
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto
@@ -87,21 +85,17 @@ menu:
       name: Books
       url: /books/
       weight: 20
-    - identifier: others
-      name: Others
-      url: /others/
-      weight: 30
     - identifier: tags
       name: Tags
       url: /tags/
-      weight: 40
+      weight: 30
     - identifier: search
       name: Search
       url: /search/
-      weight: 50
+      weight: 40
     - name: GitHub
       url: https://github.com/unifuu
-      weight: 60
+      weight: 50
 
 markup:
   highlight:
