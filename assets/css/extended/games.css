@@ -1,4 +1,4 @@
-/* =========================================================
+/* /* =========================================================
    Game Grid
    ========================================================= */
 
@@ -23,8 +23,8 @@
 
 .game-cover-wrapper img {
   width: 100%;
-  aspect-ratio: 16 / 9; /* Games often use landscape or 16:9 covers, adjusting from book's 2:3 */
-  object-fit: cover;
+  aspect-ratio: auto;
+  object-fit: contain;
   border-radius: 6px;
 }
 
@@ -128,6 +128,7 @@
 .games-year-header::-webkit-details-marker {
   display: none;
 }
+
 .games-year-header::marker {
   content: "";
 }
@@ -150,7 +151,7 @@
   transition: transform 0.2s ease;
 }
 
-details[open] > .games-year-header::before {
+details[open]>.games-year-header::before {
   content: "▼";
 }
 
@@ -184,6 +185,7 @@ details[open] > .games-year-header::before {
 .games-month-header::-webkit-details-marker {
   display: none;
 }
+
 .games-month-header::marker {
   content: "";
 }
@@ -200,7 +202,7 @@ details[open] > .games-year-header::before {
   transition: transform 0.2s ease;
 }
 
-details[open] > .games-month-header::before {
+details[open]>.games-month-header::before {
   content: "▼";
 }
 
@@ -209,12 +211,12 @@ details[open] > .games-month-header::before {
    ========================================================= */
 
 /* Space between year header and first month */
-.games-year-block > .games-month-block:first-of-type {
+.games-year-block>.games-month-block:first-of-type {
   margin-top: 0.3rem;
 }
 
 /* Space between month header and grid */
-.games-month-block > .game-grid {
+.games-month-block>.game-grid {
   margin-top: 0.6em;
 }
 
