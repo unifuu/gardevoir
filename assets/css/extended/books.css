@@ -23,8 +23,8 @@
 
 .book-cover-wrapper img {
   width: 100%;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
+  aspect-ratio: auto;
+  object-fit: contain;
   border-radius: 6px;
 }
 
@@ -128,6 +128,7 @@
 .books-year-header::-webkit-details-marker {
   display: none;
 }
+
 .books-year-header::marker {
   content: "";
 }
@@ -150,7 +151,7 @@
   transition: transform 0.2s ease;
 }
 
-details[open] > .books-year-header::before {
+details[open]>.books-year-header::before {
   content: "▼";
 }
 
@@ -184,6 +185,7 @@ details[open] > .books-year-header::before {
 .books-month-header::-webkit-details-marker {
   display: none;
 }
+
 .books-month-header::marker {
   content: "";
 }
@@ -200,7 +202,7 @@ details[open] > .books-year-header::before {
   transition: transform 0.2s ease;
 }
 
-details[open] > .books-month-header::before {
+details[open]>.books-month-header::before {
   content: "▼";
 }
 
@@ -209,12 +211,12 @@ details[open] > .books-month-header::before {
    ========================================================= */
 
 /* Space between year header and first month */
-.books-year-block > .books-month-block:first-of-type {
+.books-year-block>.books-month-block:first-of-type {
   margin-top: 0.3rem;
 }
 
 /* Space between month header and grid */
-.books-month-block > .book-grid {
+.books-month-block>.book-grid {
   margin-top: 0.6em;
 }
 
