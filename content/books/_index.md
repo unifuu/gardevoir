@@ -1,3 +1,3 @@
 ---
-title: 📚 Books
+title: Books
 ---
