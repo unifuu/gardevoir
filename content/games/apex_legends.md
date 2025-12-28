@@ -6,7 +6,7 @@ origin: 🇺🇸
 developer: Respawn Entertainment
 year: 2019
 finished: 
-date: 2026-01-01
+date: 
 rating: 8
 cover: 
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/coa93z.webp
