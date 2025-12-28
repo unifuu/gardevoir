@@ -81,18 +81,22 @@ menu:
       name: Posts
       url: /posts/
       weight: 10
+    - identifier: games
+      name: Games
+      url: /games/
+      weight: 20
     - identifier: books
       name: Books
       url: /books/
-      weight: 20
+      weight: 30
     - identifier: tags
       name: Tags
       url: /tags/
-      weight: 30
-    - identifier: search
-      name: Search
-      url: /search/
       weight: 40
+    # - identifier: search
+    #   name: Search
+    #   url: /search/
+    #   weight: 40
     - name: GitHub
       url: https://github.com/unifuu
       weight: 50

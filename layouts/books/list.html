@@ -6,10 +6,10 @@
 </header>
 
 {{/* =========================================================
-   ====================== Reading ===========================
+====================== Reading ===========================
 ========================================================= */}}
 
-{{ $reading := where .Pages "Params.status" "reading" }}
+{{ $reading := where .Pages "Params.finished" "ne" true }}
 
 {{ if gt (len $reading) 0 }}
 <details class="books-year-block books-reading-block" open>
@@ -24,10 +24,10 @@
       <a href="{{ .RelPermalink }}">
         <div class="book-cover-wrapper">
           {{ with .Params.cover.image }}
-            <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
           {{ end }}
           {{ with .Params.rating }}
-            <span class="book-rating-badge">{{ . }}</span>
+          <span class="book-rating-badge">{{ . }}</span>
           {{ end }}
         </div>
 
@@ -49,28 +49,28 @@
 {{ end }}
 
 {{/* =========================================================
-   ====================== Finished ==========================
+====================== Finished ==========================
 ========================================================= */}}
 
-{{ $finished := where (where .Pages "Params.status" "finished") "Date" "gt" (time "0002-01-01") }}
+{{ $finished := where (where .Pages "Params.finished" true) "Date" "gt" (time "0002-01-01") }}
 
 {{/* ---------- group by year ---------- */}}
 {{ $years := newScratch }}
 {{ $yearList := slice }}
 
 {{ range $finished }}
-  {{ $y := .Date.Format "2006" }}
-  {{ $existing := $years.Get $y }}
+{{ $y := .Date.Format "2006" }}
+{{ $existing := $years.Get $y }}
 
-  {{ if not $existing }}
-    {{ $years.Set $y (slice .) }}
-    {{ $yearList = $yearList | append $y }}
-  {{ else }}
-    {{ $tmp := slice }}
-    {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
-    {{ $tmp = $tmp | append . }}
-    {{ $years.Set $y $tmp }}
-  {{ end }}
+{{ if not $existing }}
+{{ $years.Set $y (slice .) }}
+{{ $yearList = $yearList | append $y }}
+{{ else }}
+{{ $tmp := slice }}
+{{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
+{{ $tmp = $tmp | append . }}
+{{ $years.Set $y $tmp }}
+{{ end }}
 {{ end }}
 
 {{ $yearList = sort $yearList "value" "desc" }}
@@ -91,18 +91,18 @@
   {{ $monthList := slice }}
 
   {{ range $yearBooks }}
-    {{ $m := .Date.Format "01" }}
-    {{ $existing := $months.Get $m }}
+  {{ $m := .Date.Format "01" }}
+  {{ $existing := $months.Get $m }}
 
-    {{ if not $existing }}
-      {{ $months.Set $m (slice .) }}
-      {{ $monthList = $monthList | append $m }}
-    {{ else }}
-      {{ $tmp := slice }}
-      {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
-      {{ $tmp = $tmp | append . }}
-      {{ $months.Set $m $tmp }}
-    {{ end }}
+  {{ if not $existing }}
+  {{ $months.Set $m (slice .) }}
+  {{ $monthList = $monthList | append $m }}
+  {{ else }}
+  {{ $tmp := slice }}
+  {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
+  {{ $tmp = $tmp | append . }}
+  {{ $months.Set $m $tmp }}
+  {{ end }}
   {{ end }}
 
   {{ $monthList = sort $monthList "value" "desc" }}
@@ -114,7 +114,7 @@
   <details class="books-month-block" open>
     <summary class="books-month-header">
       <span class="books-month-title">
-        🗓️ {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+        {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
       </span>
       <span class="books-month-count">
         <span class="month-separator">·</span>
@@ -129,10 +129,10 @@
 
           <div class="book-cover-wrapper">
             {{ with .Params.cover.image }}
-              <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+            <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
             {{ end }}
             {{ with .Params.rating }}
-              <span class="book-rating-badge">{{ . }}</span>
+            <span class="book-rating-badge">{{ . }}</span>
             {{ end }}
           </div>
 

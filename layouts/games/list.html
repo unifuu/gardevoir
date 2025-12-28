@@ -9,7 +9,7 @@
 ====================== Playing ===========================
 ========================================================= */}}
 
-{{ $playing := where .Pages "Params.status" "ne" "finished" }}
+{{ $playing := where .Pages "Params.finished" "ne" true }}
 
 {{ if gt (len $playing) 0 }}
 <details class="games-year-block games-playing-block" open>
@@ -52,7 +52,7 @@
 ====================== Finished ==========================
 ========================================================= */}}
 
-{{ $finished := where (where .Pages "Params.status" "finished") "Date" "gt" (time "0002-01-01") }}
+{{ $finished := where (where .Pages "Params.finished" true) "Date" "gt" (time "0002-01-01") }}
 
 {{/* ---------- group by year ---------- */}}
 {{ $years := newScratch }}
@@ -114,7 +114,7 @@
   <details class="games-month-block" open>
     <summary class="games-month-header">
       <span class="games-month-title">
-        🗓️ {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+        {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
       </span>
       <span class="games-month-count">
         <span class="month-separator">·</span>
@@ -146,7 +146,7 @@
           {{ end }}
 
           <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
-          <p class="game-finished">☑️ {{ .Date | time.Format "Jan 2, 2006" }}</p>
+          <p class="game-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
 
         </a>
       </article>
