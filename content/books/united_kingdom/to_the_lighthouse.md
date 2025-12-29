@@ -5,9 +5,9 @@ aliases:
 author: Virginia Woolf
 year: 1927
 origin: 🇬🇧
-rating:
+rating: 10
 finished: 
 date: 2025-12-28
 cover: 
-  image: "https://m.media-amazon.com/images/I/71H-0fOURHL._SL1500_.jpg"
+  image: https://m.media-amazon.com/images/I/81b1nAgxi+L._SL1500_.jpg
 ---

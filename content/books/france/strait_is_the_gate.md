@@ -9,7 +9,7 @@ rating: 10
 finished: true
 date: 2025-08-19
 cover:
-  image: "https://m.media-amazon.com/images/I/81hfF+Zrf8L._SL1500_.jpg"
+  image: https://m.media-amazon.com/images/I/81hfF+Zrf8L._SL1500_.jpg
 ---
 
 > [Juliette] What are you waiting for to marry? 
