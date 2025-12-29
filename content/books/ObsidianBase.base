@@ -3,30 +3,33 @@ views:
     name: Table
     filters:
       and:
-        - file.inFolder("/books")
+        - file.inFolder("/books/")
         - file.ext == "md"
+        - '!file.name.startsWith("_")'
     order:
       - title
-      - aliases
       - author
       - year
       - origin
       - rating
       - date
+      - finished
     sort:
-      - property: rating
-        direction: DESC
       - property: finished
+        direction: ASC
+      - property: date
+        direction: DESC
+      - property: rating
         direction: DESC
       - property: status
         direction: ASC
     columnSize:
-      note.title: 245
-      note.aliases: 208
-      note.author: 149
-      note.year: 68
+      note.title: 201
+      note.author: 130
+      note.year: 49
       note.origin: 23
       note.rating: 26
+      note.finished: 42
   - type: cards
     name: Cards
     filters:

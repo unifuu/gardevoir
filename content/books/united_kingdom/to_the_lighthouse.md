@@ -6,8 +6,8 @@ author: Virginia Woolf
 year: 1927
 origin: 🇬🇧
 rating: 10
-finished: 
-date: 2025-12-28
-cover: 
+finished:
+date:
+cover:
   image: https://m.media-amazon.com/images/I/81b1nAgxi+L._SL1500_.jpg
 ---
