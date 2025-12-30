@@ -372,36 +372,117 @@ details[open]>.books-month-header::after {
 }
 
 /* =========================================================
-   View Switcher Controls
+   View Switcher (MUI Style Switch)
    ========================================================= */
 
-.view-controls {
+.header-inner {
   display: flex;
-  gap: 10px;
-  margin-bottom: 25px;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 5px;
 }
 
-.view-btn {
-  background: var(--entry);
-  color: var(--secondary);
-  border: 1px solid var(--border);
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+.header-inner h1 {
+  margin: 0;
+}
+
+.view-switch-container {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+/* MUI Style Switch Base */
+.mui-switch {
+  position: relative;
+  display: inline-block;
+  width: 58px;
+  height: 34px;
   cursor: pointer;
-  transition: all 0.2s;
 }
 
-.view-btn:hover {
-  border-color: var(--secondary);
-  color: var(--primary);
+.mui-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.view-btn.active {
-  background: var(--primary);
+/* The Track */
+.mui-switch-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+/* The Thumb */
+.mui-switch-thumb {
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--primary);
+  transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--theme);
-  border-color: var(--primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Icon States inside Thumb */
+.mui-switch-thumb svg {
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.icon-rating {
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+}
+
+.icon-timeline {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+/* Checked State */
+.mui-switch input:checked+.mui-switch-slider {
+  border-color: var(--secondary);
+  /* Highlight border instead of background */
+}
+
+.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb {
+  transform: translateX(24px);
+  background-color: var(--secondary);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+  /* Refined glow */
+}
+
+.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb .icon-timeline {
+  opacity: 0;
+  transform: scale(0.5) rotate(45deg);
+}
+
+.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb .icon-rating {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+/* Hover effects */
+.mui-switch:hover .mui-switch-slider {
+  border-color: var(--secondary);
+}
+
+.mui-switch input:checked:hover+.mui-switch-slider {
+  opacity: 1;
 }
 
 /* Rating Header Specifics */

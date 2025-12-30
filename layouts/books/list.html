@@ -1,7 +1,31 @@
 {{ define "main" }}
 
 <header class="page-header">
-  <h1>{{ .Title }}</h1>
+  <div class="header-inner">
+    <h1>{{ .Title }}</h1>
+    <div class="view-switch-container">
+      <label class="mui-switch" title="Toggle Timeline/Rating View">
+        <input type="checkbox" id="view-toggle-input">
+        <span class="mui-switch-slider">
+          <span class="mui-switch-thumb">
+            <!-- Clock Icon (Timeline) -->
+            <svg class="icon-timeline" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <!-- Star Icon (Rating) -->
+            <svg class="icon-rating" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+              </polygon>
+            </svg>
+          </span>
+        </span>
+      </label>
+    </div>
+  </div>
   {{ with .Description }}<p>{{ . }}</p>{{ end }}
 </header>
 
@@ -10,10 +34,6 @@
 ========================================================= */}}
 
 <div id="books-list-container">
-  <div class="view-controls">
-    <button id="view-timeline" class="view-btn active">Timeline</button>
-    <button id="view-rating" class="view-btn">Rating</button>
-  </div>
   <div id="books-original-view">
     {{/* =========================================================
     ====================== Reading ===========================
@@ -214,8 +234,7 @@
     const bookCountNode = document.getElementById('filter-book-count');
     const resetFilterBtn = document.getElementById('reset-books-filter');
 
-    const timelineBtn = document.getElementById('view-timeline');
-    const ratingBtn = document.getElementById('view-rating');
+    const viewToggle = document.getElementById('view-toggle-input');
 
     const allCards = Array.from(originalView.querySelectorAll('.book-card'));
 
@@ -316,33 +335,26 @@
       });
     }
 
-    timelineBtn.addEventListener('click', () => {
-      ratingBtn.classList.remove('active');
-      timelineBtn.classList.add('active');
+    viewToggle.addEventListener('change', () => {
       filterView.style.display = 'none';
-      ratingView.style.display = 'none';
-      originalView.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    ratingBtn.addEventListener('click', () => {
-      timelineBtn.classList.remove('active');
-      ratingBtn.classList.add('active');
-      filterView.style.display = 'none';
-      originalView.style.display = 'none';
-
-      // Fix: Check for children instead of innerHTML to ignore comments/whitespace
-      if (ratingView.children.length === 0) {
-        generateRatingView();
+      if (viewToggle.checked) {
+        // Rating View
+        originalView.style.display = 'none';
+        if (ratingView.children.length === 0) {
+          generateRatingView();
+        }
+        ratingView.style.display = 'block';
+      } else {
+        // Timeline View
+        ratingView.style.display = 'none';
+        originalView.style.display = 'block';
       }
-
-      ratingView.style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     resetFilterBtn.addEventListener('click', () => {
       filterView.style.display = 'none';
-      if (timelineBtn.classList.contains('active')) {
+      if (!viewToggle.checked) {
         originalView.style.display = 'block';
       } else {
         ratingView.style.display = 'block';
