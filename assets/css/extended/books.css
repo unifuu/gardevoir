@@ -74,6 +74,17 @@
   margin: 0;
 }
 
+.author-name {
+  color: #B0C4DE;
+  /* LightSteelBlue */
+  opacity: 1;
+}
+
+.author-name.is-female {
+  color: #FFB6C1;
+  /* LightPink */
+}
+
 .book-finished {
   font-size: 0.75rem;
   opacity: 0.6;

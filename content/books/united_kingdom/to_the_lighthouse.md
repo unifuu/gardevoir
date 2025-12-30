@@ -3,6 +3,7 @@ title: To the Lighthouse
 aliases:
   - To the Lighthouse
 author: Virginia Woolf
+is_female: true
 year: 1927
 origin: 🇬🇧
 rating: 10

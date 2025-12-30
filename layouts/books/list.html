@@ -40,7 +40,10 @@
         </p>
         {{ end }}
 
-        <p class="book-meta">{{ .Params.author }} · {{ .Params.year }}</p>
+        <p class="book-meta">
+          <span class="author-name{{ if .Params.is_female }} is-female{{ end }}">{{ .Params.author }}</span> · {{
+          .Params.year }}
+        </p>
       </a>
     </article>
     {{ end }}
@@ -145,7 +148,10 @@
           </p>
           {{ end }}
 
-          <p class="book-meta">{{ .Params.author }} · {{ .Params.year }}</p>
+          <p class="book-meta">
+            <span class="author-name{{ if .Params.is_female }} is-female{{ end }}">{{ .Params.author }}</span> · {{
+            .Params.year }}
+          </p>
           <p class="book-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
 
         </a>

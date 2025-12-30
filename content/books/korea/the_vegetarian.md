@@ -3,6 +3,7 @@ title: The Vegetarian
 aliases:
   - 채식주의자
 author: Han Kang
+is_female: true
 year: 2007
 origin: 🇰🇷
 rating: 6
