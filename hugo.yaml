@@ -19,7 +19,7 @@ minify:
 params:
   env: production
   DateFormat: "January 2, 2006"
-  defaultTheme: auto
+  defaultTheme: dark
   disableThemeToggle: false
   ShowShareButtons: false
   ShowReadingTime: false
@@ -112,7 +112,7 @@ languages:
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "[💻 コーディング](https://github.com/unifuu) | [🎮 ゲーム](/games/) | [📚 読書](/books/)"
+        subtitle: "[💻 開発](https://github.com/unifuu) | [🎮 ゲーム](/games/) | [📚 読書](/books/)"
         buttons:
           - name: 📑 投稿
             url: posts
@@ -149,14 +149,14 @@ languages:
         title: Fū
         subtitle: "[💻 코딩](https://github.com/unifuu) | [🎮 게임](/games/) | [📚 독서](/books/)"
         buttons:
-          - name: 📑 게시물
+          - name: 📑 포스트
             url: posts
           - name: 🔖 태그
             url: tags
     menu:
       main:
         - identifier: posts
-          name: 게시물
+          name: 포스트
           url: /posts/
           weight: 10
         - identifier: games
