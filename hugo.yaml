@@ -1,5 +1,6 @@
 baseURL: https://unifuu.dev/
 languageCode: en-us
+defaultContentLanguage: en
 title: La Porte étroite
 theme: ["PaperMod"]
 
@@ -75,35 +76,83 @@ params:
     minMatchCharLength: 2
     limit: 10
     keys: ["title", "summary", "tags"]
-menu:
-  main:
-    - identifier: posts
-      name: Posts
-      url: /posts/
-      weight: 10
-    - identifier: games
-      name: Games
-      url: /games/
-      weight: 20
-    - identifier: books
-      name: Books
-      url: /books/
-      weight: 30
-    - identifier: tags
-      name: Tags
-      url: /tags/
-      weight: 40
-    # - identifier: search
-    #   name: Search
-    #   url: /search/
-    #   weight: 40
-    - name: GitHub
-      url: https://github.com/unifuu
-      weight: 50
 
-markup:
-  highlight:
-    noClasses: false
+languages:
+  en:
+    languageName: 🇬🇧
+    languageCode: en-us
+    weight: 1
+    menu:
+      main:
+        - identifier: posts
+          name: Posts
+          url: /posts/
+          weight: 10
+        - identifier: games
+          name: Games
+          url: /games/
+          weight: 20
+        - identifier: books
+          name: Books
+          url: /books/
+          weight: 30
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 40
+        - name: GitHub
+          url: https://github.com/unifuu
+          weight: 50
+  ja:
+    languageName: 🇯🇵
+    languageCode: ja
+    weight: 2
+    menu:
+      main:
+        - identifier: posts
+          name: 投稿
+          url: /posts/
+          weight: 10
+        - identifier: games
+          name: ゲーム
+          url: /games/
+          weight: 20
+        - identifier: books
+          name: 書籍
+          url: /books/
+          weight: 30
+        - identifier: tags
+          name: タグ
+          url: /tags/
+          weight: 40
+        - name: GitHub
+          url: https://github.com/unifuu
+          weight: 50
+  hk:
+    languageName: 🇭🇰
+    languageCode: zh-hk
+    weight: 3
+    menu:
+      main:
+        - identifier: posts
+          name: 文章
+          url: /posts/
+          weight: 10
+        - identifier: games
+          name: 游戲
+          url: /games/
+          weight: 20
+        - identifier: books
+          name: 書籍
+          url: /books/
+          weight: 30
+        - identifier: tags
+          name: 標籤
+          url: /tags/
+          weight: 40
+        - name: GitHub
+          url: https://github.com/unifuu
+          weight: 50
 
 outputs:
   home:
