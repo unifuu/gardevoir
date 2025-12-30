@@ -14,8 +14,10 @@
 {{ if gt (len $reading) 0 }}
 <details class="books-year-block books-reading-block" open>
   <summary class="books-year-header">
-    <span class="books-year-title">Reading</span>
-    <span class="books-year-count">· {{ len $reading }} books</span>
+    <div class="filter-info">
+      <span class="books-year-title">Reading</span>
+      <span class="books-year-count">· {{ len $reading }} books</span>
+    </div>
   </summary>
 
   <div class="book-grid">
@@ -85,8 +87,10 @@
 
 <details class="books-year-block" open>
   <summary class="books-year-header">
-    <span class="books-year-title">{{ $year }}</span>
-    <span class="books-year-count">· {{ len $yearBooks }} books</span>
+    <div class="filter-info">
+      <span class="books-year-title">{{ $year }}</span>
+      <span class="books-year-count">· {{ len $yearBooks }} books</span>
+    </div>
   </summary>
 
   {{/* ===== group by month ===== */}}
@@ -116,13 +120,14 @@
 
   <details class="books-month-block" open>
     <summary class="books-month-header">
-      <span class="books-month-title">
-        {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
-      </span>
-      <span class="books-month-count">
-        <span class="month-separator">·</span>
-        {{ len $monthBooks }} books
-      </span>
+      <div class="filter-info">
+        <span class="books-month-title">
+          {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+        </span>
+        <span class="books-month-count">
+          · {{ len $monthBooks }} books
+        </span>
+      </div>
     </summary>
 
     <div class="book-grid">

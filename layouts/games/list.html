@@ -20,8 +20,10 @@
     {{ if gt (len $playing) 0 }}
     <details class="games-year-block games-playing-block" open>
       <summary class="games-year-header">
-        <span class="games-year-title">Playing</span>
-        <span class="games-year-count">· {{ len $playing }} games</span>
+        <div class="filter-info">
+          <span class="games-year-title">Playing</span>
+          <span class="games-year-count">· {{ len $playing }} games</span>
+        </div>
       </summary>
 
       <div class="game-grid">
@@ -97,8 +99,10 @@
 
     <details class="games-year-block" open>
       <summary class="games-year-header">
-        <span class="games-year-title">{{ $year }}</span>
-        <span class="games-year-count">· {{ len $yearGames }} games</span>
+        <div class="filter-info">
+          <span class="games-year-title">{{ $year }}</span>
+          <span class="games-year-count">· {{ len $yearGames }} games</span>
+        </div>
       </summary>
 
       {{/* ===== group by month ===== */}}
@@ -128,13 +132,14 @@
 
       <details class="games-month-block" open>
         <summary class="games-month-header">
-          <span class="games-month-title">
-            {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
-          </span>
-          <span class="games-month-count">
-            <span class="month-separator">·</span>
-            {{ len $monthGames }} games
-          </span>
+          <div class="filter-info">
+            <span class="games-month-title">
+              {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+            </span>
+            <span class="games-month-count">
+              · {{ len $monthGames }} games
+            </span>
+          </div>
         </summary>
 
         <div class="game-grid">

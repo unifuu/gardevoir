@@ -232,24 +232,33 @@
    Year Section
    ========================================================= */
 
+/* =========================================================
+   Year Section
+   ========================================================= */
+
 .games-year-block {
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
 }
 
 .games-year-header {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-
-  font-size: 1.35rem;
-  font-weight: 600;
-
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 20px;
   list-style: none;
-  margin-bottom: 1rem;
+  transition: all 0.2s;
 }
 
-/* Hide native summary marker (year) */
+.games-year-header:hover {
+  border-color: var(--secondary);
+}
+
+/* Hide native summary marker */
 .games-year-header::-webkit-details-marker {
   display: none;
 }
@@ -259,25 +268,39 @@
 }
 
 .games-year-title {
-  margin-right: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 .games-year-count {
   font-size: 0.9rem;
-  opacity: 0.7;
+  color: var(--secondary);
+  margin-left: 8px;
 }
 
-/* Custom fold indicator (year) */
-.games-year-header::before {
-  content: "▶";
-  font-size: 0.9rem;
-  opacity: 0.8;
-  margin-right: 0.2rem;
-  transition: transform 0.2s ease;
+/* Custom fold indicator */
+.games-year-header::after {
+  content: "+";
+  font-size: 1.2rem;
+  font-weight: 400;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--border);
+  color: var(--secondary);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  margin-left: auto;
 }
 
-details[open]>.games-year-header::before {
-  content: "▼";
+details[open]>.games-year-header::after {
+  content: "−";
+  transform: none;
+  background: var(--primary);
+  color: var(--theme);
 }
 
 /* =========================================================
@@ -285,8 +308,8 @@ details[open]>.games-year-header::before {
    ========================================================= */
 
 .games-month-block {
-  margin-left: 1.5rem;
-  margin-top: 1.8rem;
+  margin-left: 1rem;
+  margin-bottom: 2rem;
 }
 
 /* Month header */
@@ -294,19 +317,18 @@ details[open]>.games-year-header::before {
   cursor: pointer;
   display: flex;
   align-items: center;
-
-  font-size: 0.95rem;
-  font-weight: 500;
-  opacity: 0.85;
-
-  margin-bottom: 0.5rem;
-  padding-top: 0.2rem;
-  letter-spacing: 0.02em;
-
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 15px;
   list-style: none;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
-/* Hide native summary marker (month) */
+/* Hide native summary marker */
 .games-month-header::-webkit-details-marker {
   display: none;
 }
@@ -315,20 +337,35 @@ details[open]>.games-year-header::before {
   content: "";
 }
 
-/* Custom fold indicator (month) */
-.games-month-header::before {
-  content: "▶";
-  display: inline-block;
-
-  margin-right: 0.5rem;
-  font-size: 0.75rem;
-  opacity: 0.7;
-
-  transition: transform 0.2s ease;
+.games-month-title {
+  color: var(--primary);
 }
 
-details[open]>.games-month-header::before {
-  content: "▼";
+.games-month-count {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  margin-left: 6px;
+}
+
+/* Custom fold indicator */
+.games-month-header::after {
+  content: "+";
+  font-size: 1rem;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--border);
+  color: var(--secondary);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+details[open]>.games-month-header::after {
+  content: "−";
+  transform: none;
 }
 
 /* =========================================================
