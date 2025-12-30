@@ -41,6 +41,14 @@
         {{ end }}
 
         <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
+
+        {{ with .Params.platform }}
+        <div class="game-platforms">
+          {{ range . }}
+          <span class="game-platform {{ . | urlize }}">{{ . }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
       </div>
     </article>
     {{ end }}
@@ -147,7 +155,13 @@
 
           <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
           <p class="game-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
-
+          {{ with .Params.platform }}
+          <div class="game-platforms">
+            {{ range . }}
+            <span class="game-platform {{ . | urlize }}">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ end }}
         </div>
       </article>
       {{ end }}

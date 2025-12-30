@@ -81,6 +81,65 @@
 }
 
 /* =========================================================
+   Platform Badges
+   ========================================================= */
+
+.game-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 0.25rem;
+}
+
+.game-platform {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  padding: 1px 5px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+
+  opacity: 0.8;
+  line-height: 1.2;
+}
+
+/* Platform Specific Colors */
+.game-platform.nintendo-switch,
+.game-platform.nintendo-switch-2,
+.game-platform.ns,
+.game-platform.ns2 {
+  color: #E60012;
+}
+
+.game-platform.playstation-5,
+.game-platform.ps5,
+.game-platform.playstation-4,
+.game-platform.ps4 {
+  color: #00439C;
+}
+
+.game-platform.pc,
+.game-platform.steam,
+.game-platform.epic-games {
+  color: #FAB279;
+}
+
+.game-platform.xbox-series-x-s,
+.game-platform.xbox-one,
+.game-platform.xbox {
+  color: #107C10;
+}
+
+.game-platform.mobile,
+.game-platform.android,
+.game-platform.ios {
+  color: #3DDC84;
+}
+
+/* =========================================================
    Origin / Alias
    ========================================================= */
 
