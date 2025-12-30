@@ -120,6 +120,56 @@
 
   opacity: 0.8;
   line-height: 1.2;
+  cursor: pointer;
+}
+
+.game-platform:hover {
+  opacity: 1;
+}
+
+/* Filter View Header */
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: var(--entry);
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border);
+}
+
+.filter-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.filter-count {
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+.reset-button {
+  background: var(--theme);
+  color: var(--primary);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reset-button:hover {
+  background: var(--border);
+  transform: translateY(-1px);
 }
 
 /* Platform Specific Colors */

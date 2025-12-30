@@ -9,166 +9,267 @@
 ====================== Playing ===========================
 ========================================================= */}}
 
-{{ $playing := where .Pages "Params.finished" "ne" true }}
+<div id="games-list-container">
+  <div id="games-original-view">
+    {{/* =========================================================
+    ====================== Playing ===========================
+    ========================================================= */}}
 
-{{ if gt (len $playing) 0 }}
-<details class="games-year-block games-playing-block" open>
-  <summary class="games-year-header">
-    <span class="games-year-title">Playing</span>
-    <span class="games-year-count">· {{ len $playing }} games</span>
-  </summary>
+    {{ $playing := where .Pages "Params.finished" "ne" true }}
 
-  <div class="game-grid">
-    {{ range sort $playing "Title" }}
-    <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}">
-      <div class="game-card-content">
-        <div class="game-cover-wrapper">
-          {{ with .Params.cover.image }}
-          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
-          {{ end }}
-          {{ with .Params.rating }}
-          <span class="game-rating-badge">{{ . }}</span>
-          {{ end }}
-        </div>
+    {{ if gt (len $playing) 0 }}
+    <details class="games-year-block games-playing-block" open>
+      <summary class="games-year-header">
+        <span class="games-year-title">Playing</span>
+        <span class="games-year-count">· {{ len $playing }} games</span>
+      </summary>
 
-        <h3 class="game-title">{{ .Title }}</h3>
+      <div class="game-grid">
+        {{ range sort $playing "Title" }}
+        <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
+          data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}">
+          <div class="game-card-content">
+            <div class="game-cover-wrapper">
+              {{ with .Params.cover.image }}
+              <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+              {{ end }}
+              {{ with .Params.rating }}
+              <span class="game-rating-badge">{{ . }}</span>
+              {{ end }}
+            </div>
 
-        {{ if or .Params.origin .Params.aliases }}
-        <p class="game-origin">
-          {{ with .Params.origin }}<span class="game-flag">{{ . }}</span>{{ end }}
-          {{ with .Params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
-        </p>
-        {{ end }}
+            <h3 class="game-title">{{ .Title }}</h3>
 
-        <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
+            {{ if or .Params.origin .Params.aliases }}
+            <p class="game-origin">
+              {{ with .Params.origin }}<span class="game-flag">{{ . }}</span>{{ end }}
+              {{ with .Params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
+            </p>
+            {{ end }}
 
-        {{ with .Params.platform }}
-        <div class="game-platforms">
-          {{ range . }}
-          <span class="game-platform {{ . | urlize }}">{{ . }}</span>
-          {{ end }}
-        </div>
+            <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
+
+            {{ with .Params.platform }}
+            <div class="game-platforms">
+              {{ range . }}
+              <span class="game-platform {{ . | urlize }}" data-platform="{{ . | lower }}">{{ . }}</span>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </article>
         {{ end }}
       </div>
-    </article>
+    </details>
     {{ end }}
-  </div>
-</details>
-{{ end }}
 
-{{/* =========================================================
-====================== Finished ==========================
-========================================================= */}}
+    {{/* =========================================================
+    ====================== Finished ==========================
+    ========================================================= */}}
 
-{{ $finished := where (where .Pages "Params.finished" true) "Date" "gt" (time "0002-01-01") }}
+    {{ $finished := where (where .Pages "Params.finished" true) "Date" "gt" (time "0002-01-01") }}
 
-{{/* ---------- group by year ---------- */}}
-{{ $years := newScratch }}
-{{ $yearList := slice }}
+    {{/* ---------- group by year ---------- */}}
+    {{ $years := newScratch }}
+    {{ $yearList := slice }}
 
-{{ range $finished }}
-{{ $y := .Date.Format "2006" }}
-{{ $existing := $years.Get $y }}
+    {{ range $finished }}
+    {{ $y := .Date.Format "2006" }}
+    {{ $existing := $years.Get $y }}
 
-{{ if not $existing }}
-{{ $years.Set $y (slice .) }}
-{{ $yearList = $yearList | append $y }}
-{{ else }}
-{{ $tmp := slice }}
-{{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
-{{ $tmp = $tmp | append . }}
-{{ $years.Set $y $tmp }}
-{{ end }}
-{{ end }}
+    {{ if not $existing }}
+    {{ $years.Set $y (slice .) }}
+    {{ $yearList = $yearList | append $y }}
+    {{ else }}
+    {{ $tmp := slice }}
+    {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
+    {{ $tmp = $tmp | append . }}
+    {{ $years.Set $y $tmp }}
+    {{ end }}
+    {{ end }}
 
-{{ $yearList = sort $yearList "value" "desc" }}
+    {{ $yearList = sort $yearList "value" "desc" }}
 
-{{/* ---------- render years ---------- */}}
-{{ range $yearList }}
-{{ $year := . }}
-{{ $yearGames := $years.Get $year }}
+    {{/* ---------- render years ---------- */}}
+    {{ range $yearList }}
+    {{ $year := . }}
+    {{ $yearGames := $years.Get $year }}
 
-<details class="games-year-block" open>
-  <summary class="games-year-header">
-    <span class="games-year-title">{{ $year }}</span>
-    <span class="games-year-count">· {{ len $yearGames }} games</span>
-  </summary>
+    <details class="games-year-block" open>
+      <summary class="games-year-header">
+        <span class="games-year-title">{{ $year }}</span>
+        <span class="games-year-count">· {{ len $yearGames }} games</span>
+      </summary>
 
-  {{/* ===== group by month ===== */}}
-  {{ $months := newScratch }}
-  {{ $monthList := slice }}
+      {{/* ===== group by month ===== */}}
+      {{ $months := newScratch }}
+      {{ $monthList := slice }}
 
-  {{ range $yearGames }}
-  {{ $m := .Date.Format "01" }}
-  {{ $existing := $months.Get $m }}
+      {{ range $yearGames }}
+      {{ $m := .Date.Format "01" }}
+      {{ $existing := $months.Get $m }}
 
-  {{ if not $existing }}
-  {{ $months.Set $m (slice .) }}
-  {{ $monthList = $monthList | append $m }}
-  {{ else }}
-  {{ $tmp := slice }}
-  {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
-  {{ $tmp = $tmp | append . }}
-  {{ $months.Set $m $tmp }}
-  {{ end }}
-  {{ end }}
+      {{ if not $existing }}
+      {{ $months.Set $m (slice .) }}
+      {{ $monthList = $monthList | append $m }}
+      {{ else }}
+      {{ $tmp := slice }}
+      {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
+      {{ $tmp = $tmp | append . }}
+      {{ $months.Set $m $tmp }}
+      {{ end }}
+      {{ end }}
 
-  {{ $monthList = sort $monthList "value" "desc" }}
+      {{ $monthList = sort $monthList "value" "desc" }}
 
-  {{ range $monthList }}
-  {{ $month := . }}
-  {{ $monthGames := $months.Get $month }}
+      {{ range $monthList }}
+      {{ $month := . }}
+      {{ $monthGames := $months.Get $month }}
 
-  <details class="games-month-block" open>
-    <summary class="games-month-header">
-      <span class="games-month-title">
-        {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
-      </span>
-      <span class="games-month-count">
-        <span class="month-separator">·</span>
-        {{ len $monthGames }} games
-      </span>
-    </summary>
+      <details class="games-month-block" open>
+        <summary class="games-month-header">
+          <span class="games-month-title">
+            {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+          </span>
+          <span class="games-month-count">
+            <span class="month-separator">·</span>
+            {{ len $monthGames }} games
+          </span>
+        </summary>
 
-    <div class="game-grid">
-      {{ range sort $monthGames "Date" "desc" }}
-      <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}">
-        <div class="game-card-content">
+        <div class="game-grid">
+          {{ range sort $monthGames "Date" "desc" }}
+          <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
+            data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}">
+            <div class="game-card-content">
 
-          <div class="game-cover-wrapper">
-            {{ with .Params.cover.image }}
-            <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
-            {{ end }}
-            {{ with .Params.rating }}
-            <span class="game-rating-badge">{{ . }}</span>
-            {{ end }}
-          </div>
+              <div class="game-cover-wrapper">
+                {{ with .Params.cover.image }}
+                <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+                {{ end }}
+                {{ with .Params.rating }}
+                <span class="game-rating-badge">{{ . }}</span>
+                {{ end }}
+              </div>
 
-          <h3 class="game-title">{{ .Title }}</h3>
+              <h3 class="game-title">{{ .Title }}</h3>
 
-          {{ if or .Params.origin .Params.aliases }}
-          <p class="game-origin">
-            {{ with .Params.origin }}<span class="game-flag">{{ . }}</span>{{ end }}
-            {{ with .Params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
-          </p>
-          {{ end }}
+              {{ if or .Params.origin .Params.aliases }}
+              <p class="game-origin">
+                {{ with .Params.origin }}<span class="game-flag">{{ . }}</span>{{ end }}
+                {{ with .Params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
+              </p>
+              {{ end }}
 
-          <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
-          <p class="game-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
-          {{ with .Params.platform }}
-          <div class="game-platforms">
-            {{ range . }}
-            <span class="game-platform {{ . | urlize }}">{{ . }}</span>
-            {{ end }}
-          </div>
+              <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
+              <p class="game-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
+              {{ with .Params.platform }}
+              <div class="game-platforms">
+                {{ range . }}
+                <span class="game-platform {{ . | urlize }}" data-platform="{{ . | lower }}">{{ . }}</span>
+                {{ end }}
+              </div>
+              {{ end }}
+            </div>
+          </article>
           {{ end }}
         </div>
-      </article>
+      </details>
       {{ end }}
+    </details>
+    {{ end }}
+  </div>
+
+  <div id="games-filter-view" style="display: none;">
+    <div class="filter-header">
+      <div class="filter-info">
+        <span id="filter-platform-name" class="filter-title">Platform</span>
+        <span id="filter-game-count" class="filter-count">· 0 games</span>
+      </div>
+      <button id="reset-filter" class="reset-button">✖️</button>
     </div>
-  </details>
-  {{ end }}
-</details>
-{{ end }}
+    <div id="filtered-grid" class="game-grid">
+      <!-- Filtered games will be cloned here -->
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const originalView = document.getElementById('games-original-view');
+    const filterView = document.getElementById('games-filter-view');
+    const filteredGrid = document.getElementById('filtered-grid');
+    const platformTitle = document.getElementById('filter-platform-name');
+    const gameCount = document.getElementById('filter-game-count');
+    const resetButton = document.getElementById('reset-filter');
+
+    // Get all unique game cards
+    const allCards = Array.from(originalView.querySelectorAll('.game-card'));
+
+    function filterByPlatform(platform) {
+      const platformLower = platform.toLowerCase();
+
+      // Clear previous results
+      filteredGrid.innerHTML = '';
+
+      // Filter cards
+      const matches = allCards.filter(card => {
+        const platforms = card.dataset.platforms.split(',');
+        return platforms.includes(platformLower);
+      });
+
+      // Create unique list of games (some might be duplicated if it was listed multiple times in original view, 
+      // though in this layout they are unique per section, a game usually only appears once anyway)
+      const uniqueMatches = [];
+      const seenTitles = new Set();
+
+      matches.forEach(card => {
+        const title = card.querySelector('.game-title').innerText;
+        if (!seenTitles.has(title)) {
+          seenTitles.add(title);
+          uniqueMatches.push(card.cloneNode(true));
+        }
+      });
+
+      // Append matches to grid
+      uniqueMatches.forEach(match => {
+        filteredGrid.appendChild(match);
+
+        // Re-attach listeners to the cloned cards' platforms
+        match.querySelectorAll('.game-platform').forEach(tag => {
+          tag.style.cursor = 'pointer';
+          tag.onclick = (e) => {
+            e.stopPropagation();
+            filterByPlatform(tag.dataset.platform);
+          };
+        });
+      });
+
+      // Update UI
+      platformTitle.innerText = platform.toUpperCase();
+      gameCount.innerText = `· ${uniqueMatches.length} games`;
+
+      originalView.style.display = 'none';
+      filterView.style.display = 'block';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Attach click events to all platform tags
+    document.querySelectorAll('.game-platform').forEach(tag => {
+      tag.style.cursor = 'pointer';
+      tag.addEventListener('click', (e) => {
+        e.stopPropagation();
+        filterByPlatform(tag.dataset.platform);
+      });
+    });
+
+    resetButton.addEventListener('click', () => {
+      filterView.style.display = 'none';
+      originalView.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
 
 {{ end }}
