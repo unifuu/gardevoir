@@ -20,7 +20,7 @@
 
   <div class="book-grid">
     {{ range sort $reading "Title" }}
-    <article class="book-card">
+    <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}">
       <a href="{{ .RelPermalink }}">
         <div class="book-cover-wrapper">
           {{ with .Params.cover.image }}
@@ -127,7 +127,7 @@
 
     <div class="book-grid">
       {{ range sort $monthBooks "Date" "desc" }}
-      <article class="book-card">
+      <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}">
         <a href="{{ .RelPermalink }}">
 
           <div class="book-cover-wrapper">

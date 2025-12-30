@@ -20,7 +20,7 @@
 
   <div class="game-grid">
     {{ range sort $playing "Title" }}
-    <article class="game-card">
+    <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}">
       <div class="game-card-content">
         <div class="game-cover-wrapper">
           {{ with .Params.cover.image }}
@@ -132,7 +132,7 @@
 
     <div class="game-grid">
       {{ range sort $monthGames "Date" "desc" }}
-      <article class="game-card">
+      <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}">
         <div class="game-card-content">
 
           <div class="game-cover-wrapper">

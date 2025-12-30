@@ -58,6 +58,22 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
+/* Masterpiece Highlight */
+.book-card.is-masterpiece .book-cover-wrapper {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.book-card.is-masterpiece .book-rating-badge {
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  color: #000;
+  border-color: #ffd700;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
 /* =========================================================
    Book Title & Meta
    ========================================================= */
@@ -96,14 +112,14 @@
    ========================================================= */
 
 .book-origin {
-  font-size: 0.75rem;
-  opacity: 0.6;
+  font-size: 0.7rem;
+  opacity: 0.5;
   margin: 0.35rem 0 0.1rem;
   line-height: 1;
 }
 
 .book-alias {
-  font-style: italic;
+  font-style: normal;
 }
 
 /* =========================================================
