@@ -10,6 +10,10 @@
 ========================================================= */}}
 
 <div id="books-list-container">
+  <div class="view-controls">
+    <button id="view-timeline" class="view-btn active">Timeline</button>
+    <button id="view-rating" class="view-btn">Rating</button>
+  </div>
   <div id="books-original-view">
     {{/* =========================================================
     ====================== Reading ===========================
@@ -29,7 +33,8 @@
       <div class="book-grid">
         {{ range sort $reading "Title" }}
         <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
-          data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}">
+          data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
+          data-rating="{{ .Params.rating }}">
           <div class="book-card-content">
             <a href="{{ .RelPermalink }}" class="book-main-link">
               <div class="book-cover-wrapper">
@@ -142,7 +147,8 @@
         <div class="book-grid">
           {{ range sort $monthBooks "Date" "desc" }}
           <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
-            data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}">
+            data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
+            data-rating="{{ .Params.rating }}">
             <div class="book-card-content">
               <a href="{{ .RelPermalink }}" class="book-main-link">
                 <div class="book-cover-wrapper">
@@ -179,6 +185,10 @@
     {{ end }}
   </div>
 
+  <div id="books-rating-view" style="display: none;">
+    <!-- Rating groups will be generated here -->
+  </div>
+
   <div id="books-filter-view" style="display: none;">
     <div class="filter-header">
       <div class="filter-info">
@@ -195,26 +205,41 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const listContainer = document.getElementById('books-list-container');
     const originalView = document.getElementById('books-original-view');
+    const ratingView = document.getElementById('books-rating-view');
     const filterView = document.getElementById('books-filter-view');
     const filteredGrid = document.getElementById('books-filtered-grid');
-    const displayName = document.getElementById('filter-display-name');
-    const bookCount = document.getElementById('filter-book-count');
-    const resetButton = document.getElementById('reset-books-filter');
+    const displayNameNode = document.getElementById('filter-display-name');
+    const bookCountNode = document.getElementById('filter-book-count');
+    const resetFilterBtn = document.getElementById('reset-books-filter');
+
+    const timelineBtn = document.getElementById('view-timeline');
+    const ratingBtn = document.getElementById('view-rating');
 
     const allCards = Array.from(originalView.querySelectorAll('.book-card'));
 
+    const ratingLabels = {
+      10: 'Masterpiece',
+      9: 'Excellent',
+      8: 'Great',
+      7: 'Good',
+      6: 'Fine',
+      5: 'Average',
+      4: 'Below Average',
+      3: 'Poor',
+      2: 'Awful',
+      1: 'Master Disaster'
+    };
+
     function applyFilter(type, value, displayLabel) {
       filteredGrid.innerHTML = '';
+      const valueLower = value.toLowerCase();
 
-      const matches = allCards.filter(card => {
-        const cardValue = card.getAttribute(`data-${type}`);
-        return cardValue === value.toLowerCase();
-      });
+      const matches = allCards.filter(card => card.getAttribute(`data-${type}`) === valueLower);
 
       const uniqueMatches = [];
       const seenTitles = new Set();
-
       matches.forEach(card => {
         const title = card.querySelector('.book-title').innerText;
         if (!seenTitles.has(title)) {
@@ -225,16 +250,59 @@
 
       uniqueMatches.forEach(match => {
         filteredGrid.appendChild(match);
-        // Re-attach listeners to cloned elements
         attachListeners(match);
       });
 
-      displayName.innerText = displayLabel;
-      bookCount.innerText = `· ${uniqueMatches.length} books`;
+      displayNameNode.innerText = displayLabel;
+      bookCountNode.innerText = `· ${uniqueMatches.length} books`;
 
       originalView.style.display = 'none';
+      ratingView.style.display = 'none';
       filterView.style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function generateRatingView() {
+      ratingView.innerHTML = '';
+      const grouped = {};
+
+      allCards.forEach(card => {
+        const rating = card.dataset.rating || 0;
+        if (!grouped[rating]) grouped[rating] = [];
+
+        const title = card.querySelector('.book-title').innerText;
+        if (!grouped[rating].some(c => c.querySelector('.book-title').innerText === title)) {
+          grouped[rating].push(card.cloneNode(true));
+        }
+      });
+
+      Object.keys(grouped).sort((a, b) => b - a).forEach(rating => {
+        if (rating == 0) return;
+
+        const section = document.createElement('div');
+        section.className = 'books-year-block rating-group';
+
+        const label = ratingLabels[rating] || `${rating} Stars`;
+        const count = grouped[rating].length;
+
+        section.innerHTML = `
+          <div class="books-year-header rating-header">
+            <div class="filter-info">
+              <span class="books-year-title">${rating} · ${label}</span>
+              <span class="books-year-count">· ${count} books</span>
+            </div>
+          </div>
+          <div class="book-grid"></div>
+        `;
+
+        const grid = section.querySelector('.book-grid');
+        grouped[rating].forEach(card => {
+          grid.appendChild(card);
+          attachListeners(card);
+        });
+
+        ratingView.appendChild(section);
+      });
     }
 
     function attachListeners(container) {
@@ -248,14 +316,42 @@
       });
     }
 
-    // Initial attachment
-    allCards.forEach(card => attachListeners(card));
-
-    resetButton.addEventListener('click', () => {
+    timelineBtn.addEventListener('click', () => {
+      ratingBtn.classList.remove('active');
+      timelineBtn.classList.add('active');
       filterView.style.display = 'none';
+      ratingView.style.display = 'none';
       originalView.style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    ratingBtn.addEventListener('click', () => {
+      timelineBtn.classList.remove('active');
+      ratingBtn.classList.add('active');
+      filterView.style.display = 'none';
+      originalView.style.display = 'none';
+
+      // Fix: Check for children instead of innerHTML to ignore comments/whitespace
+      if (ratingView.children.length === 0) {
+        generateRatingView();
+      }
+
+      ratingView.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    resetFilterBtn.addEventListener('click', () => {
+      filterView.style.display = 'none';
+      if (timelineBtn.classList.contains('active')) {
+        originalView.style.display = 'block';
+      } else {
+        ratingView.style.display = 'block';
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Initial attachment
+    allCards.forEach(card => attachListeners(card));
   });
 </script>
 

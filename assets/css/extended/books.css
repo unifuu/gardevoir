@@ -370,3 +370,54 @@ details[open]>.books-month-header::after {
 .book-main-link:hover .book-title {
   color: var(--secondary);
 }
+
+/* =========================================================
+   View Switcher Controls
+   ========================================================= */
+
+.view-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.view-btn {
+  background: var(--entry);
+  color: var(--secondary);
+  border: 1px solid var(--border);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-btn:hover {
+  border-color: var(--secondary);
+  color: var(--primary);
+}
+
+.view-btn.active {
+  background: var(--primary);
+  color: var(--theme);
+  border-color: var(--primary);
+}
+
+/* Rating Header Specifics */
+.rating-header {
+  border-left: 4px solid var(--secondary);
+  cursor: default !important;
+}
+
+.rating-header:hover {
+  border-color: var(--border) var(--border) var(--border) var(--secondary);
+}
+
+.rating-header::after {
+  display: none !important;
+}
+
+.rating-group .book-grid {
+  margin-top: 1.5rem;
+}
