@@ -21,7 +21,7 @@
   <div class="game-grid">
     {{ range sort $playing "Title" }}
     <article class="game-card">
-      <a href="{{ .RelPermalink }}">
+      <div class="game-card-content">
         <div class="game-cover-wrapper">
           {{ with .Params.cover.image }}
           <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
@@ -41,7 +41,7 @@
         {{ end }}
 
         <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
-      </a>
+      </div>
     </article>
     {{ end }}
   </div>
@@ -125,7 +125,7 @@
     <div class="game-grid">
       {{ range sort $monthGames "Date" "desc" }}
       <article class="game-card">
-        <a href="{{ .RelPermalink }}">
+        <div class="game-card-content">
 
           <div class="game-cover-wrapper">
             {{ with .Params.cover.image }}
@@ -148,7 +148,7 @@
           <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
           <p class="game-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
 
-        </a>
+        </div>
       </article>
       {{ end }}
     </div>
