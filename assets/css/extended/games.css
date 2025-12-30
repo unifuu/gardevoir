@@ -1,4 +1,4 @@
-/* /* =========================================================
+/* =========================================================
    Game Grid
    ========================================================= */
 
@@ -232,10 +232,6 @@
    Year Section
    ========================================================= */
 
-/* =========================================================
-   Year Section
-   ========================================================= */
-
 .games-year-block {
   margin-bottom: 2.5rem;
 }
@@ -385,4 +381,24 @@ details[open]>.games-month-header::after {
 .month-separator {
   margin: 0 0.3rem;
   opacity: 0.6;
+}
+
+/* =========================================================
+   Interactive Filter Elements
+   ========================================================= */
+
+[data-filter-type] {
+  cursor: pointer !important;
+  transition: color 0.1s, opacity 0.1s;
+}
+
+.game-flag:hover {
+  opacity: 1;
+  text-decoration: underline;
+  color: var(--secondary);
+}
+
+.game-developer:hover {
+  text-decoration: underline;
+  color: var(--secondary);
 }

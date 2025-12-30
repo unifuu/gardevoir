@@ -29,7 +29,8 @@
       <div class="game-grid">
         {{ range sort $playing "Title" }}
         <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
-          data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}">
+          data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
+          data-origin="{{ .Params.origin | lower }}" data-developer="{{ .Params.developer | lower }}">
           <div class="game-card-content">
             <div class="game-cover-wrapper">
               {{ with .Params.cover.image }}
@@ -44,17 +45,22 @@
 
             {{ if or .Params.origin .Params.aliases }}
             <p class="game-origin">
-              {{ with .Params.origin }}<span class="game-flag">{{ . }}</span>{{ end }}
+              {{ with .Params.origin }}<span class="game-flag" data-filter-type="origin"
+                data-filter-value="{{ . | lower }}">{{ . }}</span>{{ end }}
               {{ with .Params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
             </p>
             {{ end }}
 
-            <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
+            <p class="game-meta">
+              <span class="game-developer" data-filter-type="developer"
+                data-filter-value="{{ .Params.developer | lower }}">{{ .Params.developer }}</span> · {{ .Params.year }}
+            </p>
 
             {{ with .Params.platform }}
             <div class="game-platforms">
               {{ range . }}
-              <span class="game-platform {{ . | urlize }}" data-platform="{{ . | lower }}">{{ . }}</span>
+              <span class="game-platform {{ . | urlize }}" data-filter-type="platform"
+                data-filter-value="{{ . | lower }}">{{ . }}</span>
               {{ end }}
             </div>
             {{ end }}
@@ -145,7 +151,8 @@
         <div class="game-grid">
           {{ range sort $monthGames "Date" "desc" }}
           <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
-            data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}">
+            data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
+            data-origin="{{ .Params.origin | lower }}" data-developer="{{ .Params.developer | lower }}">
             <div class="game-card-content">
 
               <div class="game-cover-wrapper">
@@ -161,17 +168,23 @@
 
               {{ if or .Params.origin .Params.aliases }}
               <p class="game-origin">
-                {{ with .Params.origin }}<span class="game-flag">{{ . }}</span>{{ end }}
+                {{ with .Params.origin }}<span class="game-flag" data-filter-type="origin"
+                  data-filter-value="{{ . | lower }}">{{ . }}</span>{{ end }}
                 {{ with .Params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
               </p>
               {{ end }}
 
-              <p class="game-meta">{{ .Params.developer }} · {{ .Params.year }}</p>
+              <p class="game-meta">
+                <span class="game-developer" data-filter-type="developer"
+                  data-filter-value="{{ .Params.developer | lower }}">{{ .Params.developer }}</span> · {{ .Params.year
+                }}
+              </p>
               <p class="game-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
               {{ with .Params.platform }}
               <div class="game-platforms">
                 {{ range . }}
-                <span class="game-platform {{ . | urlize }}" data-platform="{{ . | lower }}">{{ . }}</span>
+                <span class="game-platform {{ . | urlize }}" data-filter-type="platform"
+                  data-filter-value="{{ . | lower }}">{{ . }}</span>
                 {{ end }}
               </div>
               {{ end }}
@@ -188,7 +201,7 @@
   <div id="games-filter-view" style="display: none;">
     <div class="filter-header">
       <div class="filter-info">
-        <span id="filter-platform-name" class="filter-title">Platform</span>
+        <span id="filter-display-name" class="filter-title">Platform</span>
         <span id="filter-game-count" class="filter-count">· 0 games</span>
       </div>
       <button id="reset-filter" class="reset-button">✖️</button>
@@ -204,27 +217,25 @@
     const originalView = document.getElementById('games-original-view');
     const filterView = document.getElementById('games-filter-view');
     const filteredGrid = document.getElementById('filtered-grid');
-    const platformTitle = document.getElementById('filter-platform-name');
-    const gameCount = document.getElementById('filter-game-count');
+    const displayNameNode = document.getElementById('filter-display-name');
+    const gameCountNode = document.getElementById('filter-game-count');
     const resetButton = document.getElementById('reset-filter');
 
-    // Get all unique game cards
     const allCards = Array.from(originalView.querySelectorAll('.game-card'));
 
-    function filterByPlatform(platform) {
-      const platformLower = platform.toLowerCase();
-
-      // Clear previous results
+    function applyFilter(type, value, displayLabel) {
       filteredGrid.innerHTML = '';
+      const valueLower = value.toLowerCase();
 
-      // Filter cards
       const matches = allCards.filter(card => {
-        const platforms = card.dataset.platforms.split(',');
-        return platforms.includes(platformLower);
+        if (type === 'platform') {
+          const platforms = card.dataset.platforms.split(',');
+          return platforms.includes(valueLower);
+        } else {
+          return card.getAttribute(`data-${type}`) === valueLower;
+        }
       });
 
-      // Create unique list of games (some might be duplicated if it was listed multiple times in original view, 
-      // though in this layout they are unique per section, a game usually only appears once anyway)
       const uniqueMatches = [];
       const seenTitles = new Set();
 
@@ -236,38 +247,33 @@
         }
       });
 
-      // Append matches to grid
       uniqueMatches.forEach(match => {
         filteredGrid.appendChild(match);
-
-        // Re-attach listeners to the cloned cards' platforms
-        match.querySelectorAll('.game-platform').forEach(tag => {
-          tag.style.cursor = 'pointer';
-          tag.onclick = (e) => {
-            e.stopPropagation();
-            filterByPlatform(tag.dataset.platform);
-          };
-        });
+        attachListeners(match);
       });
 
-      // Update UI
-      platformTitle.innerText = platform.toUpperCase();
-      gameCount.innerText = `· ${uniqueMatches.length} games`;
+      // Format platform display name
+      displayNameNode.innerText = (type === 'platform') ? displayLabel.toUpperCase() : displayLabel;
+      gameCountNode.innerText = `· ${uniqueMatches.length} games`;
 
       originalView.style.display = 'none';
       filterView.style.display = 'block';
-
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Attach click events to all platform tags
-    document.querySelectorAll('.game-platform').forEach(tag => {
-      tag.style.cursor = 'pointer';
-      tag.addEventListener('click', (e) => {
-        e.stopPropagation();
-        filterByPlatform(tag.dataset.platform);
+    function attachListeners(container) {
+      container.querySelectorAll('[data-filter-type]').forEach(el => {
+        el.style.cursor = 'pointer';
+        el.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          applyFilter(el.dataset.filterType, el.dataset.filterValue, el.innerText);
+        };
       });
-    });
+    }
+
+    // Initial attachment
+    allCards.forEach(card => attachListeners(card));
 
     resetButton.addEventListener('click', () => {
       filterView.style.display = 'none';
