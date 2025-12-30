@@ -396,9 +396,14 @@ details[open]>.books-month-header::after {
 .mui-switch {
   position: relative;
   display: inline-block;
-  width: 58px;
-  height: 34px;
+  width: 54px;
+  height: 32px;
+  box-sizing: border-box;
   cursor: pointer;
+}
+
+.mui-switch * {
+  box-sizing: border-box;
 }
 
 .mui-switch input {
@@ -425,8 +430,8 @@ details[open]>.books-month-header::after {
   position: absolute;
   height: 26px;
   width: 26px;
-  left: 3px;
-  bottom: 3px;
+  left: 2px;
+  bottom: 2px;
   background-color: var(--primary);
   transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 50%;
@@ -460,7 +465,7 @@ details[open]>.books-month-header::after {
 }
 
 .mui-switch input:checked+.mui-switch-slider .mui-switch-thumb {
-  transform: translateX(24px);
+  transform: translateX(22px);
   background-color: var(--secondary);
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
   /* Refined glow */

@@ -1,7 +1,31 @@
 {{ define "main" }}
 
 <header class="page-header">
-  <h1>{{ .Title }}</h1>
+  <div class="header-content">
+    <h1>{{ .Title }}</h1>
+    <div class="view-switch-container">
+      <label class="mui-switch" title="Toggle Timeline/Rating View">
+        <input type="checkbox" id="view-toggle-input">
+        <span class="mui-switch-slider">
+          <span class="mui-switch-thumb">
+            <!-- Clock Icon (Timeline) -->
+            <svg class="icon-timeline" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <!-- Star Icon (Rating) -->
+            <svg class="icon-rating" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+              </polygon>
+            </svg>
+          </span>
+        </span>
+      </label>
+    </div>
+  </div>
   {{ with .Description }}<p>{{ . }}</p>{{ end }}
 </header>
 
@@ -30,7 +54,8 @@
         {{ range sort $playing "Title" }}
         <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
           data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
-          data-origin="{{ .Params.origin | lower }}" data-developer="{{ .Params.developer | lower }}">
+          data-rating="{{ .Params.rating | default 0 }}" data-origin="{{ .Params.origin | lower }}"
+          data-developer="{{ .Params.developer | lower }}">
           <div class="game-card-content">
             <div class="game-cover-wrapper">
               {{ with .Params.cover.image }}
@@ -152,7 +177,8 @@
           {{ range sort $monthGames "Date" "desc" }}
           <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
             data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
-            data-origin="{{ .Params.origin | lower }}" data-developer="{{ .Params.developer | lower }}">
+            data-rating="{{ .Params.rating | default 0 }}" data-origin="{{ .Params.origin | lower }}"
+            data-developer="{{ .Params.developer | lower }}">
             <div class="game-card-content">
 
               <div class="game-cover-wrapper">
@@ -197,6 +223,9 @@
     </details>
     {{ end }}
   </div>
+  <div id="games-rating-view" style="display: none;">
+    <!-- Groups by rating will be generated here -->
+  </div>
 
   <div id="games-filter-view" style="display: none;">
     <div class="filter-header">
@@ -215,11 +244,13 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const originalView = document.getElementById('games-original-view');
+    const ratingView = document.getElementById('games-rating-view');
     const filterView = document.getElementById('games-filter-view');
     const filteredGrid = document.getElementById('filtered-grid');
     const displayNameNode = document.getElementById('filter-display-name');
     const gameCountNode = document.getElementById('filter-game-count');
     const resetButton = document.getElementById('reset-filter');
+    const viewToggle = document.getElementById('view-toggle-input');
 
     const allCards = Array.from(originalView.querySelectorAll('.game-card'));
 
@@ -243,7 +274,8 @@
         const title = card.querySelector('.game-title').innerText;
         if (!seenTitles.has(title)) {
           seenTitles.add(title);
-          uniqueMatches.push(card.cloneNode(true));
+          const clone = card.cloneNode(true);
+          uniqueMatches.push(clone);
         }
       });
 
@@ -252,13 +284,73 @@
         attachListeners(match);
       });
 
-      // Format platform display name
       displayNameNode.innerText = (type === 'platform') ? displayLabel.toUpperCase() : displayLabel;
       gameCountNode.innerText = `· ${uniqueMatches.length} games`;
 
       originalView.style.display = 'none';
+      ratingView.style.display = 'none';
       filterView.style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function generateRatingView() {
+      ratingView.innerHTML = '';
+      const ratingLabels = {
+        10: "Masterpiece",
+        9: "Excellent",
+        8: "Very Good",
+        7: "Good",
+        6: "Fine",
+        5: "Average",
+        4: "Boring",
+        3: "Bad",
+        2: "Painful",
+        1: "Trash",
+        0: "Unrated"
+      };
+
+      const groups = {};
+      allCards.forEach(card => {
+        const r = parseInt(card.dataset.rating) || 0;
+        if (!groups[r]) groups[r] = [];
+        groups[r].push(card);
+      });
+
+      // Show ratings 10 to 1, then 0
+      const sortedRatings = Object.keys(groups).map(Number).sort((a, b) => b - a);
+
+      sortedRatings.forEach(r => {
+        const cards = groups[r];
+        const uniqueCards = [];
+        const seenTitles = new Set();
+
+        cards.forEach(card => {
+          const title = card.querySelector('.game-title').innerText;
+          if (!seenTitles.has(title)) {
+            seenTitles.add(title);
+            uniqueCards.push(card.cloneNode(true));
+          }
+        });
+
+        const section = document.createElement('div');
+        section.className = 'rating-group';
+        section.innerHTML = `
+          <div class="games-year-header rating-header">
+            <div class="filter-info">
+              <span class="games-year-title">${r} · ${ratingLabels[r] || 'Unrated'}</span>
+              <span class="games-year-count">· ${uniqueCards.length} games</span>
+            </div>
+          </div>
+          <div class="game-grid"></div>
+        `;
+
+        const grid = section.querySelector('.game-grid');
+        uniqueCards.forEach(c => {
+          grid.appendChild(c);
+          attachListeners(c);
+        });
+        ratingView.appendChild(section);
+      });
     }
 
     function attachListeners(container) {
@@ -275,9 +367,28 @@
     // Initial attachment
     allCards.forEach(card => attachListeners(card));
 
+    viewToggle.addEventListener('change', () => {
+      if (viewToggle.checked) {
+        if (!ratingView.innerHTML.trim()) {
+          generateRatingView();
+        }
+        originalView.style.display = 'none';
+        filterView.style.display = 'none';
+        ratingView.style.display = 'block';
+      } else {
+        ratingView.style.display = 'none';
+        filterView.style.display = 'none';
+        originalView.style.display = 'block';
+      }
+    });
+
     resetButton.addEventListener('click', () => {
       filterView.style.display = 'none';
-      originalView.style.display = 'block';
+      if (viewToggle.checked) {
+        ratingView.style.display = 'block';
+      } else {
+        originalView.style.display = 'block';
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });

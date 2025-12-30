@@ -127,7 +127,137 @@
   opacity: 1;
 }
 
-/* Filter View Header */
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.header-content h1 {
+  margin: 0;
+}
+
+/* =========================================================
+   MUI Style Switch (PaperMod Refined)
+   ========================================================= */
+
+.mui-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 32px;
+  box-sizing: border-box;
+}
+
+.mui-switch * {
+  box-sizing: border-box;
+}
+
+.mui-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The Track */
+.mui-switch-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  transition: .4s;
+  border-radius: 34px;
+  cursor: pointer;
+}
+
+/* The Thumb */
+.mui-switch-thumb {
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--primary);
+  transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Icon States inside Thumb */
+.mui-switch-thumb svg {
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.icon-rating {
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+}
+
+.icon-timeline {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+/* Checked State */
+.mui-switch input:checked+.mui-switch-slider {
+  border-color: var(--secondary);
+}
+
+.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb {
+  transform: translateX(22px);
+  background-color: var(--secondary);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb .icon-timeline {
+  opacity: 0;
+  transform: scale(0.5) rotate(45deg);
+}
+
+.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb .icon-rating {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+/* Hover effects */
+.mui-switch:hover .mui-switch-slider {
+  border-color: var(--secondary);
+}
+
+/* =========================================================
+   Rating View Grouping
+   ========================================================= */
+
+.rating-group {
+  margin-bottom: 3rem;
+}
+
+.rating-header {
+  border-left: 4px solid var(--secondary);
+  cursor: default !important;
+}
+
+.rating-header:hover {
+  border-color: var(--border) var(--border) var(--border) var(--secondary) !important;
+}
+
+.rating-header::after {
+  display: none !important;
+}
+
+.rating-group .game-grid {
+  margin-top: 1.5rem;
+}
+
 .filter-header {
   display: flex;
   justify-content: space-between;
