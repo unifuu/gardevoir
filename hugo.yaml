@@ -17,15 +17,6 @@ minify:
   # minifyOutput: true
 
 params:
-  profileMode:
-    enabled: true
-    title: Fū
-    subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/) | [📚 Reading](/books/)"
-    buttons:
-      - name: 📑 Posts
-        url: posts
-      - name: 🔖 Tags
-        url: tags
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto
@@ -82,6 +73,16 @@ languages:
     languageName: 🇬🇧
     languageCode: en-us
     weight: 1
+    params:
+      profileMode:
+        enabled: true
+        title: Fū
+        subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/) | [📚 Reading](/books/)"
+        buttons:
+          - name: 📑 Posts
+            url: posts
+          - name: 🔖 Tags
+            url: tags
     menu:
       main:
         - identifier: posts
@@ -107,6 +108,16 @@ languages:
     languageName: 🇯🇵
     languageCode: ja
     weight: 2
+    params:
+      profileMode:
+        enabled: true
+        title: Fū
+        subtitle: "[💻 コーディング](https://github.com/unifuu) | [🎮 ゲーム](/games/) | [📚 読書](/books/)"
+        buttons:
+          - name: 📑 投稿
+            url: posts
+          - name: 🔖 タグ
+            url: tags
     menu:
       main:
         - identifier: posts
@@ -128,10 +139,55 @@ languages:
         - name: GitHub
           url: https://github.com/unifuu
           weight: 50
+  kr:
+    languageName: 🇰🇷
+    languageCode: ko
+    weight: 3
+    params:
+      profileMode:
+        enabled: true
+        title: Fū
+        subtitle: "[💻 코딩](https://github.com/unifuu) | [🎮 게임](/games/) | [📚 독서](/books/)"
+        buttons:
+          - name: 📑 게시물
+            url: posts
+          - name: 🔖 태그
+            url: tags
+    menu:
+      main:
+        - identifier: posts
+          name: 게시물
+          url: /posts/
+          weight: 10
+        - identifier: games
+          name: 게임
+          url: /games/
+          weight: 20
+        - identifier: books
+          name: 책
+          url: /books/
+          weight: 30
+        - identifier: tags
+          name: 태그
+          url: /tags/
+          weight: 40
+        - name: GitHub
+          url: https://github.com/unifuu
+          weight: 50
   hk:
     languageName: 🇭🇰
     languageCode: zh-hk
-    weight: 3
+    weight: 4
+    params:
+      profileMode:
+        enabled: true
+        title: Fū
+        subtitle: "[💻 程式](https://github.com/unifuu) | [🎮 遊戲](/games/) | [📚 閱讀](/books/)"
+        buttons:
+          - name: 📑 文章
+            url: posts
+          - name: 🔖 標籤
+            url: tags
     menu:
       main:
         - identifier: posts
