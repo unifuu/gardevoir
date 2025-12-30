@@ -9,163 +9,255 @@
 ====================== Reading ===========================
 ========================================================= */}}
 
-{{ $reading := where .Pages "Params.finished" "ne" true }}
+<div id="books-list-container">
+  <div id="books-original-view">
+    {{/* =========================================================
+    ====================== Reading ===========================
+    ========================================================= */}}
 
-{{ if gt (len $reading) 0 }}
-<details class="books-year-block books-reading-block" open>
-  <summary class="books-year-header">
-    <div class="filter-info">
-      <span class="books-year-title">Reading</span>
-      <span class="books-year-count">· {{ len $reading }} books</span>
-    </div>
-  </summary>
+    {{ $reading := where .Pages "Params.finished" "ne" true }}
 
-  <div class="book-grid">
-    {{ range sort $reading "Title" }}
-    <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}">
-      <a href="{{ .RelPermalink }}">
-        <div class="book-cover-wrapper">
-          {{ with .Params.cover.image }}
-          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
-          {{ end }}
-          {{ with .Params.rating }}
-          <span class="book-rating-badge">{{ . }}</span>
+    {{ if gt (len $reading) 0 }}
+    <details class="books-year-block books-reading-block" open>
+      <summary class="books-year-header">
+        <div class="filter-info">
+          <span class="books-year-title">Reading</span>
+          <span class="books-year-count">· {{ len $reading }} books</span>
+        </div>
+      </summary>
+
+      <div class="book-grid">
+        {{ range sort $reading "Title" }}
+        <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
+          data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}">
+          <div class="book-card-content">
+            <a href="{{ .RelPermalink }}" class="book-main-link">
+              <div class="book-cover-wrapper">
+                {{ with .Params.cover.image }}
+                <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+                {{ end }}
+                {{ with .Params.rating }}
+                <span class="book-rating-badge">{{ . }}</span>
+                {{ end }}
+              </div>
+              <h3 class="book-title">{{ .Title }}</h3>
+            </a>
+
+            {{ if or .Params.origin .Params.aliases }}
+            <p class="book-origin">
+              {{ with .Params.origin }}<span class="book-flag" data-filter-type="origin"
+                data-filter-value="{{ . | lower }}">{{ . }}</span>{{ end }}
+              {{ with .Params.aliases }}<span class="book-alias">{{ index . 0 }}</span>{{ end }}
+            </p>
+            {{ end }}
+
+            <p class="book-meta">
+              <span class="author-name{{ if .Params.is_female }} is-female{{ end }}" data-filter-type="author"
+                data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> · {{ .Params.year }}
+            </p>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+    </details>
+    {{ end }}
+
+    {{/* =========================================================
+    ====================== Finished ==========================
+    ========================================================= */}}
+
+    {{ $finished := where (where .Pages "Params.finished" true) "Date" "gt" (time "0002-01-01") }}
+
+    {{/* ---------- group by year ---------- */}}
+    {{ $years := newScratch }}
+    {{ $yearList := slice }}
+
+    {{ range $finished }}
+    {{ $y := .Date.Format "2006" }}
+    {{ $existing := $years.Get $y }}
+
+    {{ if not $existing }}
+    {{ $years.Set $y (slice .) }}
+    {{ $yearList = $yearList | append $y }}
+    {{ else }}
+    {{ $tmp := slice }}
+    {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
+    {{ $tmp = $tmp | append . }}
+    {{ $years.Set $y $tmp }}
+    {{ end }}
+    {{ end }}
+
+    {{ $yearList = sort $yearList "value" "desc" }}
+
+    {{/* ---------- render years ---------- */}}
+    {{ range $yearList }}
+    {{ $year := . }}
+    {{ $yearBooks := $years.Get $year }}
+
+    <details class="books-year-block" open>
+      <summary class="books-year-header">
+        <div class="filter-info">
+          <span class="books-year-title">{{ $year }}</span>
+          <span class="books-year-count">· {{ len $yearBooks }} books</span>
+        </div>
+      </summary>
+
+      {{/* ===== group by month ===== */}}
+      {{ $months := newScratch }}
+      {{ $monthList := slice }}
+
+      {{ range $yearBooks }}
+      {{ $m := .Date.Format "01" }}
+      {{ $existing := $months.Get $m }}
+
+      {{ if not $existing }}
+      {{ $months.Set $m (slice .) }}
+      {{ $monthList = $monthList | append $m }}
+      {{ else }}
+      {{ $tmp := slice }}
+      {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
+      {{ $tmp = $tmp | append . }}
+      {{ $months.Set $m $tmp }}
+      {{ end }}
+      {{ end }}
+
+      {{ $monthList = sort $monthList "value" "desc" }}
+
+      {{ range $monthList }}
+      {{ $month := . }}
+      {{ $monthBooks := $months.Get $month }}
+
+      <details class="books-month-block" open>
+        <summary class="books-month-header">
+          <div class="filter-info">
+            <span class="books-month-title">
+              {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+            </span>
+            <span class="books-month-count">
+              · {{ len $monthBooks }} books
+            </span>
+          </div>
+        </summary>
+
+        <div class="book-grid">
+          {{ range sort $monthBooks "Date" "desc" }}
+          <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
+            data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}">
+            <div class="book-card-content">
+              <a href="{{ .RelPermalink }}" class="book-main-link">
+                <div class="book-cover-wrapper">
+                  {{ with .Params.cover.image }}
+                  <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+                  {{ end }}
+                  {{ with .Params.rating }}
+                  <span class="book-rating-badge">{{ . }}</span>
+                  {{ end }}
+                </div>
+                <h3 class="book-title">{{ .Title }}</h3>
+              </a>
+
+              {{ if or .Params.origin .Params.aliases }}
+              <p class="book-origin">
+                {{ with .Params.origin }}<span class="book-flag" data-filter-type="origin"
+                  data-filter-value="{{ . | lower }}">{{ . }}</span>{{ end }}
+                {{ with .Params.aliases }}<span class="book-alias">{{ index . 0 }}</span>{{ end }}
+              </p>
+              {{ end }}
+
+              <p class="book-meta">
+                <span class="author-name{{ if .Params.is_female }} is-female{{ end }}" data-filter-type="author"
+                  data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> · {{ .Params.year }}
+              </p>
+              <p class="book-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
+            </div>
+          </article>
           {{ end }}
         </div>
-
-        <h3 class="book-title">{{ .Title }}</h3>
-
-        {{ if or .Params.origin .Params.aliases }}
-        <p class="book-origin">
-          {{ with .Params.origin }}<span class="book-flag">{{ . }}</span>{{ end }}
-          {{ with .Params.aliases }}<span class="book-alias">{{ index . 0 }}</span>{{ end }}
-        </p>
-        {{ end }}
-
-        <p class="book-meta">
-          <span class="author-name{{ if .Params.is_female }} is-female{{ end }}">{{ .Params.author }}</span> · {{
-          .Params.year }}
-        </p>
-      </a>
-    </article>
+      </details>
+      {{ end }}
+    </details>
     {{ end }}
   </div>
-</details>
-{{ end }}
 
-{{/* =========================================================
-====================== Finished ==========================
-========================================================= */}}
-
-{{ $finished := where (where .Pages "Params.finished" true) "Date" "gt" (time "0002-01-01") }}
-
-{{/* ---------- group by year ---------- */}}
-{{ $years := newScratch }}
-{{ $yearList := slice }}
-
-{{ range $finished }}
-{{ $y := .Date.Format "2006" }}
-{{ $existing := $years.Get $y }}
-
-{{ if not $existing }}
-{{ $years.Set $y (slice .) }}
-{{ $yearList = $yearList | append $y }}
-{{ else }}
-{{ $tmp := slice }}
-{{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
-{{ $tmp = $tmp | append . }}
-{{ $years.Set $y $tmp }}
-{{ end }}
-{{ end }}
-
-{{ $yearList = sort $yearList "value" "desc" }}
-
-{{/* ---------- render years ---------- */}}
-{{ range $yearList }}
-{{ $year := . }}
-{{ $yearBooks := $years.Get $year }}
-
-<details class="books-year-block" open>
-  <summary class="books-year-header">
-    <div class="filter-info">
-      <span class="books-year-title">{{ $year }}</span>
-      <span class="books-year-count">· {{ len $yearBooks }} books</span>
-    </div>
-  </summary>
-
-  {{/* ===== group by month ===== */}}
-  {{ $months := newScratch }}
-  {{ $monthList := slice }}
-
-  {{ range $yearBooks }}
-  {{ $m := .Date.Format "01" }}
-  {{ $existing := $months.Get $m }}
-
-  {{ if not $existing }}
-  {{ $months.Set $m (slice .) }}
-  {{ $monthList = $monthList | append $m }}
-  {{ else }}
-  {{ $tmp := slice }}
-  {{ range $existing }}{{ $tmp = $tmp | append . }}{{ end }}
-  {{ $tmp = $tmp | append . }}
-  {{ $months.Set $m $tmp }}
-  {{ end }}
-  {{ end }}
-
-  {{ $monthList = sort $monthList "value" "desc" }}
-
-  {{ range $monthList }}
-  {{ $month := . }}
-  {{ $monthBooks := $months.Get $month }}
-
-  <details class="books-month-block" open>
-    <summary class="books-month-header">
+  <div id="books-filter-view" style="display: none;">
+    <div class="filter-header">
       <div class="filter-info">
-        <span class="books-month-title">
-          {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
-        </span>
-        <span class="books-month-count">
-          · {{ len $monthBooks }} books
-        </span>
+        <span id="filter-type-label" class="filter-count" style="margin-left: 0; margin-right: 8px;">Filter:</span>
+        <span id="filter-display-name" class="filter-title">Author</span>
+        <span id="filter-book-count" class="filter-count">· 0 books</span>
       </div>
-    </summary>
-
-    <div class="book-grid">
-      {{ range sort $monthBooks "Date" "desc" }}
-      <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}">
-        <a href="{{ .RelPermalink }}">
-
-          <div class="book-cover-wrapper">
-            {{ with .Params.cover.image }}
-            <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
-            {{ end }}
-            {{ with .Params.rating }}
-            <span class="book-rating-badge">{{ . }}</span>
-            {{ end }}
-          </div>
-
-          <h3 class="book-title">{{ .Title }}</h3>
-
-          {{ if or .Params.origin .Params.aliases }}
-          <p class="book-origin">
-            {{ with .Params.origin }}<span class="book-flag">{{ . }}</span>{{ end }}
-            {{ with .Params.aliases }}<span class="book-alias">{{ index . 0 }}</span>{{ end }}
-          </p>
-          {{ end }}
-
-          <p class="book-meta">
-            <span class="author-name{{ if .Params.is_female }} is-female{{ end }}">{{ .Params.author }}</span> · {{
-            .Params.year }}
-          </p>
-          <p class="book-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
-
-        </a>
-      </article>
-      {{ end }}
+      <button id="reset-books-filter" class="reset-button">✖️</button>
     </div>
-  </details>
-  {{ end }}
-</details>
-{{ end }}
+    <div id="books-filtered-grid" class="book-grid">
+      <!-- Filtered books will be cloned here -->
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const originalView = document.getElementById('books-original-view');
+    const filterView = document.getElementById('books-filter-view');
+    const filteredGrid = document.getElementById('books-filtered-grid');
+    const displayName = document.getElementById('filter-display-name');
+    const bookCount = document.getElementById('filter-book-count');
+    const resetButton = document.getElementById('reset-books-filter');
+
+    const allCards = Array.from(originalView.querySelectorAll('.book-card'));
+
+    function applyFilter(type, value, displayLabel) {
+      filteredGrid.innerHTML = '';
+
+      const matches = allCards.filter(card => {
+        const cardValue = card.getAttribute(`data-${type}`);
+        return cardValue === value.toLowerCase();
+      });
+
+      const uniqueMatches = [];
+      const seenTitles = new Set();
+
+      matches.forEach(card => {
+        const title = card.querySelector('.book-title').innerText;
+        if (!seenTitles.has(title)) {
+          seenTitles.add(title);
+          uniqueMatches.push(card.cloneNode(true));
+        }
+      });
+
+      uniqueMatches.forEach(match => {
+        filteredGrid.appendChild(match);
+        // Re-attach listeners to cloned elements
+        attachListeners(match);
+      });
+
+      displayName.innerText = displayLabel;
+      bookCount.innerText = `· ${uniqueMatches.length} books`;
+
+      originalView.style.display = 'none';
+      filterView.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function attachListeners(container) {
+      container.querySelectorAll('[data-filter-type]').forEach(el => {
+        el.style.cursor = 'pointer';
+        el.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          applyFilter(el.dataset.filterType, el.dataset.filterValue, el.innerText);
+        };
+      });
+    }
+
+    // Initial attachment
+    allCards.forEach(card => attachListeners(card));
+
+    resetButton.addEventListener('click', () => {
+      filterView.style.display = 'none';
+      originalView.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
 
 {{ end }}

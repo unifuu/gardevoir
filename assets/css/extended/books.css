@@ -291,3 +291,82 @@ details[open]>.books-month-header::after {
   margin: 0 0.3rem;
   opacity: 0.6;
 }
+
+/* =========================================================
+   Filter View Header (Matched to Games Style)
+   ========================================================= */
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: var(--entry);
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border);
+}
+
+.filter-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.filter-count {
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+.reset-button {
+  background: var(--theme);
+  color: var(--primary);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reset-button:hover {
+  background: var(--border);
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   Interactive Filter Elements
+   ========================================================= */
+
+[data-filter-type] {
+  cursor: pointer !important;
+  transition: color 0.1s, opacity 0.1s;
+}
+
+.book-flag:hover {
+  opacity: 1;
+  text-decoration: underline;
+  color: var(--secondary);
+}
+
+.author-name:hover {
+  text-decoration: underline;
+  color: var(--secondary);
+}
+
+.book-card .author-name.is-female:hover {
+  color: #ffb6c1;
+  /* Maintain pinkish hue on hover */
+  opacity: 0.8;
+}
+
+/* Link area refinement */
+.book-main-link {
+  display: block;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.book-main-link:hover .book-title {
+  color: var(--secondary);
+}
