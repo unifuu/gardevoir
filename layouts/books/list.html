@@ -56,7 +56,11 @@
           data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
           data-rating="{{ .Params.rating }}">
           <div class="book-card-content">
+            {{ if eq .Lang "ja" }}
+            <div class="book-main-link">
+            {{ else }}
             <a href="{{ .RelPermalink }}" class="book-main-link">
+            {{ end }}
               <div class="book-cover-wrapper">
                 {{ with .Params.cover.image }}
                 <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
@@ -66,7 +70,11 @@
                 {{ end }}
               </div>
               <h3 class="book-title">{{ .Title }}</h3>
+            {{ if eq .Lang "ja" }}
+            </div>
+            {{ else }}
             </a>
+            {{ end }}
 
             {{ if or .Params.origin .Params.aliases }}
             <p class="book-origin">
@@ -170,17 +178,25 @@
             data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
             data-rating="{{ .Params.rating }}">
             <div class="book-card-content">
-              <a href="{{ .RelPermalink }}" class="book-main-link">
-                <div class="book-cover-wrapper">
-                  {{ with .Params.cover.image }}
-                  <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
-                  {{ end }}
-                  {{ with .Params.rating }}
-                  <span class="book-rating-badge">{{ . }}</span>
-                  {{ end }}
-                </div>
-                <h3 class="book-title">{{ .Title }}</h3>
-              </a>
+            {{ if eq .Lang "ja" }}
+            <div class="book-main-link">
+            {{ else }}
+            <a href="{{ .RelPermalink }}" class="book-main-link">
+            {{ end }}
+              <div class="book-cover-wrapper">
+                {{ with .Params.cover.image }}
+                <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+                {{ end }}
+                {{ with .Params.rating }}
+                <span class="book-rating-badge">{{ . }}</span>
+                {{ end }}
+              </div>
+              <h3 class="book-title">{{ .Title }}</h3>
+            {{ if eq .Lang "ja" }}
+            </div>
+            {{ else }}
+            </a>
+            {{ end }}
 
               {{ if or .Params.origin .Params.aliases }}
               <p class="book-origin">
