@@ -292,7 +292,7 @@
         const count = grouped[rating].length;
 
         section.innerHTML = `
-          <div class="books-year-header rating-header">
+          <div class="books-year-header rating-header ${rating == 10 ? 'is-masterpiece-header' : ''}">
             <div class="filter-info">
               <span class="books-year-title">⭐️ ${rating}</span>
               <span class="books-year-count">· ${count} books</span>

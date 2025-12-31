@@ -292,12 +292,12 @@
 }
 
 .rating-header {
-  border-left: 4px solid var(--secondary);
+  /* border-left removed */
   cursor: default !important;
 }
 
 .rating-header:hover {
-  border-color: var(--border) var(--border) var(--border) var(--secondary) !important;
+  border-color: var(--secondary) !important;
 }
 
 .rating-header::after {
