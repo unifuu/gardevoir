@@ -45,8 +45,8 @@
     <details class="books-year-block books-reading-block" open>
       <summary class="books-year-header">
         <div class="filter-info">
-          <span class="books-year-title">Reading</span>
-          <span class="books-year-count">· {{ len $reading }} books</span>
+          <span class="books-year-title">{{ i18n "reading" }}</span>
+          <span class="books-year-count">· {{ i18n "books_count" (dict "val" (len $reading)) }}</span>
         </div>
       </summary>
 
@@ -78,7 +78,11 @@
 
             <p class="book-meta">
               <span class="author-name{{ if .Params.is_female }} is-female{{ end }}" data-filter-type="author"
-                data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> · {{ .Params.year }}
+                data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span>
+            </p>
+
+            <p class="book-context">
+              <span>{{ .Params.year }}</span> · <span>{{ .Params.genre }}</span>
             </p>
           </div>
         </article>
@@ -123,7 +127,7 @@
       <summary class="books-year-header">
         <div class="filter-info">
           <span class="books-year-title">{{ $year }}</span>
-          <span class="books-year-count">· {{ len $yearBooks }} books</span>
+          <span class="books-year-count">· {{ i18n "books_count" (dict "val" (len $yearBooks)) }}</span>
         </div>
       </summary>
 
@@ -156,10 +160,10 @@
         <summary class="books-month-header">
           <div class="filter-info">
             <span class="books-month-title">
-              {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+              {{ i18n (printf "month_%s" $month) }}
             </span>
             <span class="books-month-count">
-              · {{ len $monthBooks }} books
+              · {{ i18n "books_count" (dict "val" (len $monthBooks)) }}
             </span>
           </div>
         </summary>
@@ -192,9 +196,9 @@
 
               <p class="book-meta">
                 <span class="author-name{{ if .Params.is_female }} is-female{{ end }}" data-filter-type="author"
-                  data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> · {{ .Params.year }}
+                  data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> / {{ .Params.year }}
               </p>
-              <p class="book-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
+              <p class="book-finished">{{ .Date | time.Format (i18n "date_format") }}</p>
             </div>
           </article>
           {{ end }}
@@ -237,19 +241,6 @@
     const viewToggle = document.getElementById('view-toggle-input');
 
     const allCards = Array.from(originalView.querySelectorAll('.book-card'));
-
-    const ratingLabels = {
-      10: 'Masterpiece',
-      9: 'Excellent',
-      8: 'Great',
-      7: 'Good',
-      6: 'Fine',
-      5: 'Average',
-      4: 'Below Average',
-      3: 'Poor',
-      2: 'Awful',
-      1: 'Master Disaster'
-    };
 
     function applyFilter(type, value, displayLabel) {
       filteredGrid.innerHTML = '';
@@ -301,13 +292,12 @@
         const section = document.createElement('div');
         section.className = 'books-year-block rating-group';
 
-        const label = ratingLabels[rating] || `${rating} Stars`;
         const count = grouped[rating].length;
 
         section.innerHTML = `
           <div class="books-year-header rating-header">
             <div class="filter-info">
-              <span class="books-year-title">${rating} · ${label}</span>
+              <span class="books-year-title">⭐️ ${rating}</span>
               <span class="books-year-count">· ${count} books</span>
             </div>
           </div>

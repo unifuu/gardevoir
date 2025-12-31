@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   column-gap: 1.2rem;
-  row-gap: 2.0rem;
+  row-gap: 2rem;
 }
 
 .book-card {
@@ -90,14 +90,21 @@
   margin: 0;
 }
 
+.book-context {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin: 0.1rem 0 0;
+  line-height: 1.2;
+}
+
 .author-name {
-  color: #B0C4DE;
+  color: #b0c4de;
   /* LightSteelBlue */
   opacity: 1;
 }
 
 .author-name.is-female {
-  color: #FFB6C1;
+  color: #ffb6c1;
   /* LightPink */
 }
 
@@ -200,7 +207,7 @@
   margin-left: auto;
 }
 
-details[open]>.books-year-header::after {
+details[open] > .books-year-header::after {
   content: "−";
   /* Using a proper minus sign */
   transform: none;
@@ -268,7 +275,7 @@ details[open]>.books-year-header::after {
   margin-left: auto;
 }
 
-details[open]>.books-month-header::after {
+details[open] > .books-month-header::after {
   content: "−";
   transform: none;
 }
@@ -278,12 +285,12 @@ details[open]>.books-month-header::after {
    ========================================================= */
 
 /* Space between year header and first month */
-.books-year-block>.books-month-block:first-of-type {
+.books-year-block > .books-month-block:first-of-type {
   margin-top: 0.3rem;
 }
 
 /* Space between month header and grid */
-.books-month-block>.book-grid {
+.books-month-block > .book-grid {
   margin-top: 0.6em;
 }
 
@@ -421,7 +428,7 @@ details[open]>.books-month-header::after {
   bottom: 0;
   background-color: transparent;
   border: 1px solid var(--border);
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 34px;
 }
 
@@ -433,7 +440,7 @@ details[open]>.books-month-header::after {
   left: 2px;
   bottom: 2px;
   background-color: var(--primary);
-  transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -459,24 +466,28 @@ details[open]>.books-month-header::after {
 }
 
 /* Checked State */
-.mui-switch input:checked+.mui-switch-slider {
+.mui-switch input:checked + .mui-switch-slider {
   border-color: var(--secondary);
   /* Highlight border instead of background */
 }
 
-.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb {
+.mui-switch input:checked + .mui-switch-slider .mui-switch-thumb {
   transform: translateX(22px);
   background-color: var(--secondary);
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
   /* Refined glow */
 }
 
-.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb .icon-timeline {
+.mui-switch
+  input:checked
+  + .mui-switch-slider
+  .mui-switch-thumb
+  .icon-timeline {
   opacity: 0;
   transform: scale(0.5) rotate(45deg);
 }
 
-.mui-switch input:checked+.mui-switch-slider .mui-switch-thumb .icon-rating {
+.mui-switch input:checked + .mui-switch-slider .mui-switch-thumb .icon-rating {
   opacity: 1;
   transform: scale(1) rotate(0);
 }
@@ -486,7 +497,7 @@ details[open]>.books-month-header::after {
   border-color: var(--secondary);
 }
 
-.mui-switch input:checked:hover+.mui-switch-slider {
+.mui-switch input:checked:hover + .mui-switch-slider {
   opacity: 1;
 }
 
