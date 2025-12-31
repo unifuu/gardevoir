@@ -1,0 +1,153 @@
+{{- /* Theme Color Configuration System */ -}}
+{{- $themeColor := .Site.Params.themeColor | default "beige" -}}
+{{- $customColors := .Site.Params.customThemeColors -}}
+
+{{- $presets := dict 
+    "beige" (dict 
+        "theme" "rgb(238, 234, 225)"
+        "entry" "rgb(248, 245, 238)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(205, 198, 185)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(215, 208, 195)"
+    )
+    "pink" (dict 
+        "theme" "rgb(248, 228, 235)"
+        "entry" "rgb(255, 240, 245)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(215, 188, 200)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(225, 198, 210)"
+    )
+    "lavender" (dict 
+        "theme" "rgb(235, 228, 248)"
+        "entry" "rgb(245, 238, 255)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(198, 188, 215)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(208, 198, 225)"
+    )
+-}}
+
+{{- $colors := index $presets $themeColor -}}
+{{- if $customColors -}}
+    {{- $colors = $customColors -}}
+{{- end -}}
+
+{{- /* 1. Theme Colors */ -}}
+{{- if $colors -}}
+:root:not([data-theme='dark']) {
+    --theme: {{ $colors.theme | safeCSS }};
+    --entry: {{ $colors.entry | safeCSS }};
+    --primary: {{ $colors.primary | safeCSS }};
+    --secondary: {{ $colors.secondary | safeCSS }};
+    --tertiary: {{ $colors.tertiary | safeCSS }};
+    --content: {{ $colors.content | safeCSS }};
+    --border: {{ $colors.border | safeCSS }};
+}
+
+html:not([data-theme='dark']), body:not([data-theme='dark']) {
+    background: var(--theme);
+}
+{{- end -}}
+
+{{- /* 2. Button Styles */ -}}
+{{- $btnStyle := .Site.Params.buttonStyle | default "outlined" -}}
+{{- $btnColor := .Site.Params.buttonColor | default "var(--secondary)" -}}
+
+.button {
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
+{{- if eq $btnStyle "contained" -}}
+.button {
+    background-color: {{ $btnColor | safeCSS }} !important;
+    color: #fff !important;
+    border: 1px solid transparent;
+}
+.button:hover {
+    opacity: 0.9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+{{- else if eq $btnStyle "text" -}}
+.button {
+    background-color: transparent !important;
+    color: {{ $btnColor | safeCSS }};
+    border: 1px solid transparent;
+}
+.button:hover {
+    background-color: rgba(50, 50, 50, 0.05) !important;
+    text-decoration: none !important;
+}
+{{- else -}}
+{{- /* Outlined (Default) */ -}}
+.button {
+    background-color: transparent !important;
+    border: 1px solid {{ $btnColor | safeCSS }};
+    color: {{ $btnColor | safeCSS }};
+}
+.button:hover {
+    background-color: var(--tertiary) !important;
+    opacity: 1;
+}
+{{- end -}}
+
+{{- /* 3. Aesthetic Enhancements */ -}}
+main {
+    animation: fade-in 0.6s ease-out;
+}
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.entry-link, .book-card, .game-card {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.entry-link:hover .entry-header,
+.book-card:hover .book-cover-wrapper,
+.game-card:hover .game-cover-wrapper {
+    transform: translateY(-5px);
+}
+
+.nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(var(--border), 0.3);
+}
+
+:root:not([data-theme='dark']) .nav {
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border-radius: 4px;
+    opacity: 0.7;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) transparent;
+}
