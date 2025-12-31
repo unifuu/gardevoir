@@ -9,5 +9,5 @@ rating: 9
 finished: true
 date: 2025-09-03
 cover:
-  image: https://m.media-amazon.com/images/I/61sMekhZHaL._SL1069_.jpg
+  image: https://m.media-amazon.com/images/I/51223W7EZCL.jpg
 ---
