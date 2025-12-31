@@ -58,20 +58,70 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
-/* Masterpiece Highlight */
+/* Masterpiece Highlight - Diamond/UR Rarity Style */
+/* Masterpiece Highlight - Diamond/UR Rarity Style */
+/* Masterpiece Highlight - Diamond/UR Rarity Style */
 .game-card.is-masterpiece .game-cover-wrapper {
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    0 0 20px rgba(200, 220, 255, 0.3),
+    0 0 30px rgba(220, 200, 255, 0.2);
+  /* Use padding to create the border effect */
+  padding: 3px;
+  background: linear-gradient(135deg, 
+    #b4c8ff 0%,    /* Pale blue */
+    #dcc8ff 20%,   /* Pale purple */
+    #ffffff 40%,   /* White */
+    #c8dcff 60%,   /* Light blue */
+    #e6d9ff 80%,   /* Light lavender */
+    #b4c8ff 100%   /* Pale blue */
+  );
+  background-size: 200% 200%;
+  animation: diamond-shimmer 3s ease-in-out infinite;
   border-radius: 6px;
   overflow: hidden;
+  position: relative;
+}
+
+/* Ensure image fits inside the border */
+.game-card.is-masterpiece .game-cover-wrapper img {
+  border-radius: 4px; /* 6px - 2px padding visual adjustment */
+  display: block; /* Removes potential bottom gap */
+}
+
+/* Remove the previous pseudo-element approach */
+.game-card.is-masterpiece .game-cover-wrapper::after {
+  content: none;
 }
 
 .game-card.is-masterpiece .game-rating-badge {
-  background: linear-gradient(135deg, #ffd700, #ffa500);
+  background: linear-gradient(135deg, 
+    #b4c8ff 0%,    /* Pale blue */
+    #dcc8ff 20%,   /* Pale purple */
+    #ffffff 40%,   /* White */
+    #c8dcff 60%,   /* Light blue */
+    #e6d9ff 80%,   /* Light lavender */
+    #b4c8ff 100%   /* Pale blue */
+  );
+  background-size: 200% 200%;
+  animation: diamond-shimmer 3s ease-in-out infinite;
   color: #000;
-  border-color: #ffd700;
+  border: 1px solid rgba(255, 255, 255, 0.9);
   font-weight: 800;
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+  box-shadow: 
+    0 0 8px rgba(180, 200, 255, 0.5),
+    0 0 15px rgba(220, 200, 255, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+  z-index: 3;
+}
+
+@keyframes diamond-shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* =========================================================
