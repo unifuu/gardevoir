@@ -1,5 +1,5 @@
 ---
-title:
+title: 月と六ペンス
 aliases:
   - The Moon and Sixpence
 author: サマセット･モーム
