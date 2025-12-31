@@ -9,5 +9,5 @@ rating: 7
 finished: true
 date: 2025-08-29
 cover:
-  image: https://m.media-amazon.com/images/I/A150zFaILlL._SL1500_.jpg
+  image: https://m.media-amazon.com/images/I/51jUwSaE14L._SL1500_.jpg
 ---

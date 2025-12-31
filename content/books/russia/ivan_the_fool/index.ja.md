@@ -9,5 +9,5 @@ rating: 7
 finished: true
 date: 2025-11-22
 cover:
-  image: https://m.media-amazon.com/images/I/81IH9w4whCL._SL1478_.jpg
+  image: https://m.media-amazon.com/images/I/51Pz9EWEdSL.jpg
 ---

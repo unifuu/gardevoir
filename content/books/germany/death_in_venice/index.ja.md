@@ -9,5 +9,5 @@ rating:
 finished:
 date:
 cover:
-  image: https://m.media-amazon.com/images/I/41WnaeBTxgL.jpg
+  image: https://m.media-amazon.com/images/I/61tfmu10L1L._SL1500_.jpg
 ---
