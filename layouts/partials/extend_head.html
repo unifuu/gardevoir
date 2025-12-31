@@ -1,3 +1,67 @@
+{{- /* Theme Color Configuration System */ -}}
+{{- $themeColor := .Site.Params.themeColor | default "beige" -}}
+{{- $customColors := .Site.Params.customThemeColors -}}
+
+{{- $presets := dict 
+    "beige" (dict 
+        "theme" "rgb(238, 234, 225)"
+        "entry" "rgb(248, 245, 238)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(205, 198, 185)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(215, 208, 195)"
+    )
+    "pink" (dict 
+        "theme" "rgb(248, 228, 235)"
+        "entry" "rgb(255, 240, 245)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(215, 188, 200)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(225, 198, 210)"
+    )
+    "lavender" (dict 
+        "theme" "rgb(235, 228, 248)"
+        "entry" "rgb(245, 238, 255)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(198, 188, 215)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(208, 198, 225)"
+    )
+-}}
+
+{{- $colors := index $presets $themeColor -}}
+{{- if $customColors -}}
+    {{- $colors = $customColors -}}
+{{- end -}}
+
+{{- if $colors -}}
+<style>
+    /* Configurable Theme Colors - LIGHT MODE ONLY */
+    /* Using :not selector to ensure dark mode is never affected */
+    :root:not([data-theme="dark"]) {
+        --theme: {{ $colors.theme | safeCSS }};
+        --entry: {{ $colors.entry | safeCSS }};
+        --primary: {{ $colors.primary | safeCSS }};
+        --secondary: {{ $colors.secondary | safeCSS }};
+        --tertiary: {{ $colors.tertiary | safeCSS }};
+        --content: {{ $colors.content | safeCSS }};
+        --border: {{ $colors.border | safeCSS }};
+    }
+
+    /* Ensure body/html use the theme variable in light mode only */
+    html:not([data-theme="dark"]) {
+        background: var(--theme);
+    }
+
+    body:not([data-theme="dark"]) {
+        background: var(--theme);
+    }
+</style>
+{{- end -}}
+
 <style>
     /* Language switcher active state styling */
     .lang-switch a.active {

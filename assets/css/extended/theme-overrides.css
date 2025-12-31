@@ -1,0 +1,45 @@
+/* 
+ * This file is no longer used for theme colors.
+ * Theme colors are now configured via hugo.yaml params.themeColor
+ * and dynamically generated in layouts/partials/extend_head.html
+ * 
+ * Available presets: "beige" (default), "pink", "lavender"
+ * 
+ * To change theme color, edit hugo.yaml:
+ *   params:
+ *     themeColor: pink  # or "beige", "lavender"
+ */
+
+/*
+/* Soften Light Mode Contrast - Override PaperMod defaults */
+/*
+:root {
+    --theme: rgb(250, 248, 245) !important;
+    --entry: rgb(255, 253, 250) !important;
+    --primary: rgb(50, 50, 50) !important;
+    --secondary: rgb(100, 100, 100) !important;
+    --tertiary: rgb(220, 215, 210) !important;
+    --content: rgb(60, 60, 60) !important;
+    --border: rgb(230, 225, 220) !important;
+}
+
+html {
+    background: var(--theme) !important;
+}
+
+body {
+    background: var(--theme) !important;
+}
+
+:root[data-theme="dark"] {
+    --theme: rgb(29, 30, 32);
+    --entry: rgb(46, 46, 51);
+    --primary: rgb(218, 218, 219);
+    --secondary: rgb(155, 156, 157);
+    --tertiary: rgb(65, 66, 68);
+    --content: rgb(196, 196, 197);
+    --code-block-bg: rgb(46, 46, 51);
+    --code-bg: rgb(55, 56, 62);
+    --border: rgb(51, 51, 51);
+}
+*/

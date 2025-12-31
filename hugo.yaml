@@ -19,6 +19,7 @@ params:
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto
+  themeColor: beige # Light mode theme color: beige / pink / lavender
   disableThemeToggle: false
   ShowShareButtons: false
   ShowReadingTime: false

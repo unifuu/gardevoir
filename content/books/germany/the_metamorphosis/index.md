@@ -1,10 +1,10 @@
 ---
-title: 変身
+title: The Metamorphosis
 aliases:
   - Die Verwandlung
-author: フランツ･カフカ
+author: Franz Kafka
 year: 1915
-origin: 🇦🇹
+origin: 🇩🇪
 rating: 8
 finished: true
 date: 2025-10-07
