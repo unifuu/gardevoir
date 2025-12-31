@@ -127,7 +127,7 @@ languages:
           url: /games/
           weight: 20
         - identifier: books
-          name: 書籍
+          name: 読書
           url: /books/
           weight: 30
         - identifier: tags

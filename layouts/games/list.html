@@ -45,8 +45,8 @@
     <details class="games-year-block games-playing-block" open>
       <summary class="games-year-header">
         <div class="filter-info">
-          <span class="games-year-title">Playing</span>
-          <span class="games-year-count">· {{ len $playing }} games</span>
+          <span class="games-year-title">{{ i18n "playing" }}</span>
+          <span class="games-year-count">· {{ i18n "games_count" (dict "val" (len $playing)) }}</span>
         </div>
       </summary>
 
@@ -132,7 +132,7 @@
       <summary class="games-year-header">
         <div class="filter-info">
           <span class="games-year-title">{{ $year }}</span>
-          <span class="games-year-count">· {{ len $yearGames }} games</span>
+          <span class="games-year-count">· {{ i18n "games_count" (dict "val" (len $yearGames)) }}</span>
         </div>
       </summary>
 
@@ -165,10 +165,10 @@
         <summary class="games-month-header">
           <div class="filter-info">
             <span class="games-month-title">
-              {{ (time (printf "%s-%s-01" $year $month)).Format "January" }}
+              {{ i18n (printf "month_%s" $month) }}
             </span>
             <span class="games-month-count">
-              · {{ len $monthGames }} games
+              · {{ i18n "games_count" (dict "val" (len $monthGames)) }}
             </span>
           </div>
         </summary>
@@ -205,7 +205,7 @@
                   data-filter-value="{{ .Params.developer | lower }}">{{ .Params.developer }}</span> · {{ .Params.year
                 }}
               </p>
-              <p class="game-finished">{{ .Date | time.Format "Jan 2, 2006" }}</p>
+              <p class="game-finished">{{ .Date | time.Format (i18n "date_format") }}</p>
               {{ with .Params.platform }}
               <div class="game-platforms">
                 {{ range . }}
@@ -253,6 +253,12 @@
     const viewToggle = document.getElementById('view-toggle-input');
 
     const allCards = Array.from(originalView.querySelectorAll('.game-card'));
+    
+    // Inject localized count template (replacing placeholder in JS)
+    const countTemplate = '{{ i18n "games_count" (dict "val" "###") }}';
+    function formatGameCount(count) {
+      return countTemplate.replace('###', count);
+    }
 
     function applyFilter(type, value, displayLabel) {
       filteredGrid.innerHTML = '';
@@ -285,7 +291,7 @@
       });
 
       displayNameNode.innerText = (type === 'platform') ? displayLabel.toUpperCase() : displayLabel;
-      gameCountNode.innerText = `· ${uniqueMatches.length} games`;
+      gameCountNode.innerText = `· ${formatGameCount(uniqueMatches.length)}`;
 
       originalView.style.display = 'none';
       ratingView.style.display = 'none';
@@ -295,19 +301,6 @@
 
     function generateRatingView() {
       ratingView.innerHTML = '';
-      const ratingLabels = {
-        10: "Masterpiece",
-        9: "Excellent",
-        8: "Very Good",
-        7: "Good",
-        6: "Fine",
-        5: "Average",
-        4: "Boring",
-        3: "Bad",
-        2: "Painful",
-        1: "Trash",
-        0: "Unrated"
-      };
 
       const groups = {};
       allCards.forEach(card => {
@@ -337,8 +330,8 @@
         section.innerHTML = `
           <div class="games-year-header rating-header">
             <div class="filter-info">
-              <span class="games-year-title">${r} · ${ratingLabels[r] || 'Unrated'}</span>
-              <span class="games-year-count">· ${uniqueCards.length} games</span>
+              <span class="games-year-title">⭐️ ${r}</span>
+              <span class="games-year-count">· ${formatGameCount(uniqueCards.length)}</span>
             </div>
           </div>
           <div class="game-grid"></div>
