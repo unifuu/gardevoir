@@ -125,11 +125,13 @@ main {
 .nav {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(var(--border), 0.3);
+    /* Use color-mix for border transparency to support rgb() variables */
+    border-bottom: 1px solid color-mix(in srgb, var(--border), transparent 70%);
 }
 
 :root:not([data-theme='dark']) .nav {
-    background: rgba(255, 255, 255, 0.7) !important;
+    /* Use color-mix to create a semi-transparent version of the theme color */
+    background: color-mix(in srgb, var(--theme), transparent 15%) !important;
 }
 
 ::-webkit-scrollbar {

@@ -17,6 +17,14 @@
    Book Cover
    ========================================================= */
 
+.book-main-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: none;
+  border: none;
+}
+
 .book-cover-wrapper {
   position: relative;
 }
@@ -26,6 +34,9 @@
   aspect-ratio: auto;
   object-fit: contain;
   border-radius: 6px;
+  display: block;
+  border: none;
+  box-shadow: none;
 }
 
 /* =========================================================
@@ -426,11 +437,7 @@ details[open] > .books-month-header::after {
 }
 
 /* Link area refinement */
-.book-main-link {
-  display: block;
-  text-decoration: none !important;
-  color: inherit !important;
-}
+
 
 .book-main-link:hover .book-title {
   color: var(--secondary);
