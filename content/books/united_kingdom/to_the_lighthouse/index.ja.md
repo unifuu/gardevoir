@@ -6,7 +6,6 @@ author: ヴァージニア･ウルフ
 is_female: true
 year: 1927
 origin: 🇬🇧
-genre: 現代文学
 rating: 10
 finished:
 date: 2025-12-31

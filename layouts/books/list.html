@@ -78,11 +78,7 @@
 
             <p class="book-meta">
               <span class="author-name{{ if .Params.is_female }} is-female{{ end }}" data-filter-type="author"
-                data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span>
-            </p>
-
-            <p class="book-context">
-              <span>{{ .Params.year }}</span> · <span>{{ .Params.genre }}</span>
+                data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> · {{ .Params.year }}
             </p>
           </div>
         </article>
@@ -196,8 +192,9 @@
 
               <p class="book-meta">
                 <span class="author-name{{ if .Params.is_female }} is-female{{ end }}" data-filter-type="author"
-                  data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> / {{ .Params.year }}
+                  data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> · {{ .Params.year }}
               </p>
+
               <p class="book-finished">{{ .Date | time.Format (i18n "date_format") }}</p>
             </div>
           </article>

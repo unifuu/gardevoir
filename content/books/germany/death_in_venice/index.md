@@ -5,7 +5,6 @@ aliases:
 author: Thomas Mann
 year: 1912
 origin: 🇩🇪
-genre: Novella
 rating:
 finished:
 date:

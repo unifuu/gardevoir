@@ -6,7 +6,6 @@ author: Virginia Woolf
 is_female: true
 year: 1927
 origin: 🇬🇧
-genre: Modernism
 rating: 10
 finished:
 date: 2025-12-31

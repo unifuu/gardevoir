@@ -2,10 +2,9 @@
 title: ヴェニスに死す
 aliases:
   - Der Tod in Venedig
-author: Thomas Mann
+author: トーマス･マン
 year: 1912
 origin: 🇩🇪
-genre: 中編小説
 rating:
 finished:
 date:
