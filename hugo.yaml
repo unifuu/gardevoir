@@ -80,7 +80,7 @@ languages:
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "[💻 Devs](https://github.com/unifuu) | [🎮 Games](/games/) | [📚 Books](/books/)"
+        subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/) | [📚 Reading](/books/)"
         buttons:
           - name: 📑 Posts
             url: posts
