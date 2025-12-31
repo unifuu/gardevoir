@@ -20,6 +20,10 @@ params:
   DateFormat: "January 2, 2006"
   defaultTheme: auto
   themeColor: beige # Light mode theme color: beige / pink / lavender
+  # Configurable Button Style
+  id: 250
+  buttonStyle: outlined # Options: "text", "contained", "outlined"
+  buttonColor: "#967BB6"
   disableThemeToggle: false
   ShowShareButtons: false
   ShowReadingTime: false

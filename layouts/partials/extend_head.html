@@ -59,6 +59,52 @@
     body:not([data-theme="dark"]) {
         background: var(--theme);
     }
+
+    /* Button Configuration System */
+    {{- $btnStyle := .Site.Params.buttonStyle | default "outlined" -}}
+    {{- $btnColor := .Site.Params.buttonColor | default "var(--secondary)" -}}
+    {{- /* If custom color provided, use it directly. Otherwise use theme variable */ -}}
+    
+    .button {
+        border-radius: 4px !important;
+        box-shadow: none !important;
+        transition: all 0.2s ease-in-out;
+        font-weight: 500;
+        
+        /* Base styles per mode */
+        {{- if eq $btnStyle "contained" }}
+            background-color: {{ $btnColor | safeCSS }} !important;
+            color: #fff !important; /* Assuming light text for colored buttons */
+            border: 1px solid transparent;
+        {{- else if eq $btnStyle "text" }}
+            background-color: transparent !important;
+            color: {{ $btnColor | safeCSS }};
+            border: 1px solid transparent;
+        {{- else }} /* outlined (default) */
+            background-color: transparent !important;
+            border: 1px solid {{ $btnColor | safeCSS }};
+            color: {{ $btnColor | safeCSS }};
+        {{- end }}
+    }
+
+    .button:hover {
+        transform: translateY(-1px);
+        cursor: pointer;
+
+        {{- if eq $btnStyle "contained" }}
+            opacity: 0.9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+        {{- else if eq $btnStyle "text" }}
+            /* Subtle tint for text buttons */
+            background-color: rgba(50, 50, 50, 0.05) !important; 
+            text-decoration: none !important;
+        {{- else }} /* outlined */
+            /* Tint for outlined buttons */
+             background-color: rgba(var(--primary), 0.05) !important; /* Fallback if var not supported in rgba, but standard CSS needs numbers. Since we can't easily get RGB of arbitrary hex, we use a generic light grey tint or tertiary */
+             background-color: var(--tertiary) !important; 
+             opacity: 1;
+        {{- end }}
+    }
 </style>
 {{- end -}}
 
