@@ -21,9 +21,7 @@
 
 /* Add glow effect to cover wrapper on hover (excluding masterpiece which has its own) */
 .book-card:not(.is-masterpiece):hover .book-cover-wrapper {
-  box-shadow: 
-    0 0 8px rgba(255, 255, 255, 0.6),
-    0 0 16px rgba(255, 255, 255, 0.4);
+  box-shadow: var(--hover-glow, 0 0 8px rgba(255, 255, 255, 0.6), 0 0 16px rgba(255, 255, 255, 0.4));
   transition: box-shadow 0.3s ease;
   border-radius: 6px; /* Ensure glow follows radius */
 }

@@ -52,7 +52,94 @@
 
       <div class="book-grid">
         {{ range sort $reading "Title" }}
+        {{- $glow := "" -}}
+        {{- $colors := slice -}}
+        {{- $flag := .Params.origin -}}
+        {{- if eq $flag "🇩🇪" -}}
+          {{- $colors = slice "#000000" "#DD0000" "#FFCE00" -}}
+        {{- else if eq $flag "🇬🇧" -}}
+          {{- $colors = slice "#012169" "#FFFFFF" "#C8102E" -}}
+        {{- else if eq $flag "🇫🇷" -}}
+          {{- $colors = slice "#0055A4" "#FFFFFF" "#EF4135" -}}
+        {{- else if eq $flag "🇮🇹" -}}
+          {{- $colors = slice "#009246" "#FFFFFF" "#CE2B37" -}}
+        {{- else if eq $flag "🇷🇺" -}}
+          {{- $colors = slice "#FFFFFF" "#0039A6" "#D52B1E" -}}
+        {{- else if eq $flag "🇰🇷" -}}
+          {{- $colors = slice "#FFFFFF" "#C60C30" "#003478" -}}
+        {{- else if eq $flag "🇨🇴" -}}
+          {{- $colors = slice "#FCD116" "#003893" "#CE1126" -}}
+        {{- else if eq $flag "🇨🇿" -}}
+          {{- $colors = slice "#FFFFFF" "#D7141A" "#11457E" -}}
+        {{- else if eq $flag "🇯🇵" -}}
+          {{- $colors = slice "#FFFFFF" "#BC002D" -}}
+        {{- else if eq $flag "🇨🇳" -}}
+          {{- $colors = slice "#DE2910" "#FFDE00" -}}
+        {{- else if eq $flag "🇺🇸" -}}
+          {{- $colors = slice "#B22234" "#FFFFFF" "#3C3B6E" -}}
+        {{- else if eq $flag "🇸🇪" -}}
+          {{- $colors = slice "#006AA7" "#FECC00" -}}
+        {{- end -}}
+        {{- if eq (len $colors) 2 -}}
+          {{- $c1 := index $colors 0 -}}
+          {{- $c2 := index $colors 1 -}}
+          {{- $shadows := slice -}}
+          {{- if eq $c1 "#000000" -}}
+            {{- $shadows = $shadows | append "-6px 0 12px -3px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "-6px 0 8px -3px #000000" -}}
+          {{- else if eq $c1 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "-6px 0 12px -3px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "-6px 0 8px -3px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "-6px 0 12px -3px %s" $c1) -}}
+          {{- end -}}
+          {{- if eq $c2 "#000000" -}}
+            {{- $shadows = $shadows | append "6px 0 12px -3px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "6px 0 8px -3px #000000" -}}
+          {{- else if eq $c2 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "6px 0 12px -3px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "6px 0 8px -3px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "6px 0 12px -3px %s" $c2) -}}
+          {{- end -}}
+          {{- $glow = delimit $shadows ", " -}}
+        {{- else if ge (len $colors) 3 -}}
+          {{- $c1 := index $colors 0 -}}
+          {{- $c2 := index $colors 1 -}}
+          {{- $c3 := index $colors 2 -}}
+          {{- $shadows := slice -}}
+          {{- if eq $c1 "#000000" -}}
+            {{- $shadows = $shadows | append "-8px 0 12px -3px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "-8px 0 8px -3px #000000" -}}
+          {{- else if eq $c1 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "-8px 0 12px -3px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "-8px 0 8px -3px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "-8px 0 12px -3px %s" $c1) -}}
+          {{- end -}}
+          {{- if eq $c2 "#000000" -}}
+            {{- $shadows = $shadows | append "0 0 12px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "0 0 8px #000000" -}}
+          {{- else if eq $c2 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "0 0 12px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "0 0 8px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "0 0 12px %s" $c2) -}}
+          {{- end -}}
+          {{- if eq $c3 "#000000" -}}
+            {{- $shadows = $shadows | append "8px 0 12px -3px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "8px 0 8px -3px #000000" -}}
+          {{- else if eq $c3 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "8px 0 12px -3px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "8px 0 8px -3px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "8px 0 12px -3px %s" $c3) -}}
+          {{- end -}}
+          {{- $glow = delimit $shadows ", " -}}
+        {{- end -}}
+
         <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
+          style="--hover-glow: {{ $glow | safeCSS }};"
           data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
           data-rating="{{ .Params.rating }}">
           <div class="book-card-content">
@@ -174,7 +261,94 @@
 
         <div class="book-grid">
           {{ range sort $monthBooks "Date" "desc" }}
+          {{- $glow := "" -}}
+          {{- $colors := slice -}}
+          {{- $flag := .Params.origin -}}
+          {{- if eq $flag "🇩🇪" -}}
+            {{- $colors = slice "#000000" "#DD0000" "#FFCE00" -}}
+          {{- else if eq $flag "🇬🇧" -}}
+            {{- $colors = slice "#012169" "#FFFFFF" "#C8102E" -}}
+          {{- else if eq $flag "🇫🇷" -}}
+            {{- $colors = slice "#0055A4" "#FFFFFF" "#EF4135" -}}
+          {{- else if eq $flag "🇮🇹" -}}
+            {{- $colors = slice "#009246" "#FFFFFF" "#CE2B37" -}}
+          {{- else if eq $flag "🇷🇺" -}}
+            {{- $colors = slice "#FFFFFF" "#0039A6" "#D52B1E" -}}
+          {{- else if eq $flag "🇰🇷" -}}
+            {{- $colors = slice "#FFFFFF" "#C60C30" "#003478" -}}
+          {{- else if eq $flag "🇨🇴" -}}
+            {{- $colors = slice "#FCD116" "#003893" "#CE1126" -}}
+          {{- else if eq $flag "🇨🇿" -}}
+            {{- $colors = slice "#FFFFFF" "#D7141A" "#11457E" -}}
+          {{- else if eq $flag "🇯🇵" -}}
+            {{- $colors = slice "#FFFFFF" "#BC002D" -}}
+          {{- else if eq $flag "🇨🇳" -}}
+            {{- $colors = slice "#DE2910" "#FFDE00" -}}
+          {{- else if eq $flag "🇺🇸" -}}
+            {{- $colors = slice "#B22234" "#FFFFFF" "#3C3B6E" -}}
+          {{- else if eq $flag "🇸🇪" -}}
+            {{- $colors = slice "#006AA7" "#FECC00" -}}
+          {{- end -}}
+          {{- if eq (len $colors) 2 -}}
+            {{- $c1 := index $colors 0 -}}
+            {{- $c2 := index $colors 1 -}}
+            {{- $shadows := slice -}}
+            {{- if eq $c1 "#000000" -}}
+              {{- $shadows = $shadows | append "-6px 0 12px -3px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "-6px 0 8px -3px #000000" -}}
+            {{- else if eq $c1 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "-6px 0 12px -3px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "-6px 0 8px -3px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "-6px 0 12px -3px %s" $c1) -}}
+            {{- end -}}
+            {{- if eq $c2 "#000000" -}}
+              {{- $shadows = $shadows | append "6px 0 12px -3px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "6px 0 8px -3px #000000" -}}
+            {{- else if eq $c2 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "6px 0 12px -3px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "6px 0 8px -3px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "6px 0 12px -3px %s" $c2) -}}
+            {{- end -}}
+            {{- $glow = delimit $shadows ", " -}}
+          {{- else if ge (len $colors) 3 -}}
+            {{- $c1 := index $colors 0 -}}
+            {{- $c2 := index $colors 1 -}}
+            {{- $c3 := index $colors 2 -}}
+            {{- $shadows := slice -}}
+            {{- if eq $c1 "#000000" -}}
+              {{- $shadows = $shadows | append "-8px 0 12px -3px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "-8px 0 8px -3px #000000" -}}
+            {{- else if eq $c1 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "-8px 0 12px -3px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "-8px 0 8px -3px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "-8px 0 12px -3px %s" $c1) -}}
+            {{- end -}}
+            {{- if eq $c2 "#000000" -}}
+              {{- $shadows = $shadows | append "0 0 12px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "0 0 8px #000000" -}}
+            {{- else if eq $c2 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "0 0 12px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "0 0 8px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "0 0 12px %s" $c2) -}}
+            {{- end -}}
+            {{- if eq $c3 "#000000" -}}
+              {{- $shadows = $shadows | append "8px 0 12px -3px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "8px 0 8px -3px #000000" -}}
+            {{- else if eq $c3 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "8px 0 12px -3px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "8px 0 8px -3px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "8px 0 12px -3px %s" $c3) -}}
+            {{- end -}}
+            {{- $glow = delimit $shadows ", " -}}
+          {{- end -}}
+
           <article class="book-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
+            style="--hover-glow: {{ $glow | safeCSS }};"
             data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
             data-rating="{{ .Params.rating }}">
             <div class="book-card-content">
