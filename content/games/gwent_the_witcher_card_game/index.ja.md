@@ -5,7 +5,7 @@ aliases:
 origin: 🇵🇱
 developer: CD Projekt RED
 year: 2018
-finished: true
+finished:
 date: 2026-01-01
 rating: 10
 platform:

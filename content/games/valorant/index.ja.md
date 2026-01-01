@@ -1,15 +1,15 @@
 ---
 title: VALORANT
-aliases: 
+aliases:
   - VALORANT
 origin: 🇺🇸
 developer: Riot Games
 year: 2020
-finished: 
-date: 
-rating: 8
-platform: 
+finished: true
+date: 2026-01-01
+rating: 7
+platform:
   - PC
-cover: 
+cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/coau39.webp
 ---
