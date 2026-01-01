@@ -16,10 +16,10 @@ SELECT coins FROM players WHERE id = 39 FOR UPDATE;
 UPDATE players SET coins = coins + 10 WHERE id = 39;
 COMMIT;
 ```
-- 使用するケース:
+- 使用するケース
     - 競合が発生する可能性が高い場合
     - 強い一貫性が要求される場合
-- デメリット:
+- デメリット
     - デッドロックが発生する可能性がある
 ## 楽観ロック
 - 競合はおそらく発生しないと考え、発生した場合はリトライする。
