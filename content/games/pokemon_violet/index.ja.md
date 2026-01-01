@@ -6,7 +6,7 @@ origin: 🇯🇵
 developer: Game Freak
 year: 2022
 finished: true
-date: 2026-01-01
+date: 2026-01-02
 rating: 8
 platform:
   - NS2
