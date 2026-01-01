@@ -1,15 +1,15 @@
 ---
-title: "Pokémon Scarlet"
-aliases: 
+title: Pokémon Scarlet
+aliases:
   - ポケットモンスター スカーレット
 origin: 🇯🇵
 developer: Game Freak
 year: 2022
-finished: 
-date: 
+finished: true
+date: 2026-01-01
 rating: 8
-platform: 
+platform:
   - NS2
-cover: 
+cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/co5sfi.webp
 ---

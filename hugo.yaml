@@ -19,11 +19,10 @@ params:
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto
-  themeColor: beige # Light mode theme color: beige / pink / lavender
-  # Configurable Button Style
+  themeColor: beige # Options: beige / pink / lavender
   id: 250
-  buttonStyle: outlined # Options: "text", "contained", "outlined"
-  buttonColor: "#967BB6"
+  buttonStyle: outlined # Options: text / contained / outlined
+  buttonColor:
   disableThemeToggle: false
   ShowShareButtons: false
   ShowReadingTime: false

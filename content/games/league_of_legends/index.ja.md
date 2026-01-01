@@ -1,15 +1,15 @@
 ---
 title: リーグ・オブ・レジェンド
-aliases: 
+aliases:
   - League of Legends
 origin: 🇺🇸
 developer: Riot Games
 year: 2009
-finished: 
-date: 
+finished: true
+date: 2025-12-31
 rating: 8
-platform: 
+platform:
   - PC
-cover: 
+cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/coabh7.webp
 ---
