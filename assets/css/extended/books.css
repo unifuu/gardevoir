@@ -85,10 +85,11 @@
 /* Masterpiece Highlight - Diamond/UR Rarity Style */
 /* Masterpiece Highlight - Diamond/UR Rarity Style */
 .book-card.is-masterpiece .book-cover-wrapper {
-  box-shadow: 0 0 20px rgba(200, 220, 255, 0.3),
-    0 0 30px rgba(220, 200, 255, 0.2);
+  box-shadow: 
+    0 0 15px rgba(200, 220, 255, 0.3),
+    0 0 25px rgba(220, 200, 255, 0.2);
   /* Use padding to create the border effect */
-  padding: 3px;
+  padding: 5px;
   background: linear-gradient(
     135deg,
     #b4c8ff 0%,
