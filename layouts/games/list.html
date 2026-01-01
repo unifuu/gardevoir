@@ -52,31 +52,93 @@
 
       <div class="game-grid">
         {{ range sort $playing "Title" }}
-        {{ $glow := "" }}
-        {{ $colors := slice }}
-        {{ range .Params.platform }}
-          {{ $p := . | lower }}
-          {{ if or (eq $p "nintendo switch") (eq $p "nintendo switch 2") (eq $p "ns") (eq $p "ns2") }}
-            {{ $colors = $colors | append "#e60012" }}
-          {{ else if or (eq $p "playstation 5") (eq $p "playstation 4") (eq $p "ps5") (eq $p "ps4") }}
-            {{ $colors = $colors | append "#00439c" }}
-          {{ else if or (eq $p "xbox series x|s") (eq $p "xbox one") (eq $p "xbox") }}
-            {{ $colors = $colors | append "#107c10" }}
-          {{ else if or (eq $p "pc") (eq $p "steam") (eq $p "epic games") }}
-            {{ $colors = $colors | append "#fab279" }}
-          {{ else if or (eq $p "mobile") (eq $p "android") (eq $p "ios") }}
-            {{ $colors = $colors | append "#c73ddc" }}
-          {{ end }}
-        {{ end }}
-        {{ $colors = uniq $colors }}
-        {{ if eq (len $colors) 1 }}
-          {{ $c := index $colors 0 }}
-          {{ $glow = printf "0 0 8px %s, 0 0 16px %s" $c $c }}
-        {{ else if ge (len $colors) 2 }}
-          {{ $c1 := index $colors 0 }}
-          {{ $c2 := index $colors 1 }}
-          {{ $glow = printf "-6px 0 12px -3px %s, 6px 0 12px -3px %s" $c1 $c2 }}
-        {{ end }}
+        {{- $glow := "" -}}
+        {{- $colors := slice -}}
+        {{- $flag := .Params.origin -}}
+        {{- if eq $flag "🇩🇪" -}}
+          {{- $colors = slice "#000000" "#DD0000" "#FFCE00" -}}
+        {{- else if eq $flag "🇬🇧" -}}
+          {{- $colors = slice "#012169" "#FFFFFF" "#C8102E" -}}
+        {{- else if eq $flag "🇫🇷" -}}
+          {{- $colors = slice "#0055A4" "#FFFFFF" "#EF4135" -}}
+        {{- else if eq $flag "🇮🇹" -}}
+          {{- $colors = slice "#009246" "#FFFFFF" "#CE2B37" -}}
+        {{- else if eq $flag "🇷🇺" -}}
+          {{- $colors = slice "#FFFFFF" "#0039A6" "#D52B1E" -}}
+        {{- else if eq $flag "🇰🇷" -}}
+          {{- $colors = slice "#FFFFFF" "#C60C30" "#003478" -}}
+        {{- else if eq $flag "🇨🇴" -}}
+          {{- $colors = slice "#FCD116" "#003893" "#CE1126" -}}
+        {{- else if eq $flag "🇨🇿" -}}
+          {{- $colors = slice "#FFFFFF" "#D7141A" "#11457E" -}}
+        {{- else if eq $flag "🇯🇵" -}}
+          {{- $colors = slice "#FFFFFF" "#BC002D" -}}
+        {{- else if eq $flag "🇵🇱" -}}
+          {{- $colors = slice "#FFFFFF" "#DC143C" -}}
+        {{- else if eq $flag "🇨🇳" -}}
+          {{- $colors = slice "#DE2910" "#FFDE00" -}}
+        {{- else if eq $flag "🇺🇸" -}}
+          {{- $colors = slice "#B22234" "#FFFFFF" "#3C3B6E" -}}
+        {{- else if eq $flag "🇸🇪" -}}
+          {{- $colors = slice "#006AA7" "#FECC00" -}}
+        {{- end -}}
+        {{- if eq (len $colors) 2 -}}
+          {{- $c1 := index $colors 0 -}}
+          {{- $c2 := index $colors 1 -}}
+          {{- $shadows := slice -}}
+          {{- if eq $c1 "#000000" -}}
+            {{- $shadows = $shadows | append "-6px 0 12px -3px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "-6px 0 8px -3px #000000" -}}
+          {{- else if eq $c1 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "-6px 0 12px -3px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "-6px 0 8px -3px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "-6px 0 12px -3px %s" $c1) -}}
+          {{- end -}}
+          {{- if eq $c2 "#000000" -}}
+            {{- $shadows = $shadows | append "6px 0 12px -3px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "6px 0 8px -3px #000000" -}}
+          {{- else if eq $c2 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "6px 0 12px -3px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "6px 0 8px -3px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "6px 0 12px -3px %s" $c2) -}}
+          {{- end -}}
+          {{- $glow = delimit $shadows ", " -}}
+        {{- else if ge (len $colors) 3 -}}
+          {{- $c1 := index $colors 0 -}}
+          {{- $c2 := index $colors 1 -}}
+          {{- $c3 := index $colors 2 -}}
+          {{- $shadows := slice -}}
+          {{- if eq $c1 "#000000" -}}
+            {{- $shadows = $shadows | append "-8px 0 12px -3px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "-8px 0 8px -3px #000000" -}}
+          {{- else if eq $c1 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "-8px 0 12px -3px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "-8px 0 8px -3px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "-8px 0 12px -3px %s" $c1) -}}
+          {{- end -}}
+          {{- if eq $c2 "#000000" -}}
+            {{- $shadows = $shadows | append "0 0 12px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "0 0 8px #000000" -}}
+          {{- else if eq $c2 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "0 0 12px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "0 0 8px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "0 0 12px %s" $c2) -}}
+          {{- end -}}
+          {{- if eq $c3 "#000000" -}}
+            {{- $shadows = $shadows | append "8px 0 12px -3px rgba(255,255,255,0.3)" -}}
+            {{- $shadows = $shadows | append "8px 0 8px -3px #000000" -}}
+          {{- else if eq $c3 "#FFFFFF" -}}
+            {{- $shadows = $shadows | append "8px 0 12px -3px rgba(0,0,0,0.3)" -}}
+            {{- $shadows = $shadows | append "8px 0 8px -3px #FFFFFF" -}}
+          {{- else -}}
+            {{- $shadows = $shadows | append (printf "8px 0 12px -3px %s" $c3) -}}
+          {{- end -}}
+          {{- $glow = delimit $shadows ", " -}}
+        {{- end -}}
 
         <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
           style="--hover-glow: {{ $glow | safeCSS }};"
@@ -202,31 +264,93 @@
 
         <div class="game-grid">
           {{ range sort $monthGames "Date" "desc" }}
-          {{ $glow := "" }}
-          {{ $colors := slice }}
-          {{ range .Params.platform }}
-            {{ $p := . | lower }}
-            {{ if or (eq $p "nintendo switch") (eq $p "nintendo switch 2") (eq $p "ns") (eq $p "ns2") }}
-              {{ $colors = $colors | append "#e60012" }}
-            {{ else if or (eq $p "playstation 5") (eq $p "playstation 4") (eq $p "ps5") (eq $p "ps4") }}
-              {{ $colors = $colors | append "#00439c" }}
-            {{ else if or (eq $p "xbox series x|s") (eq $p "xbox one") (eq $p "xbox") }}
-              {{ $colors = $colors | append "#107c10" }}
-            {{ else if or (eq $p "pc") (eq $p "steam") (eq $p "epic games") }}
-              {{ $colors = $colors | append "#fab279" }}
-            {{ else if or (eq $p "mobile") (eq $p "android") (eq $p "ios") }}
-              {{ $colors = $colors | append "#c73ddc" }}
-            {{ end }}
-          {{ end }}
-          {{ $colors = uniq $colors }}
-          {{ if eq (len $colors) 1 }}
-            {{ $c := index $colors 0 }}
-            {{ $glow = printf "0 0 8px %s, 0 0 16px %s" $c $c }}
-          {{ else if ge (len $colors) 2 }}
-            {{ $c1 := index $colors 0 }}
-            {{ $c2 := index $colors 1 }}
-            {{ $glow = printf "-6px 0 12px -3px %s, 6px 0 12px -3px %s" $c1 $c2 }}
-          {{ end }}
+          {{- $glow := "" -}}
+          {{- $colors := slice -}}
+          {{- $flag := .Params.origin -}}
+          {{- if eq $flag "🇩🇪" -}}
+            {{- $colors = slice "#000000" "#DD0000" "#FFCE00" -}}
+          {{- else if eq $flag "🇬🇧" -}}
+            {{- $colors = slice "#012169" "#FFFFFF" "#C8102E" -}}
+          {{- else if eq $flag "🇫🇷" -}}
+            {{- $colors = slice "#0055A4" "#FFFFFF" "#EF4135" -}}
+          {{- else if eq $flag "🇮🇹" -}}
+            {{- $colors = slice "#009246" "#FFFFFF" "#CE2B37" -}}
+          {{- else if eq $flag "🇷🇺" -}}
+            {{- $colors = slice "#FFFFFF" "#0039A6" "#D52B1E" -}}
+          {{- else if eq $flag "🇰🇷" -}}
+            {{- $colors = slice "#FFFFFF" "#C60C30" "#003478" -}}
+          {{- else if eq $flag "🇨🇴" -}}
+            {{- $colors = slice "#FCD116" "#003893" "#CE1126" -}}
+          {{- else if eq $flag "🇨🇿" -}}
+            {{- $colors = slice "#FFFFFF" "#D7141A" "#11457E" -}}
+          {{- else if eq $flag "🇯🇵" -}}
+            {{- $colors = slice "#FFFFFF" "#BC002D" -}}
+          {{- else if eq $flag "🇵🇱" -}}
+            {{- $colors = slice "#FFFFFF" "#DC143C" -}}
+          {{- else if eq $flag "🇨🇳" -}}
+            {{- $colors = slice "#DE2910" "#FFDE00" -}}
+          {{- else if eq $flag "🇺🇸" -}}
+            {{- $colors = slice "#B22234" "#FFFFFF" "#3C3B6E" -}}
+          {{- else if eq $flag "🇸🇪" -}}
+            {{- $colors = slice "#006AA7" "#FECC00" -}}
+          {{- end -}}
+          {{- if eq (len $colors) 2 -}}
+            {{- $c1 := index $colors 0 -}}
+            {{- $c2 := index $colors 1 -}}
+            {{- $shadows := slice -}}
+            {{- if eq $c1 "#000000" -}}
+              {{- $shadows = $shadows | append "-6px 0 12px -3px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "-6px 0 8px -3px #000000" -}}
+            {{- else if eq $c1 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "-6px 0 12px -3px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "-6px 0 8px -3px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "-6px 0 12px -3px %s" $c1) -}}
+            {{- end -}}
+            {{- if eq $c2 "#000000" -}}
+              {{- $shadows = $shadows | append "6px 0 12px -3px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "6px 0 8px -3px #000000" -}}
+            {{- else if eq $c2 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "6px 0 12px -3px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "6px 0 8px -3px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "6px 0 12px -3px %s" $c2) -}}
+            {{- end -}}
+            {{- $glow = delimit $shadows ", " -}}
+          {{- else if ge (len $colors) 3 -}}
+            {{- $c1 := index $colors 0 -}}
+            {{- $c2 := index $colors 1 -}}
+            {{- $c3 := index $colors 2 -}}
+            {{- $shadows := slice -}}
+            {{- if eq $c1 "#000000" -}}
+              {{- $shadows = $shadows | append "-8px 0 12px -3px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "-8px 0 8px -3px #000000" -}}
+            {{- else if eq $c1 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "-8px 0 12px -3px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "-8px 0 8px -3px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "-8px 0 12px -3px %s" $c1) -}}
+            {{- end -}}
+            {{- if eq $c2 "#000000" -}}
+              {{- $shadows = $shadows | append "0 0 12px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "0 0 8px #000000" -}}
+            {{- else if eq $c2 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "0 0 12px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "0 0 8px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "0 0 12px %s" $c2) -}}
+            {{- end -}}
+            {{- if eq $c3 "#000000" -}}
+              {{- $shadows = $shadows | append "8px 0 12px -3px rgba(255,255,255,0.3)" -}}
+              {{- $shadows = $shadows | append "8px 0 8px -3px #000000" -}}
+            {{- else if eq $c3 "#FFFFFF" -}}
+              {{- $shadows = $shadows | append "8px 0 12px -3px rgba(0,0,0,0.3)" -}}
+              {{- $shadows = $shadows | append "8px 0 8px -3px #FFFFFF" -}}
+            {{- else -}}
+              {{- $shadows = $shadows | append (printf "8px 0 12px -3px %s" $c3) -}}
+            {{- end -}}
+            {{- $glow = delimit $shadows ", " -}}
+          {{- end -}}
 
           <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
             style="--hover-glow: {{ $glow | safeCSS }};"
