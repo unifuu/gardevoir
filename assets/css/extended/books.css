@@ -30,7 +30,7 @@
    Book Cover
    ========================================================= */
 
-.book-main-link {
+.book-main-content {
   display: block;
   text-decoration: none;
   color: inherit;
@@ -470,7 +470,7 @@ details[open] > .books-month-header::after {
 /* Link area refinement */
 
 
-.book-main-link:hover .book-title {
+.book-card:hover .book-title {
   color: var(--secondary);
 }
 

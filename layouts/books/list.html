@@ -145,15 +145,7 @@
           data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
           data-rating="{{ .Params.rating }}">
           <div class="book-card-content">
-            {{ $destination := .RelPermalink }}
-            {{ if eq .Lang "ja" }}
-              {{ range .Translations }}
-                {{ if eq .Lang "en" }}
-                  {{ $destination = .RelPermalink }}
-                {{ end }}
-              {{ end }}
-            {{ end }}
-            <a href="{{ $destination }}" class="book-main-link">
+            <div class="book-main-content">
               <div class="book-cover-wrapper">
                 {{ with .Params.cover.image }}
                 <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
@@ -163,7 +155,7 @@
                 {{ end }}
               </div>
               <h3 class="book-title">{{ .Title }}</h3>
-            </a>
+            </div>
 
             {{ if or .Params.origin .Params.aliases }}
             <p class="book-origin">
@@ -356,15 +348,7 @@
             data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
             data-rating="{{ .Params.rating }}">
             <div class="book-card-content">
-            {{ $destination := .RelPermalink }}
-            {{ if eq .Lang "ja" }}
-              {{ range .Translations }}
-                {{ if eq .Lang "en" }}
-                  {{ $destination = .RelPermalink }}
-                {{ end }}
-              {{ end }}
-            {{ end }}
-            <a href="{{ $destination }}" class="book-main-link">
+            <div class="book-main-content">
               <div class="book-cover-wrapper">
                 {{ with .Params.cover.image }}
                 <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
@@ -374,7 +358,7 @@
                 {{ end }}
               </div>
               <h3 class="book-title">{{ .Title }}</h3>
-            </a>
+            </div>
 
               {{ if or .Params.origin .Params.aliases }}
               <p class="book-origin">
