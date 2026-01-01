@@ -79,7 +79,7 @@ languages:
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/) | [📚 Reading](/books/)"
+        subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/books/)"
         buttons:
           - name: 📑 Posts
             url: posts
@@ -91,21 +91,17 @@ languages:
           name: Posts
           url: /posts/
           weight: 10
-        - identifier: games
-          name: Games
-          url: /games/
-          weight: 20
         - identifier: books
           name: Books
           url: /books/
-          weight: 30
+          weight: 20
         - identifier: tags
           name: Tags
           url: /tags/
-          weight: 40
+          weight: 30
         - name: GitHub
           url: https://github.com/unifuu
-          weight: 50
+          weight: 40
   ja:
     languageName: 🇯🇵
     languageCode: ja
@@ -115,7 +111,7 @@ languages:
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "[💻 開発](https://github.com/unifuu) | [🎮 ゲーム](/games/) | [📚 読書](/books/)"
+        subtitle: "[💻 開発](https://github.com/unifuu) | [📚 読書](/books/)"
         buttons:
           - name: 📑 記事
             url: posts
@@ -127,21 +123,17 @@ languages:
           name: 記事
           url: /posts/
           weight: 10
-        - identifier: games
-          name: ゲーム
-          url: /games/
-          weight: 20
         - identifier: books
           name: 読書
           url: /books/
-          weight: 30
+          weight: 20
         - identifier: tags
           name: タグ
           url: /tags/
-          weight: 40
+          weight: 30
         - name: GitHub
           url: https://github.com/unifuu
-          weight: 50
+          weight: 40
 
 markup:
   highlight:
