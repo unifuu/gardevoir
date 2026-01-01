@@ -111,19 +111,20 @@ languages:
     languageCode: ja
     weight: 2
     params:
+      DateFormat: "2006年1月2日"
       profileMode:
         enabled: true
         title: Fū
         subtitle: "[💻 開発](https://github.com/unifuu) | [🎮 ゲーム](/games/) | [📚 読書](/books/)"
         buttons:
-          - name: 📑 投稿
+          - name: 📑 記事
             url: posts
           - name: 🔖 タグ
             url: tags
     menu:
       main:
         - identifier: posts
-          name: 投稿
+          name: 記事
           url: /posts/
           weight: 10
         - identifier: games
