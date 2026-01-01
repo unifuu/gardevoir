@@ -75,8 +75,8 @@
 /* Masterpiece Highlight - Diamond/UR Rarity Style */
 .game-card.is-masterpiece .game-cover-wrapper {
   box-shadow:
-    0 0 15px rgba(200, 220, 255, 0.3),
-    0 0 25px rgba(220, 200, 255, 0.2);
+    0 0 15px rgba(220, 235, 255, 0.5),
+    0 0 30px rgba(240, 240, 255, 0.3);
   /* Use padding to create the border effect */
   padding: 5px;
   /* Expand the wrapper outwards so the inner image size remains consistent with normal cards */
@@ -84,19 +84,30 @@
   width: calc(100% + 10px);
   background: linear-gradient(
     135deg,
-    #b4c8ff 0%,
-    /* Pale blue */ #dcc8ff 20%,
-    /* Pale purple */ #ffffff 40%,
-    /* White */ #c8dcff 60%,
-    /* Light blue */ #e6d9ff 80%,
-    /* Light lavender */ #b4c8ff 100% /* Pale blue */
+    #ffffff 0%,
+    #b4c8ff 15%,
+    #ffffff 30%,
+    #dcc8ff 45%,
+    #ffffff 60%,
+    #b4c8ff 75%,
+    #ffffff 90%,
+    #dcc8ff 100%
   );
-  background-size: 200% 200%;
-  animation: diamond-shimmer 3s ease-in-out infinite;
+  background-size: 400% 400%; /* Increased size for smoother/faster flow */
+  animation: diamond-shimmer 3s linear infinite; /* Slower idle speed */
   border-radius: 6px;
   overflow: hidden;
   position: relative;
-  z-index: 1; /* Ensure it stays above normal card elements if they overlap slightly */
+  z-index: 1;
+}
+
+/* Intensified shine on hover for masterpieces */
+.game-card.is-masterpiece:hover .game-cover-wrapper {
+  animation: diamond-shimmer 1.2s linear infinite; /* Previous normal speed on hover */
+  box-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.8),
+    0 0 40px rgba(220, 235, 255, 0.6);
+  filter: brightness(1.1);
 }
 
 /* Ensure image fits inside the border */

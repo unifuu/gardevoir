@@ -79,6 +79,8 @@
           {{- $colors = slice "#B22234" "#FFFFFF" "#3C3B6E" -}}
         {{- else if eq $flag "🇸🇪" -}}
           {{- $colors = slice "#006AA7" "#FECC00" -}}
+        {{- else if eq $flag "🇵🇱" -}}
+          {{- $colors = slice "#FFFFFF" "#DC143C" -}}
         {{- end -}}
         {{- if eq (len $colors) 2 -}}
           {{- $c1 := index $colors 0 -}}
@@ -288,6 +290,8 @@
             {{- $colors = slice "#B22234" "#FFFFFF" "#3C3B6E" -}}
           {{- else if eq $flag "🇸🇪" -}}
             {{- $colors = slice "#006AA7" "#FECC00" -}}
+          {{- else if eq $flag "🇵🇱" -}}
+            {{- $colors = slice "#FFFFFF" "#DC143C" -}}
           {{- end -}}
           {{- if eq (len $colors) 2 -}}
             {{- $c1 := index $colors 0 -}}
