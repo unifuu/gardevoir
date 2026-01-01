@@ -1,7 +1,7 @@
 ---
 title: TypeScriptについて
 date: 2025-12-22
-summary: 📝 TypeScriptのまとめ...
+summary: 📝 TypeScriptのメモ...
 tags:
   - frontend
   - typescript

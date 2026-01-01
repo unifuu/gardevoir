@@ -1,12 +1,12 @@
 ---
 title: "Gwent: The Witcher Card Game"
 aliases:
-  - Gwint: Wiedźmińska gra karciana
+  - Gwint: "Wiedźmińska gra karciana"
 origin: 🇵🇱
 developer: CD Projekt RED
 year: 2018
 finished: true
-date: 2025-12-25
+date: 2026-01-01
 rating: 10
 platform:
   - Mobile

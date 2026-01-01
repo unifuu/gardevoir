@@ -23,7 +23,7 @@ COMMIT;
     - Deadlocks possible
 ## Optimistic Lock
 - Conflicts probably won’t happen. If they do, retry:
-    - Common implementation: version or updated_at column.
+    -　version or updated_at column.
 ``` sql
 -- 1. Read
 SELECT coins, version FROM players WHERE id = 39; -- if version = 5
