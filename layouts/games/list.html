@@ -52,7 +52,34 @@
 
       <div class="game-grid">
         {{ range sort $playing "Title" }}
+        {{ $glow := "" }}
+        {{ $colors := slice }}
+        {{ range .Params.platform }}
+          {{ $p := . | lower }}
+          {{ if or (eq $p "nintendo switch") (eq $p "nintendo switch 2") (eq $p "ns") (eq $p "ns2") }}
+            {{ $colors = $colors | append "#e60012" }}
+          {{ else if or (eq $p "playstation 5") (eq $p "playstation 4") (eq $p "ps5") (eq $p "ps4") }}
+            {{ $colors = $colors | append "#00439c" }}
+          {{ else if or (eq $p "xbox series x|s") (eq $p "xbox one") (eq $p "xbox") }}
+            {{ $colors = $colors | append "#107c10" }}
+          {{ else if or (eq $p "pc") (eq $p "steam") (eq $p "epic games") }}
+            {{ $colors = $colors | append "#fab279" }}
+          {{ else if or (eq $p "mobile") (eq $p "android") (eq $p "ios") }}
+            {{ $colors = $colors | append "#c73ddc" }}
+          {{ end }}
+        {{ end }}
+        {{ $colors = uniq $colors }}
+        {{ if eq (len $colors) 1 }}
+          {{ $c := index $colors 0 }}
+          {{ $glow = printf "0 0 8px %s, 0 0 16px %s" $c $c }}
+        {{ else if ge (len $colors) 2 }}
+          {{ $c1 := index $colors 0 }}
+          {{ $c2 := index $colors 1 }}
+          {{ $glow = printf "-6px 0 12px -3px %s, 6px 0 12px -3px %s" $c1 $c2 }}
+        {{ end }}
+
         <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
+          style="--hover-glow: {{ $glow | safeCSS }};"
           data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
           data-rating="{{ .Params.rating | default 0 }}" data-origin="{{ .Params.origin | lower }}"
           data-developer="{{ .Params.developer | lower }}">
@@ -175,7 +202,34 @@
 
         <div class="game-grid">
           {{ range sort $monthGames "Date" "desc" }}
+          {{ $glow := "" }}
+          {{ $colors := slice }}
+          {{ range .Params.platform }}
+            {{ $p := . | lower }}
+            {{ if or (eq $p "nintendo switch") (eq $p "nintendo switch 2") (eq $p "ns") (eq $p "ns2") }}
+              {{ $colors = $colors | append "#e60012" }}
+            {{ else if or (eq $p "playstation 5") (eq $p "playstation 4") (eq $p "ps5") (eq $p "ps4") }}
+              {{ $colors = $colors | append "#00439c" }}
+            {{ else if or (eq $p "xbox series x|s") (eq $p "xbox one") (eq $p "xbox") }}
+              {{ $colors = $colors | append "#107c10" }}
+            {{ else if or (eq $p "pc") (eq $p "steam") (eq $p "epic games") }}
+              {{ $colors = $colors | append "#fab279" }}
+            {{ else if or (eq $p "mobile") (eq $p "android") (eq $p "ios") }}
+              {{ $colors = $colors | append "#c73ddc" }}
+            {{ end }}
+          {{ end }}
+          {{ $colors = uniq $colors }}
+          {{ if eq (len $colors) 1 }}
+            {{ $c := index $colors 0 }}
+            {{ $glow = printf "0 0 8px %s, 0 0 16px %s" $c $c }}
+          {{ else if ge (len $colors) 2 }}
+            {{ $c1 := index $colors 0 }}
+            {{ $c2 := index $colors 1 }}
+            {{ $glow = printf "-6px 0 12px -3px %s, 6px 0 12px -3px %s" $c1 $c2 }}
+          {{ end }}
+
           <article class="game-card {{ if ge .Params.rating 10 }}is-masterpiece{{ end }}"
+            style="--hover-glow: {{ $glow | safeCSS }};"
             data-platforms="{{ with .Params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
             data-rating="{{ .Params.rating | default 0 }}" data-origin="{{ .Params.origin | lower }}"
             data-developer="{{ .Params.developer | lower }}">
