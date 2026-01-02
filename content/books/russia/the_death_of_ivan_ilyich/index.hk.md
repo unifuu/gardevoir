@@ -1,0 +1,12 @@
+---
+title: 伊凡·伊里奇之死
+aliases:
+  - Смерть Ивана Ильича
+author: 托爾斯泰
+year: 1886
+origin: 🇷🇺
+rating: 8
+finished: true
+cover:
+  image: https://m.media-amazon.com/images/I/91O52qrgJRL._SL1500_.jpg
+---
