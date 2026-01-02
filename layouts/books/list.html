@@ -45,8 +45,8 @@
     <details class="books-year-block books-reading-block" open>
       <summary class="books-year-header">
         <div class="filter-info">
-          <span class="books-year-title">{{ i18n "reading" }}</span>
-          <span class="books-year-count">· {{ i18n "books_count" (dict "val" (len $reading)) }}</span>
+          <span class="books-year-title">Reading</span>
+          <span class="books-year-count">· {{ len $reading }} books</span>
         </div>
       </summary>
 
@@ -212,7 +212,7 @@
       <summary class="books-year-header">
         <div class="filter-info">
           <span class="books-year-title">{{ $year }}</span>
-          <span class="books-year-count">· {{ i18n "books_count" (dict "val" (len $yearBooks)) }}</span>
+          <span class="books-year-count">· {{ len $yearBooks }} books</span>
         </div>
       </summary>
 
@@ -245,10 +245,10 @@
         <summary class="books-month-header">
           <div class="filter-info">
             <span class="books-month-title">
-              {{ i18n (printf "month_%s" $month) }}
+              {{ (index $monthBooks 0).Date.Format "January" }}
             </span>
             <span class="books-month-count">
-              · {{ i18n "books_count" (dict "val" (len $monthBooks)) }}
+              · {{ len $monthBooks }} books
             </span>
           </div>
         </summary>

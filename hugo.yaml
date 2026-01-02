@@ -10,14 +10,21 @@ buildFuture: false
 buildExpired: false
 enableEmoji: true
 mainsections: ["posts", "papermod"]
-defaultContentLanguage: en
-defaultContentLanguageInSubdir: false
 
 minify:
   disableXML: true
   # minifyOutput: true
 
 params:
+  profileMode:
+    enabled: true
+    title: Fū
+    subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/books/)"
+    buttons:
+      - name: 📑 Posts
+        url: posts
+      - name: 🔖 Tags
+        url: tags
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto
@@ -73,78 +80,6 @@ params:
     limit: 10
     keys: ["title", "summary", "tags"]
 
-languages:
-  en:
-    languageName: 🇬🇧
-    languageCode: en-us
-    weight: 1
-    params:
-      profileMode:
-        enabled: true
-        title: Fū
-        subtitle: "[💻 Development](https://github.com/unifuu) | [📚 Literature](/books/)"
-        buttons:
-          - name: 📑 Posts
-            url: posts
-          - name: 🔖 Tags
-            url: tags
-    menu:
-      main:
-        - identifier: posts
-          name: Posts
-          url: /posts/
-          weight: 10
-        - identifier: books
-          name: Books
-          url: /books/
-          weight: 20
-        - identifier: tags
-          name: Tags
-          url: /tags/
-          weight: 30
-        - identifier: search
-          name: Search
-          url: /search/
-          weight: 40
-        - name: GitHub
-          url: https://github.com/unifuu
-          weight: 50
-  ja:
-    languageName: 🇯🇵
-    languageCode: ja-jp
-    weight: 2
-    params:
-      DateFormat: "2006年1月2日"
-      profileMode:
-        enabled: true
-        title: 楓
-        subtitle: "[💻 開発](https://github.com/unifuu) | [📚 文学](/books/)"
-        buttons:
-          - name: 📑 記事
-            url: posts
-          - name: 🔖 タグ
-            url: tags
-    menu:
-      main:
-        - identifier: posts
-          name: 記事
-          url: /posts/
-          weight: 10
-        - identifier: books
-          name: 文学
-          url: /books/
-          weight: 20
-        - identifier: tags
-          name: タグ
-          url: /tags/
-          weight: 30
-        - identifier: search
-          name: 検索
-          url: /search/
-          weight: 40
-        - name: GitHub
-          url: https://github.com/unifuu
-          weight: 50
 markup:
   highlight:
     noClasses: false
@@ -154,3 +89,25 @@ outputs:
     - HTML
     - RSS
     - JSON
+
+menu:
+  main:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: books
+      name: Books
+      url: /books/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 40
+    - name: GitHub
+      url: https://github.com/unifuu
+      weight: 50
