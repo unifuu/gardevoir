@@ -99,9 +99,13 @@ languages:
           name: Tags
           url: /tags/
           weight: 30
+        - identifier: search
+          name: Search
+          url: /search/
+          weight: 40
         - name: GitHub
           url: https://github.com/unifuu
-          weight: 40
+          weight: 50
   ja:
     languageName: 🇯🇵
     languageCode: ja-jp
@@ -110,7 +114,7 @@ languages:
       DateFormat: "2006年1月2日"
       profileMode:
         enabled: true
-        title: Fū
+        title: ふう
         subtitle: "[💻 開発](https://github.com/unifuu) | [📚 文学](/books/)"
         buttons:
           - name: 📑 記事
@@ -131,9 +135,13 @@ languages:
           name: タグ
           url: /tags/
           weight: 30
+        - identifier: search
+          name: 検索
+          url: /search/
+          weight: 40
         - name: GitHub
           url: https://github.com/unifuu
-          weight: 40
+          weight: 50
   hk:
     languageName: 🇭🇰
     languageCode: zh-hk
@@ -142,30 +150,34 @@ languages:
       DateFormat: "2006年1月2日"
       profileMode:
         enabled: true
-        title: Fū
-        subtitle: "[💻 開發](https://github.com/unifuu) | [📚 文學](/books/)"
+        title: 楓
+        subtitle: "[💻 Development](https://github.com/unifuu) | [📚 Literature](/books/)"
         buttons:
-          - name: 📑 文章
+          - name: 📑 Posts
             url: posts
-          - name: 🔖 標籤
+          - name: 🔖 Tags
             url: tags
     menu:
       main:
         - identifier: posts
-          name: 文章
+          name: Posts
           url: /posts/
           weight: 10
         - identifier: books
-          name: 文學
+          name: Books
           url: /books/
           weight: 20
         - identifier: tags
-          name: 標籤
+          name: Tags
           url: /tags/
           weight: 30
+        - identifier: search
+          name: Search
+          url: /search/
+          weight: 40
         - name: GitHub
           url: https://github.com/unifuu
-          weight: 40
+          weight: 50
 markup:
   highlight:
     noClasses: false
