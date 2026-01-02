@@ -10,6 +10,8 @@ buildFuture: false
 buildExpired: false
 enableEmoji: true
 mainsections: ["posts", "papermod"]
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
 
 minify:
   disableXML: true
@@ -70,6 +72,7 @@ params:
     minMatchCharLength: 2
     limit: 10
     keys: ["title", "summary", "tags"]
+
 languages:
   en:
     languageName: 🇬🇧

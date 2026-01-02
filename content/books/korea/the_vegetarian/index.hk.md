@@ -1,7 +1,7 @@
 ---
 title: 素食者
 aliases:
-  - 채식主義者
+  - 채식주의자
 author: 韓江
 is_female: true
 year: 2007
