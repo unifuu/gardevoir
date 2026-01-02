@@ -23,7 +23,7 @@ params:
   id: 250
   buttonStyle: outlined # Options: text / contained / outlined
   buttonColor:
-  disableThemeToggle: false
+  disableThemeToggle: true
   ShowShareButtons: false
   ShowReadingTime: false
   disableSpecial1stPost: true
@@ -79,7 +79,7 @@ languages:
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/books/)"
+        subtitle: "[💻 Development](https://github.com/unifuu) | [📚 Literature](/books/)"
         buttons:
           - name: 📑 Posts
             url: posts
@@ -104,14 +104,14 @@ languages:
           weight: 40
   ja:
     languageName: 🇯🇵
-    languageCode: ja
+    languageCode: ja-jp
     weight: 2
     params:
       DateFormat: "2006年1月2日"
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "[💻 開発](https://github.com/unifuu) | [📚 読書](/books/)"
+        subtitle: "[💻 開発](https://github.com/unifuu) | [📚 文学](/books/)"
         buttons:
           - name: 📑 記事
             url: posts
@@ -124,7 +124,7 @@ languages:
           url: /posts/
           weight: 10
         - identifier: books
-          name: 読書
+          name: 文学
           url: /books/
           weight: 20
         - identifier: tags
@@ -134,7 +134,38 @@ languages:
         - name: GitHub
           url: https://github.com/unifuu
           weight: 40
-
+  hk:
+    languageName: 🇭🇰
+    languageCode: zh-hk
+    weight: 3
+    params:
+      DateFormat: "2006年1月2日"
+      profileMode:
+        enabled: true
+        title: Fū
+        subtitle: "[💻 開發](https://github.com/unifuu) | [📚 文學](/books/)"
+        buttons:
+          - name: 📑 文章
+            url: posts
+          - name: 🔖 標籤
+            url: tags
+    menu:
+      main:
+        - identifier: posts
+          name: 文章
+          url: /posts/
+          weight: 10
+        - identifier: books
+          name: 文學
+          url: /books/
+          weight: 20
+        - identifier: tags
+          name: 標籤
+          url: /tags/
+          weight: 30
+        - name: GitHub
+          url: https://github.com/unifuu
+          weight: 40
 markup:
   highlight:
     noClasses: false

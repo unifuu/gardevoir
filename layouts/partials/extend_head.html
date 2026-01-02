@@ -1,30 +1,51 @@
-{{- /* 
-    Dynamic Theme CSS 
-    Loads assets/css/dynamic-theme.css and executes it as a template to allow configurable colors/styles.
-*/ -}}
-{{- $themeCss := resources.Get "css/dynamic-theme.css" | resources.ExecuteAsTemplate "css/dynamic-theme.css" . | resources.Minify -}}
-<link rel="stylesheet" href="{{ $themeCss.Permalink }}">
-
+{{- /* Dynamic Theme CSS Loads assets/css/dynamic-theme.css and executes it as a
+template to allow configurable colors/styles. */ -}} {{- $themeCss :=
+resources.Get "css/dynamic-theme.css" | resources.ExecuteAsTemplate
+"css/dynamic-theme.css" . | resources.Minify -}}
+<link rel="stylesheet" href="{{ $themeCss.Permalink }}" />
 
 <style>
-    /* Language switcher active state styling */
-    .lang-switch a.active {
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 3px;
-        font-weight: 600;
-    }
+  /* Language switcher active state styling */
+  .lang-switch a.active {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    font-weight: 600;
+  }
 
-    /* Optional: Add subtle color to make it more visible */
-    .lang-switch a.active {
-        opacity: 1;
-    }
+  /* Optional: Add subtle color to make it more visible */
+  .lang-switch a.active {
+    opacity: 1;
+  }
 
-    .lang-switch a:not(.active) {
-        opacity: 0.7;
-    }
+  .lang-switch a:not(.active) {
+    opacity: 0.7;
+  }
 
-    .lang-switch a:not(.active):hover {
-        opacity: 1;
-    }
+  .lang-switch a:not(.active):hover {
+    opacity: 1;
+  }
 </style>
+
+<script>
+    (function() {
+        // Listen for system theme changes
+        const themeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        function handleThemeChange(e) {
+            // Only auto-switch if no manual preference is stored
+            if (!localStorage.getItem("pref-theme")) {
+                const newTheme = e.matches ? "dark" : "light";
+                document.documentElement.setAttribute('data-theme', newTheme);
+            }
+        }
+
+        // Standard way for modern browsers
+        if (themeMediaQuery.addEventListener) {
+            themeMediaQuery.addEventListener('change', handleThemeChange);
+        } else if (themeMediaQuery.addListener) {
+            // Older iOS Safari support
+            themeMediaQuery.addListener(handleThemeChange);
+        }
+    })();
+</script>

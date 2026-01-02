@@ -39,7 +39,8 @@
 
 {{- /* 1. Theme Colors */ -}}
 {{- if $colors -}}
-:root:not([data-theme='dark']) {
+/* 1. Theme Colors - Only apply custom colors in Light mode */
+:root[data-theme='light'] {
     --theme: {{ $colors.theme | safeCSS }};
     --entry: {{ $colors.entry | safeCSS }};
     --primary: {{ $colors.primary | safeCSS }};
@@ -49,8 +50,27 @@
     --border: {{ $colors.border | safeCSS }};
 }
 
-html:not([data-theme='dark']), body:not([data-theme='dark']) {
+/* Ensure background color is applied correctly */
+html[data-theme='light'], 
+body[data-theme='light'] {
     background: var(--theme);
+}
+
+/* Fallback for when system preference is light and no data-theme is set yet */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme='dark']) {
+        --theme: {{ $colors.theme | safeCSS }};
+        --entry: {{ $colors.entry | safeCSS }};
+        --primary: {{ $colors.primary | safeCSS }};
+        --secondary: {{ $colors.secondary | safeCSS }};
+        --tertiary: {{ $colors.tertiary | safeCSS }};
+        --content: {{ $colors.content | safeCSS }};
+        --border: {{ $colors.border | safeCSS }};
+    }
+    html:not([data-theme='dark']), 
+    body:not([data-theme='dark']) {
+        background: var(--theme);
+    }
 }
 {{- end -}}
 
@@ -129,9 +149,12 @@ main {
     border-bottom: 1px solid color-mix(in srgb, var(--border), transparent 70%);
 }
 
-:root:not([data-theme='dark']) .nav {
-    /* Use color-mix to create a semi-transparent version of the theme color */
-    background: color-mix(in srgb, var(--theme), transparent 15%) !important;
+:root[data-theme='light'] .nav,
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme='dark']) .nav {
+        /* Use color-mix to create a semi-transparent version of the theme color */
+        background: color-mix(in srgb, var(--theme), transparent 15%) !important;
+    }
 }
 
 ::-webkit-scrollbar {
