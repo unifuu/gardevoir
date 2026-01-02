@@ -2,7 +2,7 @@
 title: 梵蒂岡地窖
 aliases:
   - Les Caves du Vatican
-author: 安德烈·紀德
+author: 紀德
 year: 1914
 origin: 🇫🇷
 rating: 7

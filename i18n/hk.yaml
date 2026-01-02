@@ -1,5 +1,5 @@
-reading: "読書中"
-books_count: "{{ .val }} 冊"
+reading: "閱讀中"
+books_count: "{{ .val }} 本"
 month_01: "1月"
 month_02: "2月"
 month_03: "3月"

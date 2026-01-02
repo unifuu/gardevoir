@@ -2,7 +2,7 @@
 title: 窄門
 aliases:
   - La Porte étroite
-author: 安德烈·紀德
+author: 紀德
 year: 1909
 origin: 🇫🇷
 rating: 10

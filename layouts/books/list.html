@@ -145,7 +145,7 @@
           data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
           data-rating="{{ .Params.rating }}">
           <div class="book-card-content">
-            <div class="book-main-content">
+            <a class="book-main-content" href="{{ .Permalink }}">
               <div class="book-cover-wrapper">
                 {{ with .Params.cover.image }}
                 <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
@@ -155,7 +155,7 @@
                 {{ end }}
               </div>
               <h3 class="book-title">{{ .Title }}</h3>
-            </div>
+            </a>
 
             {{ if or .Params.origin .Params.aliases }}
             <p class="book-origin">
@@ -348,7 +348,7 @@
             data-author="{{ .Params.author | lower }}" data-origin="{{ .Params.origin | lower }}"
             data-rating="{{ .Params.rating }}">
             <div class="book-card-content">
-            <div class="book-main-content">
+            <a class="book-main-content" href="{{ .Permalink }}">
               <div class="book-cover-wrapper">
                 {{ with .Params.cover.image }}
                 <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
@@ -358,7 +358,7 @@
                 {{ end }}
               </div>
               <h3 class="book-title">{{ .Title }}</h3>
-            </div>
+            </a>
 
               {{ if or .Params.origin .Params.aliases }}
               <p class="book-origin">

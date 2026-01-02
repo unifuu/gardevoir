@@ -1,3 +1,3 @@
 ---
-title: Literature
+title: 文學
 ---
