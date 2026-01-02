@@ -2,7 +2,7 @@
     filter: brightness(0.4) saturate(1.2) hue-rotate(15deg);
     display: inline-block;
     vertical-align: middle;
-    margin-right: 7px;
+    margin-right: 8px;
     font-size: 1.0em;
 }
 
