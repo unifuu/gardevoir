@@ -1,11 +1,12 @@
-.dark-emoji {
+.footer .dark-emoji {
     filter: brightness(0.4) saturate(1.2) hue-rotate(15deg);
     display: inline-block;
     vertical-align: middle;
-    margin-right: 8px;
+    margin-right: 2px;
+    margin-inline-end: 2px;
     font-size: 1.0em;
 }
 
-body.dark .dark-emoji {
+body.dark .footer .dark-emoji {
     filter: brightness(0.8) saturate(1.5) hue-rotate(15deg);
 }
