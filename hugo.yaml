@@ -74,11 +74,11 @@ params:
     isCaseSensitive: false
     shouldSort: true
     location: 0
-    distance: 1000
-    threshold: 0.4
+    distance: 200
+    threshold: 0.3
     minMatchCharLength: 2
-    limit: 10
-    keys: ["title", "summary", "tags"]
+    limit: 8
+    keys: ["title", "summary", "tags", "content"]
 
 markup:
   highlight:
