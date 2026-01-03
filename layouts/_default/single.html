@@ -35,7 +35,17 @@
 
     {{- if not (.Param "hideMeta") }}
     <div class="post-meta">
-      {{- partial "post_meta.html" . -}}
+      {{- /* English Meta */ -}}
+      <div id="post-meta-en" style="display: inline;">
+        {{- partial "post_meta.html" . -}}
+      </div>
+
+      {{- /* Translated Meta */ -}}
+      {{- range $lang, $res := $langResources -}}
+      <div id="post-meta-{{ $lang }}" style="display: none;">
+        {{- partial "post_meta.html" $res -}}
+      </div>
+      {{- end -}}
       
       {{- /* Custom Translation Toggle */ -}}
       {{- if $hasTranslations -}}
@@ -95,37 +105,32 @@
       
       const langs = ['en', {{ range $lang, $res := $langResources }}'{{ $lang }}',{{ end }}];
       
-      // Toggle Titles, Contents, and Links
+      // Toggle Titles, Contents, Meta, and Links
       langs.forEach(lang => {
         const title = document.getElementById(`post-title-${lang}`);
         const content = document.getElementById(`post-content-${lang}`);
+        const meta = document.getElementById(`post-meta-${lang}`);
         const link = document.getElementById(`lang-link-${lang}`);
         
         if (lang === selectedLang) {
           if(title) title.style.display = 'block';
           if(content) content.style.display = 'block';
+          if(meta) meta.style.display = 'inline';
           if(link) {
-            // Active: Underline, fully opaque, simple text decoration
+            // Active: Underline, fully opaque
             link.style.textDecoration = 'underline';
             link.style.textUnderlineOffset = '4px';
             link.style.textDecorationThickness = '2px';
             link.style.opacity = '1';
-            
-            // Clear other styles just in case
-            link.style.background = 'none';
-            link.style.transform = 'none';
           }
         } else {
           if(title) title.style.display = 'none';
           if(content) content.style.display = 'none';
+          if(meta) meta.style.display = 'none';
           if(link) {
-            // Inactive: No underline, slightly faded
+            // Inactive
              link.style.textDecoration = 'none';
              link.style.opacity = '0.6'; 
-             
-             // Clear other styles
-             link.style.background = 'none';
-             link.style.transform = 'none';
           }
         }
       });
