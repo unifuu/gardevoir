@@ -57,28 +57,44 @@
       </div>
       {{- end -}}
       
-      {{- /* Custom Translation Toggle - Segmented Control */ -}}
+      {{- /* Custom Translation Toggle - MUI Toggle Button Group Style */ -}}
       {{- if $hasTranslations -}}
-      &nbsp;|&nbsp; Versions: 
-      <div class="lang-segmented-control" style="display: inline-flex; position: relative; border: 1px solid var(--border); border-radius: 20px; padding: 3px; background: transparent; vertical-align: middle; gap: 4px;">
-        {{- /* Sliding Indicator */ -}}
-        <div class="lang-indicator" id="lang-indicator" style="position: absolute; top: 3px; bottom: 3px; background: var(--border); border-radius: 17px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);"></div>
-        
-        {{- /* Flags mapping */ -}}
+      &nbsp;|&nbsp;
+      <div class="lang-toggle-group" role="group" aria-label="language">
+        {{- /* Flags mapping - Fixed order: 🇬🇧🇯🇵🇭🇰🇰🇷 */ -}}
         {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🇭🇰" "kr" "🇰🇷" -}}
+        {{- $langList := slice "en" "ja" "hk" "kr" -}}
+        {{- $totalButtons := 0 -}}
         
-        {{- /* Button base style */ -}}
-        {{- $buttonStyle := "position: relative; z-index: 1; min-width: 50px; padding: 8px 12px; cursor: pointer; border: none; background: transparent; font-size: 1.2rem; transition: opacity 0.3s, transform 0.1s; border-radius: 17px; display: inline-flex; align-items: center; justify-content: center;" -}}
+        {{- /* Count total buttons */ -}}
+        {{- range $langList -}}
+          {{- if or (eq . "en") (index $langResources .) -}}
+            {{- $totalButtons = add $totalButtons 1 -}}
+          {{- end -}}
+        {{- end -}}
         
-        {{- /* English Button */ -}}
-        <button onclick="toggleLanguage(event, 'en')" id="lang-btn-en" class="lang-btn" data-index="0" style="{{ $buttonStyle }}">{{ index $flags "en" }}</button>
-        
-        {{- /* Translation Buttons (Fixed Order) */ -}}
-        {{- $index := 1 -}}
-        {{- range $targetLang := slice "ja" "hk" "kr" -}}
-          {{- if index $langResources $targetLang -}}
-          <button onclick="toggleLanguage(event, '{{ $targetLang }}')" id="lang-btn-{{ $targetLang }}" class="lang-btn" data-index="{{ $index }}" style="{{ $buttonStyle }}">{{ index $flags $targetLang }}</button>
-          {{- $index = add $index 1 -}}
+        {{- $buttonIndex := 0 -}}
+        {{- range $langList -}}
+          {{- $lang := . -}}
+          {{- $shouldRender := or (eq $lang "en") (index $langResources $lang) -}}
+          {{- if $shouldRender -}}
+            {{- $isFirst := eq $buttonIndex 0 -}}
+            {{- $isLast := eq $buttonIndex (sub $totalButtons 1) -}}
+            {{- $borderRadius := "0" -}}
+            {{- if $isFirst -}}
+              {{- $borderRadius = "4px 0 0 4px" -}}
+            {{- else if $isLast -}}
+              {{- $borderRadius = "0 4px 4px 0" -}}
+            {{- end -}}
+            <button 
+              onclick="toggleLanguage(event, '{{ $lang }}')" 
+              id="lang-btn-{{ $lang }}" 
+              class="lang-toggle-btn"
+              aria-label="{{ $lang }}"
+              data-lang="{{ $lang }}"
+              style="border-radius: {{ $borderRadius }};"
+            >{{ index $flags $lang }}</button>
+            {{- $buttonIndex = add $buttonIndex 1 -}}
           {{- end -}}
         {{- end -}}
       </div>
@@ -132,9 +148,104 @@
   {{- end -}}
 
   {{- if $hasTranslations -}}
+  <style>
+    /* MUI Toggle Button Group Container */
+    .lang-toggle-group {
+      display: inline-flex;
+      vertical-align: middle;
+      border-radius: 4px;
+    }
+    
+    /* MUI Toggle Button Base Styles */
+    .lang-toggle-btn {
+      padding: 2px 8px;
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.23);
+      background: transparent;
+      font-size: 0.875rem;
+      line-height: 1.75;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: 500;
+      position: relative;
+      outline: none;
+      margin-left: -1px;
+      box-sizing: border-box;
+    }
+    
+    .lang-toggle-btn:first-child {
+      margin-left: 0;
+    }
+    
+    /* Light mode - Hover effect (unselected) */
+    .lang-toggle-btn:not(.active):hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Light mode - Active (selected) state - Gray background */
+    .lang-toggle-btn.active {
+      background: rgba(0, 0, 0, 0.08);
+      color: rgba(0, 0, 0, 0.87);
+      border-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+      font-weight: 600;
+    }
+    
+    /* Light mode - Active hover */
+    .lang-toggle-btn.active:hover {
+      background: rgba(0, 0, 0, 0.12);
+      border-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Focus visible for accessibility */
+    .lang-toggle-btn:focus-visible {
+      outline: 2px solid rgba(0, 0, 0, 0.5);
+      outline-offset: 2px;
+      z-index: 2;
+    }
+    
+    /* Dark mode adjustments using media query */
+    @media (prefers-color-scheme: dark) {
+      .lang-toggle-btn {
+        border-color: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.87);
+      }
+      
+      .lang-toggle-btn:not(.active):hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      
+      .lang-toggle-btn.active {
+        background: rgba(255, 255, 255, 0.16);
+        color: rgba(255, 255, 255, 0.87);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      
+      .lang-toggle-btn.active:hover {
+        background: rgba(255, 255, 255, 0.24);
+      }
+      
+      .lang-toggle-btn:focus-visible {
+        outline-color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  </style>
   <script>
     function toggleLanguage(e, selectedLang) {
       if (e) e.preventDefault();
+      
+      // MUI "Enforce value set" behavior: prevent deselecting the active button
+      const currentBtn = document.getElementById(`lang-btn-${selectedLang}`);
+      if (currentBtn && currentBtn.classList.contains('active')) {
+        // Already selected, do nothing (enforce value set)
+        return;
+      }
       
       const langs = ['en', {{ range $lang, $res := $langResources }}'{{ $lang }}',{{ end }}];
       
@@ -156,31 +267,8 @@
           if(toc) toc.style.display = 'block';
           if(content) content.style.display = 'block';
           if(btn) {
-            // Active button: full opacity
-            btn.style.opacity = '1';
-            
-            // Move indicator to this button
-            const indicator = document.getElementById('lang-indicator');
-            if(indicator) {
-              // Get all buttons to calculate position
-              const allButtons = document.querySelectorAll('.lang-btn');
-              let offsetLeft = 0;
-              let found = false;
-              
-              // Calculate offset by summing widths of buttons BEFORE the selected one
-              allButtons.forEach((button) => {
-                if(button === btn) {
-                  found = true;
-                  return; // Stop when we reach the target button
-                }
-                if(!found) {
-                  offsetLeft += button.offsetWidth + 4; // button width + gap (4px)
-                }
-              });
-              
-              indicator.style.width = `${btn.offsetWidth}px`;
-              indicator.style.transform = `translateX(${offsetLeft}px)`;
-            }
+            // Add active class for MUI styling
+            btn.classList.add('active');
           }
         } else {
           if(title) title.style.display = 'none';
@@ -190,8 +278,8 @@
           if(toc) toc.style.display = 'none';
           if(content) content.style.display = 'none';
           if(btn) {
-            // Inactive button: reduced opacity
-            btn.style.opacity = '0.5';
+            // Remove active class
+            btn.classList.remove('active');
           }
         }
       });
