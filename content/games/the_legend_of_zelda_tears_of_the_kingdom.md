@@ -1,15 +1,16 @@
 ---
 title: "The Legend of Zelda: Tears of the Kingdom"
-aliases: 
+aliases:
   - ゼルダの伝説 ティアーズ オブ ザ キングダム
 origin: 🇯🇵
 developer: Nintendo
 year: 2023
 finished: false
-date: 
+date:
 rating: 9
-platform: 
+platform:
   - NS2
-cover: 
+cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/co5vmg.webp
+searchHidden: true
 ---

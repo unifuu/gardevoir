@@ -1,15 +1,16 @@
 ---
 title: "Pokémon Legends: Z-A"
-aliases: 
+aliases:
   - Pokémon LEGENDS Z-A
 origin: 🇯🇵
 developer: Game Freak
 year: 2025
-finished: 
-date: 
+finished:
+date:
 rating: 6
-platform: 
+platform:
   - NS2
-cover: 
+cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/co9wzc.webp
+searchHidden: true
 ---

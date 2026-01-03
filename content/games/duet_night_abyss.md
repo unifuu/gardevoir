@@ -1,15 +1,16 @@
 ---
 title: Duet Night Abyss
-aliases: 
+aliases:
   - 二重螺旋
 origin: 🇨🇳
 developer: Pan Studio Games
 year: 2025
-finished: 
-date: 
+finished:
+date:
 rating: 7
-platform: 
+platform:
   - PC
-cover: 
+cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/co7zjb.webp
+searchHidden: true
 ---
