@@ -56,7 +56,7 @@
           {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🇭🇰" "kr" "🇰🇷" -}}
           
           {{- /* Flag Styling - Base styles */ -}}
-          {{- $flagStyle := "margin-left: 20px; cursor: pointer; text-decoration: none; padding: 0 2px;" -}}
+          {{- $flagStyle := "margin-left: 35px; cursor: pointer; text-decoration: none; padding: 0 2px;" -}}
           
           {{- /* English Link */ -}}
           <a href="#" onclick="toggleLanguage(event, 'en')" id="lang-link-en" style="{{ $flagStyle }}">{{ index $flags "en" }}</a>
