@@ -79,7 +79,14 @@
   {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
   
   {{- if (.Param "ShowToc") }}
-  {{- partial "toc.html" . }}
+  <div id="toc-en">
+    {{- partial "toc.html" . }}
+  </div>
+  {{- range $lang, $res := $langResources -}}
+  <div id="toc-{{ $lang }}" style="display: none;">
+    {{- partial "toc.html" $res -}}
+  </div>
+  {{- end -}}
   {{- end }}
 
   {{- /* Content Areas */ -}}
@@ -105,17 +112,19 @@
       
       const langs = ['en', {{ range $lang, $res := $langResources }}'{{ $lang }}',{{ end }}];
       
-      // Toggle Titles, Contents, Meta, and Links
+      // Toggle Titles, Contents, Meta, TOC, and Links
       langs.forEach(lang => {
         const title = document.getElementById(`post-title-${lang}`);
         const content = document.getElementById(`post-content-${lang}`);
         const meta = document.getElementById(`post-meta-${lang}`);
+        const toc = document.getElementById(`toc-${lang}`);
         const link = document.getElementById(`lang-link-${lang}`);
         
         if (lang === selectedLang) {
           if(title) title.style.display = 'block';
           if(content) content.style.display = 'block';
           if(meta) meta.style.display = 'inline';
+          if(toc) toc.style.display = 'block';
           if(link) {
             // Active: Underline, fully opaque
             link.style.textDecoration = 'underline';
@@ -127,6 +136,7 @@
           if(title) title.style.display = 'none';
           if(content) content.style.display = 'none';
           if(meta) meta.style.display = 'none';
+          if(toc) toc.style.display = 'none';
           if(link) {
             // Inactive
              link.style.textDecoration = 'none';
@@ -135,7 +145,7 @@
         }
       });
       
-      // localStorage.setItem('content-lang', selectedLang); // Persistence removed
+      // Persistence removed
     }
 
     // Initialize default language (English)
