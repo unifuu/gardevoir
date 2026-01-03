@@ -135,17 +135,12 @@
         }
       });
       
-      localStorage.setItem('content-lang', selectedLang);
+      // localStorage.setItem('content-lang', selectedLang); // Persistence removed
     }
 
-    // Auto-switch based on preference
+    // Initialize default language (English)
     (function() {
-      const pref = localStorage.getItem('content-lang');
-      const availableLangs = ['en', {{ range $lang, $res := $langResources }}'{{ $lang }}',{{ end }}];
-      
-      // Initial state setup
-      const initialLang = (pref && availableLangs.includes(pref)) ? pref : 'en';
-      toggleLanguage(null, initialLang);
+      toggleLanguage(null, 'en');
     })();
   </script>
   {{- end -}}
