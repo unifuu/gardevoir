@@ -158,18 +158,19 @@
     
     /* MUI Toggle Button Base Styles */
     .lang-toggle-btn {
-      padding: 2px 8px;
+      padding: 1px 4px;
       cursor: pointer;
-      border: 1px solid rgba(0, 0, 0, 0.23);
+      border: 1px solid var(--border);
       background: transparent;
-      font-size: 0.875rem;
-      line-height: 1.75;
+      font-size: 1rem;
+      line-height: 1.2;
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 40px;
-      color: rgba(0, 0, 0, 0.87);
+      min-width: 22px;
+      height: 22px;
+      color: var(--primary);
       font-weight: 500;
       position: relative;
       outline: none;
@@ -183,57 +184,30 @@
     
     /* Light mode - Hover effect (unselected) */
     .lang-toggle-btn:not(.active):hover {
-      background: rgba(0, 0, 0, 0.04);
-      border-color: rgba(0, 0, 0, 0.4);
+      background: var(--tertiary);
+      border-color: var(--secondary);
     }
     
-    /* Light mode - Active (selected) state - Gray background */
+    /* Light mode - Active (selected) state - Subtle blue accent */
     .lang-toggle-btn.active {
-      background: rgba(0, 0, 0, 0.08);
-      color: rgba(0, 0, 0, 0.87);
-      border-color: rgba(0, 0, 0, 0.4);
+      background: var(--tertiary);
+      color: var(--primary);
+      border-color: var(--primary);
       z-index: 1;
       font-weight: 600;
     }
     
     /* Light mode - Active hover */
     .lang-toggle-btn.active:hover {
-      background: rgba(0, 0, 0, 0.12);
-      border-color: rgba(0, 0, 0, 0.4);
+      background: var(--secondary);
+      border-color: var(--primary);
     }
     
     /* Focus visible for accessibility */
     .lang-toggle-btn:focus-visible {
-      outline: 2px solid rgba(0, 0, 0, 0.5);
+      outline: 2px solid var(--primary);
       outline-offset: 2px;
       z-index: 2;
-    }
-    
-    /* Dark mode adjustments using media query */
-    @media (prefers-color-scheme: dark) {
-      .lang-toggle-btn {
-        border-color: rgba(255, 255, 255, 0.3);
-        color: rgba(255, 255, 255, 0.87);
-      }
-      
-      .lang-toggle-btn:not(.active):hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.5);
-      }
-      
-      .lang-toggle-btn.active {
-        background: rgba(255, 255, 255, 0.16);
-        color: rgba(255, 255, 255, 0.87);
-        border-color: rgba(255, 255, 255, 0.5);
-      }
-      
-      .lang-toggle-btn.active:hover {
-        background: rgba(255, 255, 255, 0.24);
-      }
-      
-      .lang-toggle-btn:focus-visible {
-        outline-color: rgba(255, 255, 255, 0.7);
-      }
     }
   </style>
   <script>

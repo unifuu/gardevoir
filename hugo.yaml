@@ -32,7 +32,7 @@ params:
   id: 250
   buttonStyle: outlined # Options: text / contained / outlined
   buttonColor:
-  disableThemeToggle: false
+  disableThemeToggle: true
   ShowShareButtons: false
   ShowReadingTime: false
   disableSpecial1stPost: true
