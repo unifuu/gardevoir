@@ -49,14 +49,14 @@
       
       {{- /* Custom Translation Toggle */ -}}
       {{- if $hasTranslations -}}
-      &nbsp;|&nbsp; Translations: 
+      &nbsp;|&nbsp; Versions: 
       <ul class="i18n_list" style="display: inline; padding: 0; list-style: none;">
         <li style="display: inline;">
           {{- /* Flags mapping */ -}}
           {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🇭🇰" "kr" "🇰🇷" -}}
           
           {{- /* Flag Styling - Base styles */ -}}
-          {{- $flagStyle := "margin-left: 35px; cursor: pointer; text-decoration: none; padding: 0 2px;" -}}
+          {{- $flagStyle := "display: inline-block; margin-left: 50px; cursor: pointer; text-decoration: none; padding: 0 2px;" -}}
           
           {{- /* English Link */ -}}
           <a href="#" onclick="toggleLanguage(event, 'en')" id="lang-link-en" style="{{ $flagStyle }}">{{ index $flags "en" }}</a>
