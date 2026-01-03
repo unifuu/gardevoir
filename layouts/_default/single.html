@@ -29,9 +29,19 @@
       {{- end -}}
     </div>
 
+    {{- /* English Description */ -}}
     {{- if .Description }}
-    <div class="post-description">{{ .Description }}</div>
+    <div class="post-description" id="post-description-en">{{ .Description }}</div>
     {{- end }}
+
+    {{- /* Translated Descriptions */ -}}
+    {{- range $lang, $res := $langResources -}}
+      {{- if $res.Params.description }}
+      <div class="post-description" id="post-description-{{ $lang }}" style="display: none;">
+        {{ $res.Params.description }}
+      </div>
+      {{- end }}
+    {{- end -}}
 
     {{- if not (.Param "hideMeta") }}
     <div class="post-meta">
@@ -47,28 +57,31 @@
       </div>
       {{- end -}}
       
-      {{- /* Custom Translation Toggle */ -}}
+      {{- /* Custom Translation Toggle - Segmented Control */ -}}
       {{- if $hasTranslations -}}
       &nbsp;|&nbsp; Versions: 
-      <ul class="i18n_list" style="display: inline; padding: 0; list-style: none;">
-        <li style="display: inline;">
-          {{- /* Flags mapping */ -}}
-          {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🇭🇰" "kr" "🇰🇷" -}}
-          
-          {{- /* Flag Styling - Base styles */ -}}
-          {{- $flagStyle := "display: inline-block; margin-left: 50px; cursor: pointer; text-decoration: none; padding: 0 2px;" -}}
-          
-          {{- /* English Link */ -}}
-          <a href="#" onclick="toggleLanguage(event, 'en')" id="lang-link-en" style="{{ $flagStyle }}">{{ index $flags "en" }}</a>
-          
-          {{- /* Translation Links (Fixed Order) */ -}}
-          {{- range $targetLang := slice "ja" "hk" "kr" -}}
-            {{- if index $langResources $targetLang -}}
-            <a href="#" onclick="toggleLanguage(event, '{{ $targetLang }}')" id="lang-link-{{ $targetLang }}" style="{{ $flagStyle }}">{{ index $flags $targetLang }}</a>
-            {{- end -}}
+      <div class="lang-segmented-control" style="display: inline-flex; position: relative; border: 1px solid var(--border); border-radius: 20px; padding: 3px; background: transparent; vertical-align: middle; gap: 4px;">
+        {{- /* Sliding Indicator */ -}}
+        <div class="lang-indicator" id="lang-indicator" style="position: absolute; top: 3px; bottom: 3px; background: var(--border); border-radius: 17px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);"></div>
+        
+        {{- /* Flags mapping */ -}}
+        {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🇭🇰" "kr" "🇰🇷" -}}
+        
+        {{- /* Button base style */ -}}
+        {{- $buttonStyle := "position: relative; z-index: 1; min-width: 50px; padding: 8px 12px; cursor: pointer; border: none; background: transparent; font-size: 1.2rem; transition: opacity 0.3s, transform 0.1s; border-radius: 17px; display: inline-flex; align-items: center; justify-content: center;" -}}
+        
+        {{- /* English Button */ -}}
+        <button onclick="toggleLanguage(event, 'en')" id="lang-btn-en" class="lang-btn" data-index="0" style="{{ $buttonStyle }}">{{ index $flags "en" }}</button>
+        
+        {{- /* Translation Buttons (Fixed Order) */ -}}
+        {{- $index := 1 -}}
+        {{- range $targetLang := slice "ja" "hk" "kr" -}}
+          {{- if index $langResources $targetLang -}}
+          <button onclick="toggleLanguage(event, '{{ $targetLang }}')" id="lang-btn-{{ $targetLang }}" class="lang-btn" data-index="{{ $index }}" style="{{ $buttonStyle }}">{{ index $flags $targetLang }}</button>
+          {{- $index = add $index 1 -}}
           {{- end -}}
-        </li>
-      </ul>
+        {{- end -}}
+      </div>
       {{- end -}}
       
       {{- partial "edit_post.html" . -}}
@@ -77,8 +90,19 @@
     {{- end }}
   </header>
 
-  {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
-  {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
+  {{- /* English Cover */ -}}
+  <div id="post-cover-en">
+    {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
+    {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
+  </div>
+
+  {{- /* Translated Covers */ -}}
+  {{- range $lang, $res := $langResources -}}
+  <div id="post-cover-{{ $lang }}" style="display: none;">
+    {{- $resHidden := ($res.Params.cover.hiddenInSingle) | default ($res.Params.cover.hidden) | default false }}
+    {{- partial "cover.html" (dict "cxt" $res "IsSingle" true "isHidden" $resHidden) }}
+  </div>
+  {{- end -}}
   
   {{- if (.Param "ShowToc") }}
   <div id="toc-en">
@@ -114,35 +138,60 @@
       
       const langs = ['en', {{ range $lang, $res := $langResources }}'{{ $lang }}',{{ end }}];
       
-      // Toggle Titles, Contents, Meta, TOC, and Links
+      // Toggle Titles, Descriptions, Meta, Covers, TOC, Content
       langs.forEach(lang => {
         const title = document.getElementById(`post-title-${lang}`);
-        const content = document.getElementById(`post-content-${lang}`);
+        const desc = document.getElementById(`post-description-${lang}`);
         const meta = document.getElementById(`post-meta-${lang}`);
+        const cover = document.getElementById(`post-cover-${lang}`);
         const toc = document.getElementById(`toc-${lang}`);
-        const link = document.getElementById(`lang-link-${lang}`);
+        const content = document.getElementById(`post-content-${lang}`);
+        const btn = document.getElementById(`lang-btn-${lang}`);
         
         if (lang === selectedLang) {
           if(title) title.style.display = 'block';
-          if(content) content.style.display = 'block';
+          if(desc) desc.style.display = 'block';
           if(meta) meta.style.display = 'inline';
+          if(cover) cover.style.display = 'block';
           if(toc) toc.style.display = 'block';
-          if(link) {
-            // Active: Underline, fully opaque
-            link.style.textDecoration = 'underline';
-            link.style.textUnderlineOffset = '4px';
-            link.style.textDecorationThickness = '2px';
-            link.style.opacity = '1';
+          if(content) content.style.display = 'block';
+          if(btn) {
+            // Active button: full opacity
+            btn.style.opacity = '1';
+            
+            // Move indicator to this button
+            const indicator = document.getElementById('lang-indicator');
+            if(indicator) {
+              // Get all buttons to calculate position
+              const allButtons = document.querySelectorAll('.lang-btn');
+              let offsetLeft = 0;
+              let found = false;
+              
+              // Calculate offset by summing widths of buttons BEFORE the selected one
+              allButtons.forEach((button) => {
+                if(button === btn) {
+                  found = true;
+                  return; // Stop when we reach the target button
+                }
+                if(!found) {
+                  offsetLeft += button.offsetWidth + 4; // button width + gap (4px)
+                }
+              });
+              
+              indicator.style.width = `${btn.offsetWidth}px`;
+              indicator.style.transform = `translateX(${offsetLeft}px)`;
+            }
           }
         } else {
           if(title) title.style.display = 'none';
-          if(content) content.style.display = 'none';
+          if(desc) desc.style.display = 'none';
           if(meta) meta.style.display = 'none';
+          if(cover) cover.style.display = 'none';
           if(toc) toc.style.display = 'none';
-          if(link) {
-            // Inactive
-             link.style.textDecoration = 'none';
-             link.style.opacity = '0.6'; 
+          if(content) content.style.display = 'none';
+          if(btn) {
+            // Inactive button: reduced opacity
+            btn.style.opacity = '0.5';
           }
         }
       });
