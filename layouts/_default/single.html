@@ -46,7 +46,7 @@
           {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🇭🇰" "kr" "🇰🇷" -}}
           
           {{- /* Flag Styling - Base styles */ -}}
-          {{- $flagStyle := "margin-left: 20px; cursor: pointer; text-decoration: underline; text-underline-offset: 6px;" -}}
+          {{- $flagStyle := "margin-left: 20px; cursor: pointer; text-decoration: none; padding: 0 2px;" -}}
           
           {{- /* English Link */ -}}
           <a href="#" onclick="toggleLanguage(event, 'en')" id="lang-link-en" style="{{ $flagStyle }}">{{ index $flags "en" }}</a>
@@ -101,25 +101,31 @@
         const content = document.getElementById(`post-content-${lang}`);
         const link = document.getElementById(`lang-link-${lang}`);
         
-        // CSS Variables for styling
-        const activeColor = 'currentColor';
-        const inactiveColor = 'var(--secondary, rgba(128, 128, 128, 0.4))'; // Fallback light gray
-        
         if (lang === selectedLang) {
           if(title) title.style.display = 'block';
           if(content) content.style.display = 'block';
           if(link) {
-            link.style.textDecorationColor = activeColor;
-            link.style.textDecorationThickness = '2px'; // slightly thicker for active
+            // Active: Underline, fully opaque, simple text decoration
+            link.style.textDecoration = 'underline';
+            link.style.textUnderlineOffset = '4px';
+            link.style.textDecorationThickness = '2px';
             link.style.opacity = '1';
+            
+            // Clear other styles just in case
+            link.style.background = 'none';
+            link.style.transform = 'none';
           }
         } else {
           if(title) title.style.display = 'none';
           if(content) content.style.display = 'none';
           if(link) {
-             link.style.textDecorationColor = inactiveColor;
-             link.style.textDecorationThickness = '1px'; // thinner for inactive
-             link.style.opacity = '0.8'; 
+            // Inactive: No underline, slightly faded
+             link.style.textDecoration = 'none';
+             link.style.opacity = '0.6'; 
+             
+             // Clear other styles
+             link.style.background = 'none';
+             link.style.transform = 'none';
           }
         }
       });
