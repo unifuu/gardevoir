@@ -2,8 +2,8 @@
     filter: brightness(0.4) saturate(1.2) hue-rotate(15deg);
     display: inline-block;
     vertical-align: middle;
-    margin-right: 4px;
-    margin-inline-end: 4px;
+    margin-right: 4.5px;
+    margin-inline-end: 4.5px;
     font-size: 1.0em;
 }
 
