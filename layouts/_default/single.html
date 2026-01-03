@@ -1,0 +1,161 @@
+{{- define "main" }}
+<article class="post-single">
+  {{- /* Define supported languages and find resources */ -}}
+  {{- $supportedLangs := slice "ja" "hk" "kr" -}}
+  {{- $langResources := dict -}}
+  {{- range $supportedLangs -}}
+    {{- $res := $.Resources.GetMatch (printf "index.%s.md" .) -}}
+    {{- if $res -}}
+      {{- $langResources = merge $langResources (dict . $res) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $hasTranslations := gt (len $langResources) 0 -}}
+  
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    
+    <div class="lang-toggle-container">
+      {{- /* English Title */ -}}
+      <h1 class="post-title entry-hint-parent" id="post-title-en">
+        {{ .Title }}
+        {{- if .Draft }}<span class="entry-hint" title="Draft">Draft</span>{{- end }}
+      </h1>
+      
+      {{- /* Translated Titles */ -}}
+      {{- range $lang, $res := $langResources -}}
+      <h1 class="post-title entry-hint-parent" id="post-title-{{ $lang }}" style="display: none;">
+        {{ $res.Params.title | default $.Title }}
+      </h1>
+      {{- end -}}
+    </div>
+
+    {{- if .Description }}
+    <div class="post-description">{{ .Description }}</div>
+    {{- end }}
+
+    {{- if not (.Param "hideMeta") }}
+    <div class="post-meta">
+      {{- partial "post_meta.html" . -}}
+      
+      {{- /* Custom Translation Toggle */ -}}
+      {{- if $hasTranslations -}}
+      &nbsp;|&nbsp; Translations: 
+      <ul class="i18n_list" style="display: inline; padding: 0; list-style: none;">
+        <li style="display: inline;">
+          {{- /* Flags mapping */ -}}
+          {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🇭🇰" "kr" "🇰🇷" -}}
+          
+          {{- /* Flag Styling - Base styles */ -}}
+          {{- $flagStyle := "margin-left: 20px; cursor: pointer; text-decoration: underline; text-underline-offset: 6px;" -}}
+          
+          {{- /* English Link */ -}}
+          <a href="#" onclick="toggleLanguage(event, 'en')" id="lang-link-en" style="{{ $flagStyle }}">{{ index $flags "en" }}</a>
+          
+          {{- /* Translation Links */ -}}
+          {{- range $lang, $res := $langResources -}}
+          <a href="#" onclick="toggleLanguage(event, '{{ $lang }}')" id="lang-link-{{ $lang }}" style="{{ $flagStyle }}">{{ index $flags $lang }}</a>
+          {{- end -}}
+        </li>
+      </ul>
+      {{- end -}}
+      
+      {{- partial "edit_post.html" . -}}
+      {{- partial "post_canonical.html" . -}}
+    </div>
+    {{- end }}
+  </header>
+
+  {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
+  {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
+  
+  {{- if (.Param "ShowToc") }}
+  {{- partial "toc.html" . }}
+  {{- end }}
+
+  {{- /* Content Areas */ -}}
+  
+  {{- /* English Content */ -}}
+  <div class="post-content" id="post-content-en">
+    {{- if not (.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" .Content -}}
+    {{- else }}{{ .Content }}{{ end }}
+  </div>
+
+  {{- /* Translated Contents */ -}}
+  {{- range $lang, $res := $langResources -}}
+  <div class="post-content" id="post-content-{{ $lang }}" style="display: none;">
+    {{ $res.Content }}
+  </div>
+  {{- end -}}
+
+  {{- if $hasTranslations -}}
+  <script>
+    function toggleLanguage(e, selectedLang) {
+      if (e) e.preventDefault();
+      
+      const langs = ['en', {{ range $lang, $res := $langResources }}'{{ $lang }}',{{ end }}];
+      
+      // Toggle Titles, Contents, and Links
+      langs.forEach(lang => {
+        const title = document.getElementById(`post-title-${lang}`);
+        const content = document.getElementById(`post-content-${lang}`);
+        const link = document.getElementById(`lang-link-${lang}`);
+        
+        // CSS Variables for styling
+        const activeColor = 'currentColor';
+        const inactiveColor = 'var(--secondary, rgba(128, 128, 128, 0.4))'; // Fallback light gray
+        
+        if (lang === selectedLang) {
+          if(title) title.style.display = 'block';
+          if(content) content.style.display = 'block';
+          if(link) {
+            link.style.textDecorationColor = activeColor;
+            link.style.textDecorationThickness = '2px'; // slightly thicker for active
+            link.style.opacity = '1';
+          }
+        } else {
+          if(title) title.style.display = 'none';
+          if(content) content.style.display = 'none';
+          if(link) {
+             link.style.textDecorationColor = inactiveColor;
+             link.style.textDecorationThickness = '1px'; // thinner for inactive
+             link.style.opacity = '0.8'; 
+          }
+        }
+      });
+      
+      localStorage.setItem('content-lang', selectedLang);
+    }
+
+    // Auto-switch based on preference
+    (function() {
+      const pref = localStorage.getItem('content-lang');
+      const availableLangs = ['en', {{ range $lang, $res := $langResources }}'{{ $lang }}',{{ end }}];
+      
+      // Initial state setup
+      const initialLang = (pref && availableLangs.includes(pref)) ? pref : 'en';
+      toggleLanguage(null, initialLang);
+    })();
+  </script>
+  {{- end -}}
+
+  <footer class="post-footer">
+    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+    <ul class="post-tags">
+      {{- range ($.GetTerms $tags) }}
+      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+    {{- if (.Param "ShowPostNavLinks") }}
+    {{- partial "post_nav_links.html" . }}
+    {{- end }}
+    {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+    {{- partial "share_icons.html" . -}}
+    {{- end }}
+  </footer>
+
+  {{- if (.Param "comments") }}
+  {{- partial "comments.html" . }}
+  {{- end }}
+</article>
+{{- end }}{{/* end main */}}
