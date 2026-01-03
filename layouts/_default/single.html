@@ -61,9 +61,11 @@
           {{- /* English Link */ -}}
           <a href="#" onclick="toggleLanguage(event, 'en')" id="lang-link-en" style="{{ $flagStyle }}">{{ index $flags "en" }}</a>
           
-          {{- /* Translation Links */ -}}
-          {{- range $lang, $res := $langResources -}}
-          <a href="#" onclick="toggleLanguage(event, '{{ $lang }}')" id="lang-link-{{ $lang }}" style="{{ $flagStyle }}">{{ index $flags $lang }}</a>
+          {{- /* Translation Links (Fixed Order) */ -}}
+          {{- range $targetLang := slice "ja" "hk" "kr" -}}
+            {{- if index $langResources $targetLang -}}
+            <a href="#" onclick="toggleLanguage(event, '{{ $targetLang }}')" id="lang-link-{{ $targetLang }}" style="{{ $flagStyle }}">{{ index $flags $targetLang }}</a>
+            {{- end -}}
           {{- end -}}
         </li>
       </ul>
