@@ -10,5 +10,4 @@ finished: true
 date: 2026-01-02
 cover:
   image: https://m.media-amazon.com/images/I/61tfmu10L1L._SL1500_.jpg
-draft: true
 ---
