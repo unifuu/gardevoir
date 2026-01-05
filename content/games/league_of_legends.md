@@ -6,7 +6,7 @@ origin: 🇺🇸
 developer: Riot Games
 year: 2009
 finished: true
-date: 2026-01-03
+date: 2026-01-02
 rating: 8
 platform:
   - PC

@@ -7,7 +7,7 @@ developer: Pan Studio Games
 year: 2025
 finished:
 date:
-rating: 7
+rating: 8
 platform:
   - PC
 cover:

@@ -6,8 +6,8 @@ origin: 🇺🇸
 developer: Respawn Entertainment
 year: 2019
 finished:
-date:
-rating: 8
+date: 2026-01-03
+rating: 9
 platform:
   - PC
 cover:
