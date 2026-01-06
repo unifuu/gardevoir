@@ -1,6 +1,6 @@
 ---
 title: Terminology Wiki
-date: 2025-12-24
+date: 2025-12-31
 summary: 📰 Some terms...
 tags:
   - wiki

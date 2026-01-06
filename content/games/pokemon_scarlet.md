@@ -13,5 +13,4 @@ platform:
 cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/co5sfi.webp
 searchHidden: true
-draft: true
 ---
