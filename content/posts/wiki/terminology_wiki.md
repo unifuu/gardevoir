@@ -1,12 +1,22 @@
 ---
 title: Terminology Wiki
 date: 2025-12-24
-summary: 📰 Some unfamiliar terms...
+summary: 📰 Some terms...
 tags:
   - wiki
   - terminology
 ---
-
+## Cloud Computing
+### Low-Code Platform
+- A low-code platform lets users build applications with minimal coding using visual tools.
+### PaaS
+- PaaS (Platform as a Service)
+- A cloud model that provides a ready-to-use platform to build and run applications.
+- Examples: Heroku, Google App Engine, Azure App Service.
+## DevOps
+### DevSecOps
+- Integrating security into DevOps from the start.
+- It makes security **a shared responsibility** and automates security checks throughout the CI/CD pipeline, so software can be delivered fast and securely.
 ## Marketing
 ### ASP: Affiliate Service Provider
 - A company or platform that runs and manages an affiliate marketing system.
@@ -20,6 +30,10 @@ Affiliate Service Provider (Platform)
 ▼
 Affiliate (Publisher)
 ```
+## Monitoring
+### Prometheus
+- A monitoring system.
+- It collects and stores metrics from systems and applications.
 ## Production
 ### MVP: Minimum Viable Product
 - The smallest version of a product that is usable and delivers real value to users, so you can validate assumptions quickly with minimal cost.
@@ -43,3 +57,11 @@ Affiliate (Publisher)
 - Spine 2D
     - `.skel` or `.json`
     - Engine: PixiJS + Spine Runtime
+## Storage
+### Ceph
+- An open-source distributed storage system that combines the disks of many servers into one reliable storage pool.
+- It automatically replicates data, handles failures, and scales by adding more machines, providing object, block, and file storage from the same system.
+## Visualization
+### Grafana
+- A visualization tool.
+- It visualizes metrics using dashboards and charts.
