@@ -6,7 +6,7 @@ author: Virginia Woolf
 is_female: true
 year: 1925
 origin: 🇬🇧
-rating: 
+rating: 10
 finished: 
 date: 
 cover:
