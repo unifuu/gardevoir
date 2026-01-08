@@ -21,7 +21,11 @@
 
 /* Add glow effect to cover wrapper on hover (excluding masterpiece which has its own) */
 .book-card:not(.is-masterpiece):hover .book-cover-wrapper {
-  box-shadow: var(--hover-glow, 0 0 8px rgba(255, 255, 255, 0.6), 0 0 16px rgba(255, 255, 255, 0.4));
+  box-shadow: var(
+    --hover-glow,
+    0 0 8px rgba(255, 255, 255, 0.6),
+    0 0 16px rgba(255, 255, 255, 0.4)
+  );
   transition: box-shadow 0.3s ease;
   border-radius: 6px; /* Ensure glow follows radius */
 }
@@ -58,8 +62,8 @@
 
 .book-rating-badge {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 10px;
+  right: 10px;
 
   display: inline-flex;
   align-items: center;
@@ -84,14 +88,10 @@
 
 /* Masterpiece Highlight - Diamond/UR Rarity Style */
 .book-card.is-masterpiece .book-cover-wrapper {
-  box-shadow:
-    0 0 8px rgba(220, 235, 255, 0.4),
+  box-shadow: 0 0 8px rgba(220, 235, 255, 0.4),
     0 0 16px rgba(240, 240, 255, 0.2);
   /* Use padding to create the border effect */
   padding: 5px;
-  /* Expand the wrapper outwards so the inner image size remains consistent with normal cards */
-  margin: -5px -5px 5px -5px;
-  width: calc(100% + 10px);
   background: linear-gradient(
     135deg,
     #ffffff 0%,
@@ -117,8 +117,7 @@
 /* Intensified shine on hover for masterpieces */
 .book-card.is-masterpiece:hover .book-cover-wrapper {
   animation: diamond-shimmer 1.2s linear infinite; /* Refined hover speed */
-  box-shadow: 
-    0 0 12px rgba(255, 255, 255, 0.6),
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6),
     0 0 20px rgba(220, 235, 255, 0.4);
   filter: brightness(1.1);
 }
@@ -469,7 +468,6 @@ details[open] > .books-month-header::after {
 
 /* Link area refinement */
 
-
 .book-card:hover .book-title {
   color: var(--secondary);
 }
@@ -614,4 +612,3 @@ details[open] > .books-month-header::after {
 .rating-group .book-grid {
   margin-top: 1.5rem;
 }
-
