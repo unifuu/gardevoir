@@ -6,7 +6,7 @@ origin: 🇸🇪
 developer: Mojang Studios
 year: 2016
 finished:
-date:
+date: 
 rating: 9
 platform:
   - PC

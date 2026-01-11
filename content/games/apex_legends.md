@@ -6,7 +6,7 @@ origin: 🇺🇸
 developer: Respawn Entertainment
 year: 2019
 finished:
-date: 2026-01-03
+date: 2026-01-01
 rating: 9
 platform:
   - PC
