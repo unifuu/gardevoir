@@ -9,13 +9,16 @@ tags:
 ---
 
 ## Structured Testing
+
 - Impact Analysis (Pre-Development)
 - Before implementation, categorize the scope of change to determine the testing depth:
   - Domain / Logic Layer: Business rules or calculations
   - Data Persistence Layer: Schemas, queries or indexing
   - Transport / Interface Layer: API contracts, routing, or middleware
   - Cross-Cutting Concerns: Performance, security or concurrency
+
 ### Test Categorization & Strategy
+
 - Unit Testing (Isolated Logic)
   - Target: Individual functions / methods in the Service or Domain layer.
   - Success Scenarios: Validate that valid inputs yield expected outputs.
@@ -44,18 +47,23 @@ tags:
     - Linting/Style checks fail
       - Dead Code: Variables declared but never used.
       - Security Risks: Hardcoded passwords or insecure / deprecated function calls.
+
 ## CI/CD
+
 ### Definition
+
 - CI: Continuous Integration
   - Every time you push code → tests run → code builds → ensures nothing breaks.
 - CD: Continuous Deployment / Delivery
   - Your code automatically deploys to a server or hosting platform after CI succeeds.
+
 ### Workflow
+
 - GitHub Actions:
-	- Push code to GitHub
-	- GitHub Actions starts running (CI)
-	   - Install dependencies
-	   - Build the project
-	   - Run tests
-	- If CI succeeds → Deployment job runs (CD)
-	- The app is updated automatically
+  - Push code to GitHub
+  - GitHub Actions starts running (CI)
+    - Install dependencies
+    - Build the project
+    - Run tests
+  - If CI succeeds → Deployment job runs (CD)
+  - The app is updated automatically

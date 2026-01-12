@@ -6,6 +6,7 @@ tags: ["backend", "microservices", "consul"]
 ---
 
 Consul is a service discovery and service mesh tool created by HashiCorp.
+
 - Register themselves
 - Discover other services
 - Perform health checks
@@ -13,14 +14,15 @@ Consul is a service discovery and service mesh tool created by HashiCorp.
 - Secure service communication (service mesh)
 
 What Consul does in microservices:
-1. Service Registry
-    - Each service registers itself: IP, port, health check.
-2. Service Discovery
-    - Other services ask Consul to find service addresses.
-3. Health-based Load Balancing
-    - Consul only returns healthy service instances and can distribute load.
 
-``` go
+1. Service Registry
+   - Each service registers itself: IP, port, health check.
+2. Service Discovery
+   - Other services ask Consul to find service addresses.
+3. Health-based Load Balancing
+   - Consul only returns healthy service instances and can distribute load.
+
+```go
 // Direct:
 http.Get("http://player-service:8001/players/1")
 

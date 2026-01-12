@@ -6,9 +6,11 @@ tags: ["backend", "api", "kong"]
 ---
 
 ## Definition
+
 - An API Gateway.
 - A reverse proxy (Based on Nginx + OpenResty).
 - A traffic control layer for microservices.
+
 ```
 Client (Browser / Mobile / Game)
         |
@@ -28,37 +30,48 @@ Client (Browser / Mobile / Game)
 │   Database / Cache      │
 └─────────────────────────┘
 ```
+
 ## Concepts
+
 ### Service
+
 Represents an upstream backend service.
+
 ```
 Service:    player-service
 URL:        http://player-service:8080
 ```
+
 One backend service = usually one Kong Service.
+
 ### Route
+
 - Defines how requests are matched and forwarded to a Service.
 - Routes can match by:
-	- Path (/api/players)
-	- Host (api.example.com)
-	- Method (GET, POST)
-	- Headers (Route → Service)
+  - Path (/api/players)
+  - Host (api.example.com)
+  - Method (GET, POST)
+  - Headers (Route → Service)
+
 ### Plugin
+
 - Adds functionality without touching backend code.
 - Common plugins:
-	- Authentication (JWT, Key Auth)
-	- CORS
-	- Rate Limiting
-	- Request / Response Transformation
-	- Logging & Metrics
+  - Authentication (JWT, Key Auth)
+  - CORS
+  - Rate Limiting
+  - Request / Response Transformation
+  - Logging & Metrics
 - Plugins can be attached to:
-	- Global
-	- Service
-	- Route
-	- Consumer
+  - Global
+  - Service
+  - Route
+  - Consumer
+
 ### Consumer
+
 - Represents an API client / user.
 - Used together with auth plugins:
-	- API keys
-	- JWT credentials
-	- OAuth tokens
+  - API keys
+  - JWT credentials
+  - OAuth tokens
