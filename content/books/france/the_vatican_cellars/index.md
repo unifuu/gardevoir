@@ -5,7 +5,7 @@ aliases:
 author: André Gide
 year: 1914
 origin: 🇫🇷
-rating: 7
+rating: 6
 finished: true
 date: 2025-12-28
 cover:
