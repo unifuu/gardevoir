@@ -5,7 +5,7 @@ aliases:
 author: Kazuo Ishiguro
 year: 1982
 origin: 🇬🇧
-rating: 6
+rating: 7
 finished: true
 date: 2025-08-24
 cover:

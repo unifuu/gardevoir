@@ -5,7 +5,7 @@ aliases:
 author: Italo Calvino
 year: 1972
 origin: 🇮🇹
-rating: 7
+rating: 6
 finished: true
 date: 2025-08-29
 cover:
