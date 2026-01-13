@@ -7,7 +7,8 @@ year: 1919
 origin: 🇫🇷
 rating: 9
 is_reading: false
-date: 2025-09-08
+dates:
+  - 2025-09-08
 cover:
   image: https://m.media-amazon.com/images/I/81accU3l3DL.jpg
 ---

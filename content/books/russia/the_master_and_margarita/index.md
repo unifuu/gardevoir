@@ -7,7 +7,8 @@ year: 1967
 origin: 🇷🇺
 rating: 7
 is_reading: false
-date: 2025-08-17
+dates:
+  - 2025-08-17
 cover:
   image: https://m.media-amazon.com/images/I/A16dyqJRpnL._SL1500_.jpg
 ---

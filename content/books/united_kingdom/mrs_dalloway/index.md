@@ -8,7 +8,8 @@ year: 1925
 origin: 🇬🇧
 rating: 10
 is_reading: true 
-date: 
+dates:
+  - 
 cover:
   image: https://m.media-amazon.com/images/I/71gFRamMa1L._SL1500_.jpg
 ---

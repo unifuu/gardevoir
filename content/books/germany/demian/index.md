@@ -7,7 +7,8 @@ year: 1919
 origin: 🇩🇪
 rating: 9
 is_reading: false
-date: 2025-10-21
+dates:
+  - 2025-10-21
 cover:
   image: https://m.media-amazon.com/images/I/71pnHj1fBjL._SL1500_.jpg
 ---
