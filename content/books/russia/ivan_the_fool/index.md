@@ -6,7 +6,7 @@ author: Leo Tolstoy
 year: 1886
 origin: 🇷🇺
 rating: 6
-finished: true
+is_reading: false
 date: 2025-11-22
 cover:
   image: https://m.media-amazon.com/images/I/51Pz9EWEdSL.jpg

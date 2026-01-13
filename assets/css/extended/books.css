@@ -207,7 +207,7 @@ body.dark .author-name.is-female {
   color: #ffb6c1; /* LightPink (Original) */
 }
 
-.book-finished {
+.book-date {
   font-size: 0.75rem;
   opacity: 0.6;
   margin-top: 0.1rem;

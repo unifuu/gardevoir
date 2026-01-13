@@ -7,7 +7,7 @@ is_female: true
 year: 1925
 origin: 🇬🇧
 rating: 10
-finished: 
+is_reading: true 
 date: 
 cover:
   image: https://m.media-amazon.com/images/I/71gFRamMa1L._SL1500_.jpg

@@ -39,7 +39,7 @@
     ====================== Reading ===========================
     ========================================================= */}}
 
-    {{ $reading := where .Pages "Params.finished" "ne" true }}
+    {{ $reading := where .Pages "Params.is_reading" true }}
 
     {{ if gt (len $reading) 0 }}
     <details class="books-year-block books-reading-block" open>
@@ -180,7 +180,7 @@
     ====================== Finished ==========================
     ========================================================= */}}
 
-    {{ $finished := where (where .Pages "Params.finished" true) "Date" "gt" (time "0002-01-01") }}
+    {{ $finished := where (where .Pages "Params.is_reading" "ne" true) "Date" "gt" (time "0002-01-01") }}
 
     {{/* ---------- group by year ---------- */}}
     {{ $years := newScratch }}
@@ -373,7 +373,7 @@
                   data-filter-value="{{ .Params.author | lower }}">{{ .Params.author }}</span> · {{ .Params.year }}
               </p>
 
-              <p class="book-finished">{{ .Date | time.Format (default "January 2, 2006" site.Params.DateFormat) }}</p>
+              <p class="book-date">{{ .Date | time.Format (default "January 2, 2006" site.Params.DateFormat) }}</p>
             </div>
           </article>
           {{ end }}
