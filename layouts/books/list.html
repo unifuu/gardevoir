@@ -197,6 +197,9 @@
       {{ end }}
     {{ end }}
 
+    {{/* Sort all entries by date descending */}}
+    {{ $allBookEntries = sort $allBookEntries "displayDate" "desc" }}
+
     {{/* ---------- group by year ---------- */}}
     {{ $years := newScratch }}
     {{ $yearList := slice }}
@@ -270,7 +273,7 @@
         </summary>
 
         <div class="book-grid">
-          {{ range $monthBooks }}
+          {{ range sort $monthBooks "displayDate" "desc" }}
           {{- $book := .page -}}
           {{- $currentDate := .displayDate -}}
           {{- $glow := "" -}}

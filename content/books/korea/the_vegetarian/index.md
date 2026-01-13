@@ -12,4 +12,5 @@ dates:
   - 2025-09-02
 cover:
   image: https://m.media-amazon.com/images/I/71l1Bhqtr0L._SL1500_.jpg
+draft: true
 ---
