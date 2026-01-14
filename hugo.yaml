@@ -19,7 +19,7 @@ params:
   profileMode:
     enabled: true
     title: Fū
-    subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/books/)"
+    subtitle: "[💻 Devs](https://github.com/unifuu) | [📚 Books](/books/)"
     buttons:
       - name: 📑 Posts
         url: posts
@@ -28,11 +28,11 @@ params:
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto
-  themeColor: beige # Options: beige / pink / lavender
+  themeColor: pink # Options: beige / pink / lavender
   id: 250
   buttonStyle: outlined # Options: text / contained / outlined
   buttonColor:
-  disableThemeToggle: true
+  disableThemeToggle: falses
   ShowShareButtons: false
   ShowReadingTime: false
   disableSpecial1stPost: true
