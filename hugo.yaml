@@ -31,6 +31,7 @@ params:
   themeColor: lavender # Options: beige / pink / lavender
   id: 250
   buttonStyle: outlined # Options: text / contained / outlined
+  disableTextSelection: true # Disable text selection on homepage, menu, and footer
   buttonColor:
   disableThemeToggle: true
   ShowShareButtons: false

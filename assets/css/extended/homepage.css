@@ -1,0 +1,30 @@
+{{- /* Text Selection Control */ -}}
+{{- $disableTextSelection := .Site.Params.disableTextSelection | default false -}}
+
+{{- if $disableTextSelection -}}
+/* Homepage, Menu, and Footer Text Unselectable */
+.home-info,
+.home-info *,
+.profile,
+.profile *,
+.nav,
+.nav *,
+.menu,
+.menu *,
+footer,
+footer * {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
+/* Optional: Add a visual cue that text is not selectable */
+.home-info,
+.profile,
+.nav,
+.menu,
+footer {
+    cursor: default;
+}
+{{- end -}}
