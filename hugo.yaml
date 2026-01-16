@@ -91,21 +91,47 @@ outputs:
     - RSS
     - JSON
 
-menu:
-  main:
-    - identifier: posts
-      name: Posts
-      url: /posts/
-      weight: 10
-    - identifier: books
-      name: Books
-      url: /books/
-      weight: 20
-    - identifier: tags
-      name: Tags
-      url: /tags/
-      weight: 30
-    - identifier: search
-      name: Search
-      url: /search/
-      weight: 40
+languages:
+  en:
+    languageName: 🇬🇧
+    weight: 1
+    menu:
+      main:
+        - identifier: posts
+          name: Posts
+          url: /posts/
+          weight: 10
+        - identifier: books
+          name: Books
+          url: /books/
+          weight: 20
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 30
+        - identifier: search
+          name: Search
+          url: /search/
+          weight: 40
+  ja:
+    languageName: 🇯🇵
+    weight: 2
+    title: 狭き門
+    menu:
+      main:
+        - identifier: posts
+          name: 記事
+          url: /posts/
+          weight: 10
+        - identifier: books
+          name: 本
+          url: /books/
+          weight: 20
+        - identifier: tags
+          name: タグ
+          url: /tags/
+          weight: 30
+        - identifier: search
+          name: 検索
+          url: /search/
+          weight: 40

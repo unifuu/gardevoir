@@ -57,14 +57,22 @@
                 
                 {{- /* Custom Language Switcher Logic */ -}}
                 {{- if (not site.Params.disableLangToggle) }}
-                    {{- if and (not .IsHome) (in (slice "posts" "books" "games") .Section) }}
-                        {{- with .Translations }}
+                    {{- if or .IsHome (in (slice "posts" "books" "games") .Section) }}
                         <ul class="lang-switch">
-                            <li>|</li>
-                            {{- range . -}}
+                            {{- $currentPage := . }}
+                            {{- range site.Home.AllTranslations }}
                             <li>
-                                <a href="{{- .Permalink -}}" title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
-                                    aria-label="{{ .Language.LanguageName | default (.Lang | title) }}">
+                                {{- $isActive := eq .Lang site.Language.Lang }}
+                                {{- $url := .Permalink }}
+                                {{- range where $currentPage.Translations "Lang" .Lang }}
+                                    {{- $url = .Permalink }}
+                                {{- end }}
+                                {{- if $isActive }}
+                                    {{- $url = "#" }}
+                                {{- end }}
+                                <a href="{{ $url }}" title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
+                                    aria-label="{{ .Language.LanguageName | default (.Lang | title) }}"
+                                    {{ if $isActive }}class="active"{{ end }}>
                                     {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
                                     {{- .Language.LanguageName | emojify -}}
                                     {{- else }}
@@ -74,7 +82,6 @@
                             </li>
                             {{- end -}}
                         </ul>
-                        {{- end }}
                     {{- end }}
                 {{- end }}
             </div>
