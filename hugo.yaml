@@ -124,7 +124,7 @@ languages:
           url: /posts/
           weight: 10
         - identifier: books
-          name: 本
+          name: 文学
           url: /books/
           weight: 20
         - identifier: tags
