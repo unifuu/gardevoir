@@ -1,10 +1,10 @@
 
 body {
-  font-family: "AmericanTypewriter", Georgia, Cambria, "Times New Roman", "Cutive Mono", serif;
+  font-family: "AmericanTypewriter", "Cutive Mono", Georgia, Cambria, "Times New Roman", serif;
 }
 
 .nav .logo a {
-  font-family: "AmericanTypewriter", Georgia, Cambria, "Times New Roman", "Cutive Mono", serif;
+  font-family: "AmericanTypewriter", "Cutive Mono", Georgia, Cambria, "Times New Roman", serif;
 }
 
 /* Improved English typography */
