@@ -81,14 +81,10 @@
                             {{- end -}}
                         {{- end -}}
 
-                        <label class="mui-switch" title="Toggle Language">
-                            <input type="checkbox" id="lang-toggle-input" data-url="{{ $targetUrl }}" {{ if $isJa }}checked{{ end }}>
-                            <span class="mui-switch-slider">
-                                <span class="mui-switch-thumb">
-                                    <span class="lang-text">{{ if $isJa }}🍵{{ else }}☕️{{ end }}</span>
-                                </span>
-                            </span>
-                        </label>
+                        <div class="lang-switcher" title="Toggle Language">
+                            <span class="lang-option {{ if not $isJa }}active{{ end }}" data-url="{{ $targetUrl }}" data-lang="en">☕️</span>
+                            <span class="lang-option {{ if $isJa }}active{{ end }}" data-url="{{ $targetUrl }}" data-lang="ja">🍵</span>
+                        </div>
                     {{- end }}
                 {{- end }}
             </div>
@@ -123,84 +119,40 @@
 </header>
 
 <style>
-    /* MUI Switcher Styles */
-    .mui-switch {
-        position: relative;
-        display: inline-block;
-        width: 50px;
-        height: 26px;
+    /* Language Switcher Styles */
+    .lang-switcher {
+        display: inline-flex;
+        gap: 8px;
         margin-left: 10px;
         vertical-align: middle;
-    }
-
-    .mui-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .mui-switch-slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: var(--entry); /* Muted background */
-        transition: .4s;
-        border-radius: 34px;
-        border: 1px solid var(--border);
-    }
-
-    .mui-switch-slider:before {
-        display: none; /* remove default dot if any */
-    }
-
-    .mui-switch-thumb {
-        position: absolute;
-        content: "";
-        height: 20px;
-        width: 20px;
-        left: 3px;
-        bottom: 2px;
-        background-color: var(--secondary); /* Accent color */
-        transition: .4s;
-        border-radius: 50%;
-        display: flex;
         align-items: center;
-        justify-content: center;
-        color: var(--primary); /* Text color inside thumb */
     }
 
-    .lang-text {
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 1;
+    .lang-option {
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0.4;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        user-select: none;
     }
 
-    /* Checked State */
-    input:checked + .mui-switch-slider {
-        background-color: var(--entry);
+    .lang-option.active {
+        opacity: 1;
+        transform: scale(1.1);
     }
-
-    input:checked + .mui-switch-slider .mui-switch-thumb {
-        transform: translateX(22px);
-    }
-
-
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Handle Lang Toggle
-        const toggleInput = document.getElementById('lang-toggle-input');
-        if (toggleInput) {
-            toggleInput.addEventListener('change', function() {
+        const langOptions = document.querySelectorAll('.lang-option');
+        langOptions.forEach(option => {
+            option.addEventListener('click', function() {
                 const targetUrl = this.getAttribute('data-url');
                 if (targetUrl) {
                     window.location.href = targetUrl;
                 }
             });
-        }
+        });
     });
 </script>
