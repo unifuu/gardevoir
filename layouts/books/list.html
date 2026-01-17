@@ -510,7 +510,10 @@
 
         const title = card.querySelector('.book-title').innerText;
         if (!grouped[rating].some(c => c.querySelector('.book-title').innerText === title)) {
-          grouped[rating].push(card.cloneNode(true));
+          const clone = card.cloneNode(true);
+          // Remove shiny effect for rating view
+          clone.style.removeProperty('--hover-glow');
+          grouped[rating].push(clone);
         }
       });
 

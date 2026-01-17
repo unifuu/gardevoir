@@ -91,3 +91,7 @@ To improve performance, developers use advanced methods:
 - **Hybrid Search:** Combining vector search with traditional keyword search.
 - **Re-ranking:** Using a second model to rank the most relevant documents before giving them to the LLM.
 - **Query Expansion:** Rewriting a user's question to make it more descriptive for better search results.
+
+---
+
+Powered by Gemini.

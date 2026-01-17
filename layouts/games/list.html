@@ -503,7 +503,9 @@
           const title = card.querySelector('.game-title').innerText;
           if (!seenTitles.has(title)) {
             seenTitles.add(title);
-            uniqueCards.push(card.cloneNode(true));
+            const clone = card.cloneNode(true);
+            clone.style.removeProperty('--hover-glow');
+            uniqueCards.push(clone);
           }
         });
 
