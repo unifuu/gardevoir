@@ -1,26 +1,77 @@
-/* Japanese language specific styles */
+/* Japanese language specific styles with optimized typography */
+
+/* Import cute, rounded Japanese font */
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
+
+/* Use M PLUS Rounded - cute and highly readable */
+:lang(ja) body,
 :lang(ja) .post-content {
-  font-size: 0.95rem;
-  line-height: 1.7;
+    font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, "Hiragino Maru Gothic ProN", "Hiragino Sans", sans-serif;
 }
 
+/* Slightly smaller base font for Japanese */
+:lang(ja) .post-content {
+    font-size: 0.98rem;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+}
+
+/* Headings with better spacing */
 :lang(ja) .post-content h1 {
-  font-size: 1.8rem;
+    font-size: 1.85rem;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 
 :lang(ja) .post-content h2 {
-  font-size: 1.5rem;
+    font-size: 1.55rem;
+    line-height: 1.45;
+    margin-top: 1.75rem;
+    margin-bottom: 0.875rem;
+    font-weight: 600;
 }
 
 :lang(ja) .post-content h3 {
-  font-size: 1.25rem;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
 }
 
 :lang(ja) .post-content h4 {
-  font-size: 1.1rem;
+    font-size: 1.12rem;
+    line-height: 1.55;
+    margin-top: 1.25rem;
+    margin-bottom: 0.625rem;
+    font-weight: 600;
 }
 
-:lang(ja) .post-content p,
+/* Paragraphs and lists */
+:lang(ja) .post-content p {
+    margin-bottom: 1.35rem;
+}
+
 :lang(ja) .post-content li {
-  font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.85;
+}
+
+/* Code blocks - keep monospace readable */
+:lang(ja) .post-content code {
+    font-family: "Menlo", "Monaco", "Courier New", monospace;
+    font-size: 0.88em;
+}
+
+:lang(ja) .post-content pre code {
+    font-size: 0.85rem;
+    line-height: 1.65;
+}
+
+/* Blockquotes */
+:lang(ja) .post-content blockquote {
+    line-height: 1.85;
+    letter-spacing: 0.02em;
 }

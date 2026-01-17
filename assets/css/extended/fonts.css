@@ -7,3 +7,54 @@ body {
 .nav .logo a {
   font-family: "AmericanTypewriter", "Cutive Mono", monospace;
 }
+
+/* Improved English typography */
+.post-content {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.post-content h1 {
+  font-size: 2rem;
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.post-content h2 {
+  font-size: 1.65rem;
+  line-height: 1.35;
+  margin-top: 1.75rem;
+  margin-bottom: 0.875rem;
+}
+
+.post-content h3 {
+  font-size: 1.35rem;
+  line-height: 1.4;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.post-content h4 {
+  font-size: 1.15rem;
+  line-height: 1.45;
+  margin-top: 1.25rem;
+  margin-bottom: 0.625rem;
+}
+
+.post-content p {
+  margin-bottom: 1.25rem;
+}
+
+.post-content li {
+  margin-bottom: 0.5rem;
+}
+
+.post-content code {
+  font-size: 0.9em;
+}
+
+.post-content pre code {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}

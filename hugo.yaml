@@ -123,7 +123,7 @@ languages:
       DateFormat: "2006年1月2日"
       profileMode:
         enabled: true
-        title: かえで
+        title: ふう
         subtitle: "[💻 開発](https://github.com/unifuu) | [📚 文学](/books/)"
         buttons:
           - name: 📑 記事
