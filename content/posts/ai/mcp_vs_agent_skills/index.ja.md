@@ -1,13 +1,13 @@
 ---
-title: MCP vs Claude Agent Skills
+title: MCP vs Agent Skills
 date: 2026-01-09
-summary: 📝 MCP と Claude エージェントスキルの比較
+summary: 📝 MCP と Agent Skills の比較
 tags:
   - ai
   - agent
   - llm
   - mcp
-  - claude
+  - skills
 ---
 
 ## はじめに

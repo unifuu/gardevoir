@@ -1,5 +1,5 @@
 ---
-title: Duet Night Abyss
+title: デュエットナイトアビス
 aliases:
   - 二重螺旋
 origin: 🇨🇳
