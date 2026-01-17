@@ -147,6 +147,15 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // OS Detection for Windows-specific emojis
+        const isWindows = navigator.platform.indexOf('Win') > -1 || navigator.userAgent.indexOf('Windows') > -1;
+        if (isWindows) {
+            const enOption = document.querySelector('.lang-option[data-lang="en"]');
+            const jaOption = document.querySelector('.lang-option[data-lang="ja"]');
+            if (enOption) enOption.textContent = '🌼';
+            if (jaOption) jaOption.textContent = '🌸';
+        }
+
         // Handle Lang Toggle
         const langOptions = document.querySelectorAll('.lang-option');
         langOptions.forEach(option => {
