@@ -1,0 +1,26 @@
+/* Japanese language specific styles */
+:lang(ja) .post-content {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+:lang(ja) .post-content h1 {
+  font-size: 1.8rem;
+}
+
+:lang(ja) .post-content h2 {
+  font-size: 1.5rem;
+}
+
+:lang(ja) .post-content h3 {
+  font-size: 1.25rem;
+}
+
+:lang(ja) .post-content h4 {
+  font-size: 1.1rem;
+}
+
+:lang(ja) .post-content p,
+:lang(ja) .post-content li {
+  font-size: 0.95rem;
+}

@@ -28,7 +28,6 @@ tags:
 - Integration Testing (Component Interaction)
   - Target: Repository layer and inter-module communication.
   - Ephemeral Environments: Use Docker (Test containers) to simulate a real database/Redis instance for testing.
-    - `ephemeral: 一時的な`
   - State Verification: Ensure that data written by the Repository can be correctly retrieved and follows schema constraints.
   - Side Effects: Verify that events (MQ triggers) are correctly worked after a logic change.
 - API & Contract Testing
@@ -39,7 +38,6 @@ tags:
 - Continuous Quality Assurance
   - Bug-Driven Development: Whenever a bug is found, write a test case that reproduces it before fixing it to ensure it never returns.
   - Idempotency Tests: Ensure that calling the same API/function multiple times doesn't result in inconsistent data states.
-    - `冪等性: ある操作を1回行っても、複数回繰り返しても、システムの状態や結果が全く同じになる性質のこと。`
 - Automation & CI Pipeline
   - Configure CI (GitHub Actions) to block Merges if:
     - Tests fail
