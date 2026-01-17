@@ -60,32 +60,30 @@
                 
                 {{- /* MUI-Style Language Switcher (Reverted) */ -}}
                 {{- if (not site.Params.disableLangToggle) }}
-                    {{- if or .IsHome (in (slice "posts" "books" "games") .Section) }}
-                        {{- $currentPage := . -}}
-                        {{- $currentLang := site.Language.Lang -}}
-                        {{- $isJa := eq $currentLang "ja" -}}
-                        {{- $targetLang := cond $isJa "en" "ja" -}}
-                        {{- $targetUrl := "" -}}
-                        
-                        {{- /* Find target URL */ -}}
-                        {{- $targetSite := index (where site.Sites "Language.Lang" $targetLang) 0 -}}
-                        {{- if $targetSite -}}
-                            {{- $targetUrl = $targetSite.Home.Permalink -}}
-                        {{- end -}}
-                        
-                        {{- if $currentPage.IsTranslated -}}
-                            {{- range $currentPage.Translations -}}
-                                {{- if eq .Lang $targetLang -}}
-                                    {{- $targetUrl = .Permalink -}}
-                                {{- end -}}
+                    {{- $currentPage := . -}}
+                    {{- $currentLang := site.Language.Lang -}}
+                    {{- $isJa := eq $currentLang "ja" -}}
+                    {{- $targetLang := cond $isJa "en" "ja" -}}
+                    {{- $targetUrl := "" -}}
+                    
+                    {{- /* Find target URL */ -}}
+                    {{- $targetSite := index (where site.Sites "Language.Lang" $targetLang) 0 -}}
+                    {{- if $targetSite -}}
+                        {{- $targetUrl = $targetSite.Home.Permalink -}}
+                    {{- end -}}
+                    
+                    {{- if $currentPage.IsTranslated -}}
+                        {{- range $currentPage.Translations -}}
+                            {{- if eq .Lang $targetLang -}}
+                                {{- $targetUrl = .Permalink -}}
                             {{- end -}}
                         {{- end -}}
+                    {{- end -}}
 
-                        <div class="lang-switcher" title="Toggle Language">
-                            <span class="lang-option {{ if not $isJa }}active{{ end }}" data-url="{{ $targetUrl }}" data-lang="en">☕️</span>
-                            <span class="lang-option {{ if $isJa }}active{{ end }}" data-url="{{ $targetUrl }}" data-lang="ja">🍵</span>
-                        </div>
-                    {{- end }}
+                    <div class="lang-switcher" title="Toggle Language">
+                        <span class="lang-option {{ if not $isJa }}active{{ end }}" data-url="{{ $targetUrl }}" data-lang="en">☕️</span>
+                        <span class="lang-option {{ if $isJa }}active{{ end }}" data-url="{{ $targetUrl }}" data-lang="ja">🍵</span>
+                    </div>
                 {{- end }}
             </div>
         </div>
@@ -131,13 +129,15 @@
     .lang-option {
         font-size: 20px;
         cursor: pointer;
-        opacity: 0.4;
-        transition: opacity 0.2s ease, transform 0.2s ease;
+        opacity: 0.25;
+        filter: grayscale(100%);
+        transition: all 0.2s ease;
         user-select: none;
     }
 
     .lang-option.active {
         opacity: 1;
+        filter: grayscale(0%);
         transform: scale(1.1);
         /* text-decoration: underline;
         text-decoration-thickness: 2px;
