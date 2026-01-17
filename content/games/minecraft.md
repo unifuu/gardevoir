@@ -5,8 +5,7 @@ aliases:
 origin: 🇸🇪
 developer: Mojang Studios
 year: 2016
-finished:
-date: 
+is_playing: true
 rating: 9
 platform:
   - PC

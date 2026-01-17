@@ -5,8 +5,9 @@ aliases:
 origin: 🇨🇳
 developer: Pan Studio Games
 year: 2025
-finished:
-date: 2026-01-01
+is_playing: false
+dates:
+  - 2026-01-01
 rating: 7
 platform:
   - PC

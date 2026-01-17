@@ -5,8 +5,9 @@ aliases:
 origin: 🇺🇸
 developer: Riot Games
 year: 2020
-finished: true
-date: 2026-01-01
+is_playing: false
+dates:
+  - 2026-01-01
 rating: 7
 platform:
   - PC

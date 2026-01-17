@@ -5,8 +5,7 @@ aliases:
 origin: 🇯🇵
 developer: Nintendo
 year: 2023
-finished: false
-date:
+is_playing: true
 rating: 9
 platform:
   - NS2

@@ -5,8 +5,9 @@ aliases:
 origin: 🇺🇸
 developer: Respawn Entertainment
 year: 2019
-finished:
-date: 2026-01-01
+is_playing: true
+dates:
+  - 2026-01-01
 rating: 9
 platform:
   - PC

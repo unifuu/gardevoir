@@ -5,8 +5,7 @@ aliases:
 origin: 🇯🇵
 developer: Game Freak
 year: 2025
-finished:
-date: 
+is_playing: true
 rating: 6
 platform:
   - NS2
