@@ -1,4 +1,3 @@
 ---
-title: "Games"
-layout: "games"
+title: Games
 ---

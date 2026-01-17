@@ -60,7 +60,7 @@
       <summary class="books-year-header">
         <div class="filter-info">
           <span class="books-year-title">{{ i18n "reading" | default "Reading" }}</span>
-          <span class="books-year-count">· {{ len $reading }} books</span>
+          <span class="books-year-count">· {{ i18n "books_count" (dict "Count" (len $reading)) }}</span>
         </div>
       </summary>
 
@@ -255,7 +255,7 @@
       <summary class="books-year-header">
         <div class="filter-info">
           <span class="books-year-title">{{ $year }}</span>
-          <span class="books-year-count">· {{ len $yearBooks }} books</span>
+          <span class="books-year-count">· {{ i18n "books_count" (dict "Count" (len $yearBooks)) }}</span>
         </div>
       </summary>
 
@@ -289,10 +289,14 @@
         <summary class="books-month-header">
           <div class="filter-info">
             <span class="books-month-title">
-              {{ (index $monthBooks 0).displayDate.Format "January" }}
+              {{ if eq site.Language.Lang "ja" }}
+                {{ (index $monthBooks 0).displayDate.Format "1" }}月
+              {{ else }}
+                {{ (index $monthBooks 0).displayDate.Format "January" }}
+              {{ end }}
             </span>
             <span class="books-month-count">
-              · {{ len $monthBooks }} books
+              · {{ i18n "books_count" (dict "Count" (len $monthBooks)) }}
             </span>
           </div>
         </summary>
@@ -486,7 +490,8 @@
       });
 
       displayNameNode.innerText = displayLabel;
-      bookCountNode.innerText = `· ${uniqueMatches.length} books`;
+      const countTemplate = '{{ i18n "books_count" (dict "Count" "COUNT_PLACEHOLDER") }}';
+      bookCountNode.innerText = `· ${countTemplate.replace("COUNT_PLACEHOLDER", uniqueMatches.length)}`;
 
       originalView.style.display = 'none';
       ratingView.style.display = 'none';
@@ -496,6 +501,7 @@
 
     function generateRatingView() {
       ratingView.innerHTML = '';
+      const countTemplate = '{{ i18n "books_count" (dict "Count" "COUNT_PLACEHOLDER") }}';
       const grouped = {};
 
       allCards.forEach(card => {
@@ -520,7 +526,7 @@
           <div class="books-year-header rating-header">
             <div class="filter-info">
               <span class="books-year-title">⭐️ ${rating}</span>
-              <span class="books-year-count">· ${count} books</span>
+              <span class="books-year-count">· ${countTemplate.replace("COUNT_PLACEHOLDER", count)}</span>
             </div>
           </div>
           <div class="book-grid"></div>

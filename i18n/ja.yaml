@@ -37,3 +37,9 @@
 
 - id: playing
   translation: "プレイ中"
+
+- id: books_count
+  translation: "{{ .Count }} 冊"
+
+- id: games_count
+  translation: "{{ .Count }} 作"

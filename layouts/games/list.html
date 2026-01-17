@@ -46,7 +46,7 @@
       <summary class="games-year-header">
         <div class="filter-info">
           <span class="games-year-title">{{ i18n "playing" | default "Playing" }}</span>
-          <span class="games-year-count">· {{ len $playing }} games</span>
+          <span class="games-year-count">· {{ i18n "games_count" (dict "Count" (len $playing)) }}</span>
         </div>
       </summary>
 
@@ -221,7 +221,7 @@
       <summary class="games-year-header">
         <div class="filter-info">
           <span class="games-year-title">{{ $year }}</span>
-          <span class="games-year-count">· {{ len $yearGames }} games</span>
+          <span class="games-year-count">· {{ i18n "games_count" (dict "Count" (len $yearGames)) }}</span>
         </div>
       </summary>
 
@@ -254,10 +254,14 @@
         <summary class="games-month-header">
           <div class="filter-info">
             <span class="games-month-title">
-              {{ (index $monthGames 0).Date.Format "January" }}
+              {{ if eq site.Language.Lang "ja" }}
+                {{ (index $monthGames 0).Date.Format "1" }}月
+              {{ else }}
+                {{ (index $monthGames 0).Date.Format "January" }}
+              {{ end }}
             </span>
             <span class="games-month-count">
-              · {{ len $monthGames }} games
+              · {{ i18n "games_count" (dict "Count" (len $monthGames)) }}
             </span>
           </div>
         </summary>
@@ -433,9 +437,9 @@
     const allCards = Array.from(originalView.querySelectorAll('.game-card'));
     
     // Inject localized count template (replacing placeholder in JS)
-    const countTemplate = '### games';
+    const countTemplate = '{{ i18n "games_count" (dict "Count" "COUNT_PLACEHOLDER") }}';
     function formatGameCount(count) {
-      return countTemplate.replace('###', count);
+      return countTemplate.replace('COUNT_PLACEHOLDER', count);
     }
 
     function applyFilter(type, value, displayLabel) {
