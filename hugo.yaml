@@ -16,15 +16,6 @@ minify:
   # minifyOutput: true
 
 params:
-  profileMode:
-    enabled: true
-    title: Fū
-    subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/books/)"
-    buttons:
-      - name: 📑 Posts
-        url: posts
-      - name: 🔖 Tags
-        url: tags
   env: production
   DateFormat: "January 2, 2006"
   defaultTheme: auto # Options: auto / dark / light
@@ -94,7 +85,18 @@ outputs:
 languages:
   en:
     languageName: 🇬🇧
+    languageCode: en-us
     weight: 1
+    params:
+      profileMode:
+        enabled: true
+        title: Fū
+        subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/books/)"
+        buttons:
+          - name: 📑 Posts
+            url: posts
+          - name: 🔖 Tags
+            url: tags
     menu:
       main:
         - identifier: posts
@@ -115,23 +117,34 @@ languages:
           weight: 40
   ja:
     languageName: 🇯🇵
+    languageCode: ja-jp
     weight: 2
-    title: 狭き門
+    params:
+      DateFormat: "2006年1月2日"
+      profileMode:
+        enabled: true
+        title: ふう
+        subtitle: "[💻 開発](https://github.com/unifuu) | [📚 文学](/books/)"
+        buttons:
+          - name: 📑 記事
+            url: posts
+          - name: 🔖 タグ
+            url: tags
     menu:
       main:
         - identifier: posts
           name: 記事
-          url: /posts/
+          url: posts
           weight: 10
         - identifier: books
           name: 文学
-          url: /books/
+          url: books
           weight: 20
         - identifier: tags
           name: タグ
-          url: /tags/
+          url: tags
           weight: 30
         - identifier: search
           name: 検索
-          url: /search/
+          url: search
           weight: 40
