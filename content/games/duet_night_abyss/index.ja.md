@@ -1,5 +1,5 @@
 ---
-title: 二重螺旋
+title: デュエットナイトアビス
 aliases:
   - 二重螺旋
 origin: 🇨🇳
