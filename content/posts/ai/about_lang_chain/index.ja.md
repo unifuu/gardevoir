@@ -1,7 +1,7 @@
 ---
-title: LangChainについて
+title: LangChain について
 date: 2026-01-02
-summary: 📝 LangChainのメモ...
+summary: 📝 LangChain のメモ...
 tags:
   - ai
   - agent

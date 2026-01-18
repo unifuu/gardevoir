@@ -1,7 +1,7 @@
 ---
-title: "Consulについて"
+title: "Consul について"
 date: "2025-12-15"
-summary: "📝 Consulのメモ..."
+summary: "📝 Consul のメモ..."
 tags: ["backend", "microservices", "consul"]
 ---
 

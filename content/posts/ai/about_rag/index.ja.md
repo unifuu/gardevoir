@@ -1,7 +1,7 @@
 ---
-title: RAGについて
+title: RAG について
 date: 2026-01-02
-summary: 📝 RAGのメモ...
+summary: 📝 RAG のメモ...
 tags:
   - ai
   - agent

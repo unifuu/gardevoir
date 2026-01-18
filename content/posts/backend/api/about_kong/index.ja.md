@@ -1,7 +1,7 @@
 ---
-title: Kongについて
+title: Kong について
 date: 2025-12-16
-summary: 📝 Kongのメモ...
+summary: 📝 Kong のメモ...
 tags:
   - backend
   - api
