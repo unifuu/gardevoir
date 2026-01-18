@@ -7,3 +7,9 @@
   translation:
     one: "{{ .Count }} game"
     other: "{{ .Count }} games"
+
+- id: reading
+  translation: "Reading"
+
+- id: playing
+  translation: "Playing"

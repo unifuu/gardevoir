@@ -110,10 +110,6 @@ languages:
           name: Books
           url: /books/
           weight: 20
-        - identifier: games
-          name: Games
-          url: /games/
-          weight: 25
         - identifier: tags
           name: Tags
           url: /tags/
@@ -147,10 +143,6 @@ languages:
           name: 文学
           url: /books/
           weight: 20
-        - identifier: games
-          name: ゲーム
-          url: /games/
-          weight: 25
         - identifier: tags
           name: タグ
           url: /tags/
