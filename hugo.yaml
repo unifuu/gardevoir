@@ -1,5 +1,8 @@
 baseURL: https://unifuu.dev/
-languageCode: en-us
+# defaultContentLanguage: en
+# languageCode: en-us
+defaultContentLanguage: ja
+languageCode: ja-jp
 title: La Porte étroite
 theme: ["PaperMod"]
 
