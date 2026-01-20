@@ -1,7 +1,7 @@
 ---
 title: About RAG
-date: 2026-01-02
-summary: 📝 Quick notes on RAG
+date: 2026-12-02
+summary: 📝 Quick notes on RAG...
 tags:
   - ai
   - agent

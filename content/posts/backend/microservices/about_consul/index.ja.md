@@ -1,8 +1,11 @@
 ---
-title: "Consul について"
-date: "2025-12-15"
-summary: "📝 Consul のメモ..."
-tags: ["backend", "microservices", "consul"]
+title: Consul について
+date: 2025-11-15
+summary: 📝 Consul のメモ...
+tags:
+  - backend
+  - microservices
+  - consul
 ---
 
 Consul は、HashiCorp によって作成されたサービスディスカバリおよびサービスメッシュツールです。

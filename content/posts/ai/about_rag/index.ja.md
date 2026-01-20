@@ -1,6 +1,6 @@
 ---
 title: RAG について
-date: 2026-01-02
+date: 2026-12-02
 summary: 📝 RAG のメモ...
 tags:
   - ai

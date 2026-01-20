@@ -1,6 +1,6 @@
 ---
 title: Kong について
-date: 2025-12-16
+date: 2025-11-16
 summary: 📝 Kong のメモ...
 tags:
   - backend

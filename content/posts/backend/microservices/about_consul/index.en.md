@@ -1,8 +1,11 @@
 ---
-title: "About Consul"
-date: "2025-12-15"
-summary: "📝 Quick notes on Consul..."
-tags: ["backend", "microservices", "consul"]
+title: About Consul
+date: 2025-11-15
+summary: 📝 Quick notes on Consul...
+tags:
+  - backend
+  - microservices
+  - consul
 ---
 
 Consul is a service discovery and service mesh tool created by HashiCorp.

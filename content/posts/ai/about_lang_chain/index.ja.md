@@ -1,6 +1,6 @@
 ---
 title: LangChain について
-date: 2026-01-02
+date: 2026-12-02
 summary: 📝 LangChain のメモ...
 tags:
   - ai

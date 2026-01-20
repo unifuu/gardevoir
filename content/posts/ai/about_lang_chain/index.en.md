@@ -1,7 +1,7 @@
 ---
 title: About LangChain
-date: 2026-01-02
-summary: 📝 Quick notes on LangChain
+date: 2026-12-02
+summary: 📝 Quick notes on LangChain...
 tags:
   - ai
   - agent

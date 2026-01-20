@@ -1,8 +1,11 @@
 ---
-title: "About Kong"
-date: "2025-12-16"
-summary: "📝 Quick notes on Kong..."
-tags: ["backend", "api", "kong"]
+title: About Kong
+date: 2025-11-16
+summary: 📝 Quick notes on Kong...
+tags:
+  - backend
+  - api
+  - kong
 ---
 
 ## Definition
