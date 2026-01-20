@@ -131,7 +131,3 @@ result = chain.invoke({"topic": "アイスクリーム"})
 print(result)
 # 出力例: "アイスクリームのトラックが故障した理由は？ 道がロッキーロード（岩だらけの道／アイスのフレーバー）だったから！"
 ```
-
----
-
-Powered by Gemini.

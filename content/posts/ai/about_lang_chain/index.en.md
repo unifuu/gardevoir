@@ -131,7 +131,3 @@ result = chain.invoke({"topic": "ice cream"})
 print(result)
 # Output: "Why did the ice cream truck break down? Because of the rocky road!"
 ```
-
----
-
-Powered by Gemini.
