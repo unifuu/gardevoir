@@ -1,7 +1,7 @@
 ---
 title: MCP vs Agent Skills
 date: 2026-01-09
-summary: 📝 A Comprehensive Comparison of MCP and Agent Skills
+summary: 📝 A Comprehensive Comparison of MCP and Agent Skills...
 tags:
   - ai
   - agent
