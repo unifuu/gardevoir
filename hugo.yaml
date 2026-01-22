@@ -84,6 +84,11 @@ outputs:
     - HTML
     - RSS
     - JSON
+  section:
+    - HTML
+    - RSS
+  page:
+    - HTML
 
 languages:
   en:

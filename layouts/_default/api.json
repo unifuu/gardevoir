@@ -1,0 +1,58 @@
+{{- $.Scratch.Add "api" slice -}}
+
+{{- /* Posts API */ -}}
+{{- range where site.RegularPages "Section" "posts" -}}
+    {{- if not .Params.searchHidden -}}
+    {{- $.Scratch.Add "api" (dict 
+        "id" .File.UniqueID
+        "type" "post"
+        "title" .Title 
+        "summary" .Summary
+        "content" .Plain
+        "permalink" .Permalink
+        "date" (.Date.Format "2006-01-02T15:04:05Z07:00")
+        "lastmod" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+        "tags" .Params.tags
+        "categories" .Params.categories
+        "author" (.Params.author | default "Fū")
+        "readingTime" .ReadingTime
+        "wordCount" .WordCount
+        "language" .Language.Lang
+        "cover" (dict 
+            "image" .Params.cover.image
+            "alt" (.Params.cover.alt | default .Title)
+        )
+    ) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Books API */ -}}
+{{- range where site.RegularPages "Section" "books" -}}
+    {{- if not .Params.searchHidden -}}
+    {{- $.Scratch.Add "api" (dict 
+        "id" .File.UniqueID
+        "type" "book"
+        "title" .Title 
+        "summary" .Summary
+        "content" .Plain
+        "permalink" .Permalink
+        "date" (.Date.Format "2006-01-02T15:04:05Z07:00")
+        "lastmod" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+        "author" .Params.author
+        "year" .Params.year
+        "origin" .Params.origin
+        "rating" .Params.rating
+        "finished" .Params.finished
+        "isReading" .Params.is_reading
+        "isFemale" .Params.is_female
+        "language" .Language.Lang
+        "cover" (dict 
+            "image" .Params.cover.image
+            "alt" (.Params.cover.alt | default .Title)
+        )
+        "country" (index (split .File.Dir "/") 1)
+    ) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $.Scratch.Get "api" | jsonify -}}
