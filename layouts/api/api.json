@@ -1,0 +1,79 @@
+{{- $posts := slice -}}
+{{- $books := slice -}}
+
+{{- /* Collect Posts */ -}}
+{{- range where site.RegularPages "Section" "posts" -}}
+    {{- if not .Params.searchHidden -}}
+    {{- $posts = $posts | append (dict 
+        "id" .File.UniqueID
+        "type" "post"
+        "title" .Title 
+        "summary" .Summary
+        "content" .Plain
+        "permalink" .Permalink
+        "relativeURL" .RelPermalink
+        "date" (.Date.Format "2006-01-02T15:04:05Z07:00")
+        "lastmod" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+        "tags" (.Params.tags | default slice)
+        "categories" (.Params.categories | default slice)
+        "author" (.Params.author | default "Fū")
+        "readingTime" .ReadingTime
+        "wordCount" .WordCount
+        "language" .Language.Lang
+        "cover" (dict 
+            "image" (.Params.cover.image | default "")
+            "alt" (.Params.cover.alt | default .Title)
+        )
+    ) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Collect Books */ -}}
+{{- range where site.RegularPages "Section" "books" -}}
+    {{- if not .Params.searchHidden -}}
+    {{- $books = $books | append (dict 
+        "id" .File.UniqueID
+        "type" "book"
+        "title" .Title 
+        "summary" .Summary
+        "content" .Plain
+        "permalink" .Permalink
+        "relativeURL" .RelPermalink
+        "date" (.Date.Format "2006-01-02T15:04:05Z07:00")
+        "lastmod" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+        "author" (.Params.author | default "")
+        "year" (.Params.year | default 0)
+        "origin" (.Params.origin | default "")
+        "rating" (.Params.rating | default 0)
+        "finished" (.Params.finished | default false)
+        "isReading" (.Params.is_reading | default false)
+        "isFemale" (.Params.is_female | default false)
+        "language" .Language.Lang
+        "cover" (dict 
+            "image" (.Params.cover.image | default "")
+            "alt" (.Params.cover.alt | default .Title)
+        )
+        "country" (index (split .File.Dir "/") 1)
+    ) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* API Response Structure */ -}}
+{{- $apiResponse := dict 
+    "meta" (dict 
+        "version" "1.0"
+        "generated" (now.Format "2006-01-02T15:04:05Z07:00")
+        "baseURL" site.BaseURL
+        "language" site.Language.Lang
+        "title" site.Title
+        "description" site.Params.description
+        "totalPosts" (len $posts)
+        "totalBooks" (len $books)
+    )
+    "data" (dict 
+        "posts" $posts
+        "books" $books
+    )
+-}}
+
+{{- $apiResponse | jsonify -}}

@@ -1,0 +1,42 @@
+{{- $posts := slice -}}
+
+{{- /* Collect Posts */ -}}
+{{- range where site.RegularPages "Section" "posts" -}}
+    {{- if not .Params.searchHidden -}}
+    {{- $posts = $posts | append (dict 
+        "id" .File.UniqueID
+        "title" .Title 
+        "summary" .Summary
+        "content" .Plain
+        "permalink" .Permalink
+        "relativeURL" .RelPermalink
+        "date" (.Date.Format "2006-01-02T15:04:05Z07:00")
+        "lastmod" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+        "tags" (.Params.tags | default slice)
+        "categories" (.Params.categories | default slice)
+        "author" (.Params.author | default "Fū")
+        "readingTime" .ReadingTime
+        "wordCount" .WordCount
+        "language" .Language.Lang
+        "cover" (dict 
+            "image" (.Params.cover.image | default "")
+            "alt" (.Params.cover.alt | default .Title)
+        )
+    ) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Sort posts by date (newest first) */ -}}
+{{- $posts = sort $posts "date" "desc" -}}
+
+{{- /* API Response */ -}}
+{{- $response := dict 
+    "meta" (dict 
+        "total" (len $posts)
+        "generated" (now.Format "2006-01-02T15:04:05Z07:00")
+        "endpoint" "posts"
+    )
+    "data" $posts
+-}}
+
+{{- $response | jsonify -}}
