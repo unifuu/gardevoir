@@ -3,6 +3,7 @@ baseURL: https://unifuu.dev/
 # languageCode: en-us
 defaultContentLanguage: ja
 languageCode: ja-jp
+timeZone: Asia/Tokyo
 title: La Porte étroite
 theme: ["PaperMod"]
 

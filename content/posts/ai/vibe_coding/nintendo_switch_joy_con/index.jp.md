@@ -1,7 +1,7 @@
 ---
 title: Joy-ConでVibe Codingしてみた
 date: 2026-01-24
-summary: 🤖 x 🎮
+summary: 🤖 x 🎮 Switch Joy-Con と Claude Code の初コラボレーション。ゲーム機も生産ツールに進化するか。
 tags:
   - nintendo-switch
   - ai
