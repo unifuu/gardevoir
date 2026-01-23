@@ -30,8 +30,6 @@ OSはRaspberry Pi OS Lite（64-bit）。GUIは一切なし。Raspberry Pi Imager
 ssh user@raspberry-pi.local
 ```
 
-これだけでMacから入れる。IPアドレスを探す手間もない。
-
 中身は空なので、必要なものを入れていく。
 
 ```bash
@@ -45,6 +43,9 @@ sudo apt install -y nodejs
 
 # Claude Code
 sudo npm install -g @anthropic-ai/claude-code
+
+# OpenCode (AI coding エージェント)
+sudo npm i -g opencode-ai
 
 # 開発ツール
 sudo apt install -y build-essential git tmux htop bat ripgrep
