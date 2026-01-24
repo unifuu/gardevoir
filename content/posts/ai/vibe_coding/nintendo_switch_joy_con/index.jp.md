@@ -1,7 +1,7 @@
 ---
 title: Joy-ConでVibe Codingしてみた
 date: 2026-01-24
-summary: 🤖 x 🎮 Switch Joy-Con と Claude Code の初コラボレーション。ゲーム機も生産ツールに進化するか。
+summary: 🤖 x 🎮 Switch Joy-Con と Claude Code の初コラボレーション。ゲーム機も生産ツールに進化するか...
 tags:
   - nintendo-switch
   - ai
@@ -22,7 +22,7 @@ Nintendo Switch 2を購入したので、旧Switchの使い道を考えていま
 4. Joy-ConのZLを押す → Enterキーで送信
 ```
 
-これだけで、Vibe Codingができる。
+これだけで、Vibe Codingができます。
 
 ## 🛠️ デバイス
 
