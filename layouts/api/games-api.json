@@ -1,0 +1,56 @@
+{{- $games := slice -}}
+
+{{- /* Collect Games */ -}}
+{{- range where site.RegularPages "Section" "games" -}}
+    {{- $games = $games | append (dict
+        "id" .File.UniqueID
+        "title" .Title
+        "origin" (.Params.origin | default "")
+        "developer" (.Params.developer | default "")
+        "year" (.Params.year | default 0)
+        "isPlaying" (.Params.is_playing | default false)
+        "dates" (.Params.dates | default slice)
+        "rating" (.Params.rating | default 0)
+        "platform" (.Params.platform | default slice)
+        "permalink" .Permalink
+        "relativeURL" .RelPermalink
+        "language" .Language.Lang
+        "cover" (dict
+            "image" (.Params.cover.image | default "")
+            "alt" (.Params.cover.alt | default .Title)
+        )
+    ) -}}
+{{- end -}}
+
+{{- /* Sort games by rating (highest first), then by title */ -}}
+{{- $games = sort $games "rating" "desc" -}}
+
+{{- /* Group games by status */ -}}
+{{- $playing := slice -}}
+{{- $finished := slice -}}
+
+{{- range $games -}}
+    {{- if .isPlaying -}}
+        {{- $playing = $playing | append . -}}
+    {{- else -}}
+        {{- $finished = $finished | append . -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* API Response */ -}}
+{{- $response := dict
+    "meta" (dict
+        "total" (len $games)
+        "playing" (len $playing)
+        "finished" (len $finished)
+        "generated" (now.Format "2006-01-02T15:04:05Z07:00")
+        "endpoint" "games"
+    )
+    "data" (dict
+        "all" $games
+        "playing" $playing
+        "finished" $finished
+    )
+-}}
+
+{{- $response | jsonify -}}
