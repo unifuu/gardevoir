@@ -119,14 +119,18 @@ languages:
           name: Books
           url: /books/
           weight: 20
+        - identifier: games
+          name: Games
+          url: /games/
+          weight: 30
         - identifier: tags
           name: Tags
           url: /tags/
-          weight: 30
+          weight: 40
         - identifier: search
           name: Search
           url: /search/
-          weight: 40
+          weight: 50
   ja:
     languageName: 🇯🇵
     languageCode: ja-jp
@@ -152,11 +156,15 @@ languages:
           name: 文学
           url: /books/
           weight: 20
+        - identifier: games
+          name: ゲーム
+          url: /games/
+          weight: 30
         - identifier: tags
           name: タグ
           url: /tags/
-          weight: 30
+          weight: 40
         - identifier: search
           name: 検索
           url: /search/
-          weight: 40
+          weight: 50
