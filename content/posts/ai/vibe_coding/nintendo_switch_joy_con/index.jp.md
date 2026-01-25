@@ -16,10 +16,10 @@ Nintendo Switch 2を購入したので、旧Switchの使い道を考えていま
 **仕組みはシンプル:**
 
 ```
-1. Joy-ConのCaptureを押す → 音声入力開始
+1. Joy-ConのCaptureボタンを押す → 音声入力開始
 2. 喋る
-3. もう一度Captureを押す→ 音声入力終了
-4. Joy-ConのZLを押す → Enterキーで送信
+3. もう一度Captureボタンを押す→ 音声入力終了
+4. Joy-ConのZLボタンを押す → Enterキーで送信
 ```
 
 これだけで、Vibe Codingができます。
