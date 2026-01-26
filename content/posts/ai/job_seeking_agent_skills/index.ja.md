@@ -35,7 +35,7 @@ tags:
 ## 🛠 技術スタック
 
 - **Claude Code**: ファイルシステムへのアクセス権を持つ、次世代 AI CLI ツール。
-- **Claude Sonnet**: 推論能力とコーディングに特化した大規模言語モデル。
+- **Claude ~~Sonnet~~ → Haiku**: 推論能力とコーディングに特化した大規模言語モデル。
 - **Web Search & Fetch API**: リアルタイム情報の収集源。
 - **Markdown/Obsidian**: ローカル完結型の構造化ドキュメント管理。
 
