@@ -29,7 +29,7 @@ jobs:
       HUGO_DESTINATION: public-ci
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
 
@@ -42,7 +42,7 @@ jobs:
         run: sudo snap install dart-sass
 
       - name: Restore Hugo cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ${{ env.HUGO_CACHEDIR }}
@@ -59,12 +59,12 @@ jobs:
             --destination "${HUGO_DESTINATION}"
 
       - name: Link check (internal)
-        uses: lycheeverse/lychee-action@v1
+        uses: lycheeverse/lychee-action@v2
         with:
           args: --offline --include-fragments --no-progress ${{ env.HUGO_DESTINATION }}
 
       - name: Upload site artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: site-${{ github.sha }}
           path: ${{ env.HUGO_DESTINATION }}
@@ -75,10 +75,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: markdownlint
-        uses: DavidAnson/markdownlint-cli2-action@v16
+        uses: DavidAnson/markdownlint-cli2-action@v22
         with:
           globs: |
             **/*.md
@@ -88,7 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: yamllint
         uses: ibiqlik/action-yamllint@v3
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: codespell
         uses: codespell-project/actions-codespell@v2
