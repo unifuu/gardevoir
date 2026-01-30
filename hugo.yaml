@@ -1,8 +1,6 @@
 baseURL: https://unifuu.dev/
-# defaultContentLanguage: en
-# languageCode: en-us
-defaultContentLanguage: ja
-languageCode: ja-jp
+defaultContentLanguage: en
+languageCode: en-us
 timeZone: Asia/Tokyo
 title: La Porte étroite
 theme: ["PaperMod"]
@@ -96,14 +94,14 @@ outputs:
 
 languages:
   en:
-    languageName: 🇬🇧
+    languageName: en
     languageCode: en-us
     weight: 1
     params:
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "[💻 Coding](https://github.com/unifuu) | [📚 Reading](/books/)"
+        subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/) | [📚 Reading](/books/)"
         buttons:
           - name: 📑 Posts
             url: posts
@@ -129,42 +127,5 @@ languages:
           weight: 40
         - identifier: search
           name: Search
-          url: /search/
-          weight: 50
-  ja:
-    languageName: 🇯🇵
-    languageCode: ja-jp
-    weight: 2
-    params:
-      DateFormat: "2006年1月2日"
-      profileMode:
-        enabled: true
-        title: ふう
-        subtitle: "[💻 開発](https://github.com/unifuu) | [📚 文学](/books/)"
-        buttons:
-          - name: 📑 記事
-            url: posts
-          - name: 🔖 タグ
-            url: tags
-    menu:
-      main:
-        - identifier: posts
-          name: 記事
-          url: /posts/
-          weight: 10
-        - identifier: books
-          name: 文学
-          url: /books/
-          weight: 20
-        - identifier: games
-          name: ゲーム
-          url: /games/
-          weight: 30
-        - identifier: tags
-          name: タグ
-          url: /tags/
-          weight: 40
-        - identifier: search
-          name: 検索
           url: /search/
           weight: 50
