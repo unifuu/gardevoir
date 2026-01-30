@@ -58,7 +58,7 @@ JoyKeyMapperで以下のように設定しました:
 - **L/SLボタン** → Delete/Tab（編集補助）
 - その他、Left Stick Pushでマウス左クリックなど便利な設定も追加
 
-<img src="../001.png" width="55%" />
+<img src="001.png" width="55%" />
 
 ## 💭 感想
 

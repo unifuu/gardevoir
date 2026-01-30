@@ -101,7 +101,7 @@ languages:
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/) | [📚 Reading](/books/)"
+        subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/)"
         buttons:
           - name: 📑 Posts
             url: posts
