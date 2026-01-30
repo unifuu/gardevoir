@@ -1,8 +1,8 @@
 baseURL: https://unifuu.dev/
-# defaultContentLanguage: en
-# languageCode: en-us
-defaultContentLanguage: ja
-languageCode: ja-jp
+defaultContentLanguage: en
+languageCode: en-us
+# defaultContentLanguage: ja
+# languageCode: ja-jp
 timeZone: Asia/Tokyo
 title: La Porte étroite
 theme: ["PaperMod"]
@@ -119,14 +119,18 @@ languages:
           name: Books
           url: /books/
           weight: 20
+        - identifier: games
+          name: Games
+          url: /games/
+          weight: 30
         - identifier: tags
           name: Tags
           url: /tags/
-          weight: 30
+          weight: 40
         - identifier: search
           name: Search
           url: /search/
-          weight: 40
+          weight: 50
   ja:
     languageName: 🇯🇵
     languageCode: ja-jp
@@ -152,11 +156,52 @@ languages:
           name: 文学
           url: /books/
           weight: 20
+        - identifier: games
+          name: ゲーム
+          url: /games/
+          weight: 30
         - identifier: tags
           name: タグ
           url: /tags/
-          weight: 30
+          weight: 40
         - identifier: search
           name: 検索
           url: /search/
+          weight: 50
+  hk:
+    languageName: 🇭🇰
+    languageCode: zh-hk
+    weight: 3
+    params:
+      DateFormat: "2006年1月2日"
+      profileMode:
+        enabled: true
+        title: 楓
+        subtitle: "[💻 程式](https://github.com/unifuu) | [📚 文學](/books/)"
+        buttons:
+          - name: 📑 網誌
+            url: posts
+          - name: 🔖 標籤
+            url: tags
+    menu:
+      main:
+        - identifier: posts
+          name: 網誌
+          url: /posts/
+          weight: 10
+        - identifier: books
+          name: 文學
+          url: /books/
+          weight: 20
+        - identifier: games
+          name: 遊戲
+          url: /games/
+          weight: 30
+        - identifier: tags
+          name: 標籤
+          url: /tags/
           weight: 40
+        - identifier: search
+          name: 搜尋
+          url: /search/
+          weight: 50

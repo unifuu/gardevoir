@@ -1,68 +1,64 @@
 {{- define "main" }}
 <article class="post-single">
-  {{- /* Define supported languages and find resources */ -}}
-  {{- $supportedLangs := slice "ja" "hk" "kr" -}}
-  {{- $langResources := dict -}}
-  {{- range $supportedLangs -}}
-    {{- $res := $.Resources.GetMatch (printf "index.%s.md" .) -}}
-    {{- if $res -}}
-      {{- $langResources = merge $langResources (dict . $res) -}}
-    {{- end -}}
-  {{- end -}}
-  {{- $hasTranslations := gt (len $langResources) 0 -}}
-  
+  {{- /* Define supported languages and find resources */ -}} {{-
+  $supportedLangs := slice "ja" "hk" "kr" -}} {{- $langResources := dict -}} {{-
+  range $supportedLangs -}} {{- $res := $.Resources.GetMatch (printf
+  "index.%s.md" .) -}} {{- if $res -}} {{- $langResources = merge $langResources
+  (dict . $res) -}} {{- end -}} {{- end -}} {{- $hasTranslations := gt (len
+  $langResources) 0 -}}
+
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
-    
+
     <div class="lang-toggle-container">
       {{- /* English Title */ -}}
       <h1 class="post-title entry-hint-parent" id="post-title-en">
-        {{ .Title }}
-        {{- if .Draft }}<span class="entry-hint" title="Draft">Draft</span>{{- end }}
+        {{ .Title }} {{- if .Draft }}<span class="entry-hint" title="Draft"
+          >Draft</span
+        >{{- end }}
       </h1>
-      
-      {{- /* Translated Titles */ -}}
-      {{- range $lang, $res := $langResources -}}
-      <h1 class="post-title entry-hint-parent" id="post-title-{{ $lang }}" style="display: none;">
+
+      {{- /* Translated Titles */ -}} {{- range $lang, $res := $langResources
+      -}}
+      <h1
+        class="post-title entry-hint-parent"
+        id="post-title-{{ $lang }}"
+        style="display: none"
+      >
         {{ $res.Params.title | default $.Title }}
       </h1>
       {{- end -}}
     </div>
 
-    {{- /* English Description */ -}}
-    {{- if .Description }}
-    <div class="post-description" id="post-description-en">{{ .Description }}</div>
-    {{- end }}
-
-    {{- /* Translated Descriptions */ -}}
-    {{- range $lang, $res := $langResources -}}
-      {{- if $res.Params.description }}
-      <div class="post-description" id="post-description-{{ $lang }}" style="display: none;">
-        {{ $res.Params.description }}
-      </div>
-      {{- end }}
-    {{- end -}}
-
-    {{- if not (.Param "hideMeta") }}
+    {{- /* English Description */ -}} {{- if .Description }}
+    <div class="post-description" id="post-description-en">
+      {{ .Description }}
+    </div>
+    {{- end }} {{- /* Translated Descriptions */ -}} {{- range $lang, $res :=
+    $langResources -}} {{- if $res.Params.description }}
+    <div
+      class="post-description"
+      id="post-description-{{ $lang }}"
+      style="display: none"
+    >
+      {{ $res.Params.description }}
+    </div>
+    {{- end }} {{- end -}} {{- if not (.Param "hideMeta") }}
     <div class="post-meta">
       {{- /* English Meta */ -}}
-      <div id="post-meta-en" style="display: inline;">
+      <div id="post-meta-en" style="display: inline">
         {{- partial "post_meta.html" . -}}
       </div>
 
-      {{- /* Translated Meta */ -}}
-      {{- range $lang, $res := $langResources -}}
-      <div id="post-meta-{{ $lang }}" style="display: none;">
+      {{- /* Translated Meta */ -}} {{- range $lang, $res := $langResources -}}
+      <div id="post-meta-{{ $lang }}" style="display: none">
         {{- partial "post_meta.html" $res -}}
       </div>
-      {{- end -}}
-      
-      {{- /* Custom Translation Toggle - MUI Toggle Button Group Style */ -}}
-      {{- if $hasTranslations -}}
-      &nbsp;|&nbsp;
+      {{- end -}} {{- /* Custom Translation Toggle - MUI Toggle Button Group
+      Style */ -}} {{- if $hasTranslations -}} &nbsp;|&nbsp;
       <div class="lang-toggle-group" role="group" aria-label="language">
-        {{- /* Flags mapping - Fixed order: 🇬🇧🇯🇵🇭🇰🇰🇷 */ -}}
-        {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🇭🇰" "kr" "🇰🇷" -}}
+        {{- /* Flags mapping - Fixed order: 🇬🇧🇯🇵🧋🇰🇷 */ -}}
+        {{- $flags := dict "en" "🇬🇧" "ja" "🇯🇵" "hk" "🧋" "kr" "🇰🇷" -}}
         {{- $langList := slice "en" "ja" "hk" "kr" -}}
         {{- $totalButtons := 0 -}}
         
@@ -93,7 +89,9 @@
               aria-label="{{ $lang }}"
               data-lang="{{ $lang }}"
               style="border-radius: {{ $borderRadius }};"
-            >{{ index $flags $lang }}</button>
+            >
+              {{ index $flags $lang }}
+            </button>
             {{- $buttonIndex = add $buttonIndex 1 -}}
           {{- end -}}
         {{- end -}}
@@ -114,7 +112,7 @@
 
   {{- /* Translated Covers */ -}}
   {{- range $lang, $res := $langResources -}}
-  <div id="post-cover-{{ $lang }}" style="display: none;">
+  <div id="post-cover-{{ $lang }}" style="display: none">
     {{- $resHidden := ($res.Params.cover.hiddenInSingle) | default ($res.Params.cover.hidden) | default false }}
     {{- partial "cover.html" (dict "cxt" $res "IsSingle" true "isHidden" $resHidden) }}
   </div>
@@ -125,7 +123,7 @@
     {{- partial "toc.html" . }}
   </div>
   {{- range $lang, $res := $langResources -}}
-  <div id="toc-{{ $lang }}" style="display: none;">
+  <div id="toc-{{ $lang }}" style="display: none">
     {{- partial "toc.html" $res -}}
   </div>
   {{- end -}}
@@ -142,7 +140,7 @@
 
   {{- /* Translated Contents */ -}}
   {{- range $lang, $res := $langResources -}}
-  <div class="post-content" id="post-content-{{ $lang }}" style="display: none;">
+  <div class="post-content" id="post-content-{{ $lang }}" style="display: none">
     {{ $res.Content }}
   </div>
   {{- end -}}
@@ -155,7 +153,7 @@
       vertical-align: middle;
       border-radius: 4px;
     }
-    
+
     /* MUI Toggle Button Base Styles */
     .lang-toggle-btn {
       padding: 1px 4px;
@@ -177,17 +175,17 @@
       margin-left: -1px;
       box-sizing: border-box;
     }
-    
+
     .lang-toggle-btn:first-child {
       margin-left: 0;
     }
-    
+
     /* Light mode - Hover effect (unselected) */
     .lang-toggle-btn:not(.active):hover {
       background: var(--tertiary);
       border-color: var(--secondary);
     }
-    
+
     /* Light mode - Active (selected) state - Subtle blue accent */
     .lang-toggle-btn.active {
       background: var(--tertiary);
@@ -196,13 +194,13 @@
       z-index: 1;
       font-weight: 600;
     }
-    
+
     /* Light mode - Active hover */
     .lang-toggle-btn.active:hover {
       background: var(--secondary);
       border-color: var(--primary);
     }
-    
+
     /* Focus visible for accessibility */
     .lang-toggle-btn:focus-visible {
       outline: 2px solid var(--primary);
@@ -213,16 +211,16 @@
   <script>
     function toggleLanguage(e, selectedLang) {
       if (e) e.preventDefault();
-      
+
       // MUI "Enforce value set" behavior: prevent deselecting the active button
       const currentBtn = document.getElementById(`lang-btn-${selectedLang}`);
       if (currentBtn && currentBtn.classList.contains('active')) {
         // Already selected, do nothing (enforce value set)
         return;
       }
-      
+
       const langs = ['en', {{ range $lang, $res := $langResources }}'{{ $lang }}',{{ end }}];
-      
+
       // Toggle Titles, Descriptions, Meta, Covers, TOC, Content
       langs.forEach(lang => {
         const title = document.getElementById(`post-title-${lang}`);
@@ -232,7 +230,7 @@
         const toc = document.getElementById(`toc-${lang}`);
         const content = document.getElementById(`post-content-${lang}`);
         const btn = document.getElementById(`lang-btn-${lang}`);
-        
+
         if (lang === selectedLang) {
           if(title) title.style.display = 'block';
           if(desc) desc.style.display = 'block';
@@ -257,7 +255,7 @@
           }
         }
       });
-      
+
       // Persistence removed
     }
 
@@ -275,16 +273,11 @@
       <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
       {{- end }}
     </ul>
-    {{- if (.Param "ShowPostNavLinks") }}
-    {{- partial "post_nav_links.html" . }}
-    {{- end }}
-    {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
-    {{- partial "share_icons.html" . -}}
-    {{- end }}
+    {{- if (.Param "ShowPostNavLinks") }} {{- partial "post_nav_links.html" . }}
+    {{- end }} {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare
+    true)) }} {{- partial "share_icons.html" . -}} {{- end }}
   </footer>
 
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
-  {{- end }}
+  {{- if (.Param "comments") }} {{- partial "comments.html" . }} {{- end }}
 </article>
 {{- end }}{{/* end main */}}
