@@ -1,5 +1,5 @@
 ---
-title: NotebookLMで文学作品を深く味わってみた
+title: NotebookLM で文学作品を深く味わってみた
 date: 2026-01-23
 summary: 🤖 x 📚 NotebookLMを使って楽しむ、AIと文学の新しい読書体験...
 tags:

@@ -1,7 +1,7 @@
 ---
-title: Joy-ConでVibe Codingしてみた
+title: Joy-Con で Vibe Coding してみた
 date: 2026-01-24
-summary: 🤖 x 🎮 Switch Joy-Con と Claude Code の初コラボレーション。ゲーム機も生産ツールに進化するか...
+summary: 🤖 x 🎮 Switch Joy-Con と Claude Code の初コラボレーション...
 tags:
   - nintendo-switch
   - ai
@@ -9,7 +9,7 @@ tags:
   - claude-code
 ---
 
-## 🤔 きっかけ
+## きっかけ
 
 Nintendo Switch 2を購入したので、旧Switchの使い道を考えていました。本体はもう使わないけど、Joy-Conはまだまだ現役で使えそう。そこで思いついたのが「Joy-Conをコーディングツールとして活用する」というアイデアです。
 
@@ -24,13 +24,13 @@ Nintendo Switch 2を購入したので、旧Switchの使い道を考えていま
 
 これだけで、Vibe Codingができます。
 
-## 🛠️ デバイス
+## デバイス
 
 - Nintendo SwitchのJoy-Con
 - MacBook
 - ボタンマッピングソフト（JoyKeyMapperなど）
 
-## ⚙️ セットアップ方法
+## セットアップ方法
 
 ### 1. Joy-ConをMacに接続
 
@@ -60,7 +60,7 @@ JoyKeyMapperで以下のように設定しました:
 
 <img src="001.png" width="55%" />
 
-## 💭 感想
+## 感想
 
 - キーボードから手を離して、リラックスしながらコーディングできる
 - 音声入力で長文も楽々
