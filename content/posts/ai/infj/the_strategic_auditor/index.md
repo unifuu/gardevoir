@@ -17,11 +17,11 @@ This is also the source of our suffering. Because we lack evidence, we often fal
 > - "How do I explain this feeling to others?"
 > - "What if I'm wrong?"
 
-Ultimately, we might choose to ignore the intuition (and regret it later) or become overwhelmed by anxiety (and end up paralyzed).
+Ultimately, we might choose to ignore the intuition (and regret it later).
 
 ## Why this Agent Skill?
 
-Most AI Personas on the market are very gentle, often saying things like, "Your feelings are valid." But for an INFJ, we don't need more empathy; we need **Reality (Se)** and **Logical Verification (Ti)**.
+Most AI agents are very gentle, often saying things like, "Your feelings are valid." But for an INFJ, we don't need more empathy; we need **Reality (Se)** and **Logical Verification (Ti)**.
 
 The purpose of designing this Agent was not to comfort me, but to **challenge** me.
 
