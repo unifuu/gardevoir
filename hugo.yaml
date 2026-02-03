@@ -113,23 +113,19 @@ languages:
           name: Posts
           url: /posts/
           weight: 10
-        - identifier: books
-          name: Books
-          url: /books/
-          weight: 20
         - identifier: games
           name: Games
           url: /games/
-          weight: 30
+          weight: 20
         - identifier: tags
           name: Tags
           url: /tags/
-          weight: 40
+          weight: 30
         - identifier: search
           name: Search
           url: /search/
-          weight: 50
+          weight: 40
         - identifier: github
           name: GitHub
           url: https://github.com/unifuu
-          weight: 60
+          weight: 50
