@@ -35,13 +35,6 @@
     </div>
 
     <div class="endpoint">
-        <h3>📚 Books API</h3>
-        <p>Get all books data grouped by reading status</p>
-        <button onclick="testAPI('/api/books/', 'books-result')">Test /api/books/</button>
-        <div id="books-result" class="result"></div>
-    </div>
-
-    <div class="endpoint">
         <h3>🔗 Complete API</h3>
         <p>Get all data in a single response</p>
         <button onclick="testAPI('/api/', 'complete-result')">Test /api/</button>
@@ -73,18 +66,11 @@
                 }
 
                 if (endpoint === '/api/stats/') {
-                    summary += `<strong>Books:</strong> ${data.data.books.total} (${data.data.books.reading} reading)<br>`;
                     summary += `<strong>Posts:</strong> ${data.data.posts.total}<br>`;
-                    summary += `<strong>Countries:</strong> ${data.data.books.countries.total}<br>`;
                 }
 
                 if (endpoint === '/api/posts/') {
                     summary += `<strong>Latest Post:</strong> ${data.data[0]?.title}<br>`;
-                }
-
-                if (endpoint === '/api/books/') {
-                    summary += `<strong>Reading:</strong> ${data.meta.reading} books<br>`;
-                    summary += `<strong>Finished:</strong> ${data.meta.finished} books<br>`;
                 }
 
                 resultDiv.innerHTML = `

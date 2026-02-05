@@ -101,7 +101,7 @@ languages:
       profileMode:
         enabled: true
         title: Fū
-        subtitle: "💻 Coding | 🎮 Gaming"
+        subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/)"
         buttons:
           - name: 📑 Posts
             url: posts
@@ -125,7 +125,3 @@ languages:
           name: Search
           url: /search/
           weight: 40
-        - identifier: github
-          name: GitHub
-          url: https://github.com/unifuu
-          weight: 50

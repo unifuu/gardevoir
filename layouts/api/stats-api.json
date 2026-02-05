@@ -1,48 +1,4 @@
 {{- $posts := where site.RegularPages "Section" "posts" -}}
-{{- $books := where site.RegularPages "Section" "books" -}}
-
-{{- /* Calculate book statistics */ -}}
-{{- $totalBooks := len $books -}}
-{{- $readingBooks := 0 -}}
-{{- $finishedBooks := 0 -}}
-{{- $totalRating := 0 -}}
-{{- $ratedBooks := 0 -}}
-{{- $femaleAuthors := 0 -}}
-{{- $countries := slice -}}
-{{- $years := slice -}}
-
-{{- range $books -}}
-    {{- if .Params.is_reading -}}
-        {{- $readingBooks = add $readingBooks 1 -}}
-    {{- end -}}
-    {{- if .Params.finished -}}
-        {{- $finishedBooks = add $finishedBooks 1 -}}
-    {{- end -}}
-    {{- if .Params.rating -}}
-        {{- $totalRating = add $totalRating .Params.rating -}}
-        {{- $ratedBooks = add $ratedBooks 1 -}}
-    {{- end -}}
-    {{- if .Params.is_female -}}
-        {{- $femaleAuthors = add $femaleAuthors 1 -}}
-    {{- end -}}
-    {{- if .Params.year -}}
-        {{- $years = $years | append .Params.year -}}
-    {{- end -}}
-    {{- $country := index (split .File.Dir "/") 1 -}}
-    {{- if $country -}}
-        {{- $countries = $countries | append $country -}}
-    {{- end -}}
-{{- end -}}
-
-{{- /* Calculate averages */ -}}
-{{- $averageRating := 0 -}}
-{{- if gt $ratedBooks 0 -}}
-    {{- $averageRating = div $totalRating $ratedBooks -}}
-{{- end -}}
-
-{{- /* Get unique countries and years */ -}}
-{{- $uniqueCountries := $countries | uniq -}}
-{{- $uniqueYears := $years | uniq | sort -}}
 
 {{- /* Calculate post statistics */ -}}
 {{- $totalPosts := len $posts -}}
@@ -67,24 +23,6 @@
         "endpoint" "stats"
     )
     "data" (dict 
-        "books" (dict 
-            "total" $totalBooks
-            "reading" $readingBooks
-            "finished" $finishedBooks
-            "unfinished" (sub $totalBooks (add $readingBooks $finishedBooks))
-            "averageRating" $averageRating
-            "femaleAuthors" $femaleAuthors
-            "maleAuthors" (sub $totalBooks $femaleAuthors)
-            "countries" (dict 
-                "total" (len $uniqueCountries)
-                "list" $uniqueCountries
-            )
-            "years" (dict 
-                "earliest" (index $uniqueYears 0)
-                "latest" (index $uniqueYears (sub (len $uniqueYears) 1))
-                "range" $uniqueYears
-            )
-        )
         "posts" (dict 
             "total" $totalPosts
             "totalWords" $totalWords
@@ -96,7 +34,7 @@
             )
         )
         "overview" (dict 
-            "totalContent" (add $totalBooks $totalPosts)
+            "totalContent" $totalPosts
             "lastUpdated" (site.Lastmod.Format "2006-01-02T15:04:05Z07:00")
         )
     )

@@ -1,15 +1,7 @@
-- id: books_count
-  translation:
-    one: "{{ .Count }} book"
-    other: "{{ .Count }} books"
-
 - id: games_count
   translation:
     one: "{{ .Count }} game"
     other: "{{ .Count }} games"
-
-- id: reading
-  translation: "Reading"
 
 - id: playing
   translation: "Playing"
