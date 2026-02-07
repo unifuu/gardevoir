@@ -98,11 +98,7 @@ menu:
       name: Games
       url: /games/
       weight: 10
-    - identifier: tags
-      name: Tags
-      url: /tags/
-      weight: 20
     - identifier: search
       name: Search
       url: /search/
-      weight: 30
+      weight: 20
