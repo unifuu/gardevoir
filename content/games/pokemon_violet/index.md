@@ -11,5 +11,4 @@ platform:
   - NS2
 cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/co5sfa.webp
-searchHidden: true
 ---

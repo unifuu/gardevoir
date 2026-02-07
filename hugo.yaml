@@ -2,7 +2,7 @@ baseURL: https://unifuu.dev/
 defaultContentLanguage: en
 languageCode: en-us
 timeZone: Asia/Tokyo
-title: La Porte étroite
+title: Gardevoir
 theme: ["PaperMod"]
 
 enableInlineShortcodes: true
@@ -52,7 +52,7 @@ params:
     safari_pinned_tab: "<link / abs url>"
 
   label:
-    text: "La Porte étroite"
+    text: "Gardevoir"
     # icon: /apple-touch-icon.png
     # iconHeight: 35
 
@@ -92,36 +92,17 @@ outputs:
   page:
     - HTML
 
-languages:
-  en:
-    languageName: en
-    languageCode: en-us
-    weight: 1
-    params:
-      profileMode:
-        enabled: true
-        title: Fū
-        subtitle: "[💻 Coding](https://github.com/unifuu) | [🎮 Gaming](/games/)"
-        buttons:
-          - name: 📑 Posts
-            url: posts
-          - name: 🔖 Tags
-            url: tags
-    menu:
-      main:
-        - identifier: posts
-          name: Posts
-          url: /posts/
-          weight: 10
-        - identifier: games
-          name: Games
-          url: /games/
-          weight: 20
-        - identifier: tags
-          name: Tags
-          url: /tags/
-          weight: 30
-        - identifier: search
-          name: Search
-          url: /search/
-          weight: 40
+menu:
+  main:
+    - identifier: games
+      name: Games
+      url: /games/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 30

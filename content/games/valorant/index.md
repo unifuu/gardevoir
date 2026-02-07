@@ -13,5 +13,4 @@ platform:
   - PC
 cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/coau39.webp
-searchHidden: true
 ---

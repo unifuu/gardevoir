@@ -16,6 +16,12 @@
 
 {{- $uniqueTags := $tags | uniq -}}
 
+{{- /* Calculate average, avoiding division by zero */ -}}
+{{- $averageWords := 0 -}}
+{{- if gt $totalPosts 0 -}}
+    {{- $averageWords = div $totalWords $totalPosts -}}
+{{- end -}}
+
 {{- /* API Response */ -}}
 {{- $response := dict 
     "meta" (dict 
@@ -27,7 +33,7 @@
             "total" $totalPosts
             "totalWords" $totalWords
             "totalReadingTime" $totalReadingTime
-            "averageWordsPerPost" (div $totalWords $totalPosts)
+            "averageWordsPerPost" $averageWords
             "tags" (dict 
                 "total" (len $uniqueTags)
                 "list" $uniqueTags

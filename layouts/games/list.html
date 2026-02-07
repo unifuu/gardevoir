@@ -156,46 +156,48 @@
           {{- $glow = delimit $shadows ", " -}}
         {{- end -}}
 
-        <article class="game-card {{ if ge $params.rating 10 }}is-masterpiece{{ end }}"
-          style="--hover-glow: {{ $glow | safeCSS }};"
-          data-platforms="{{ with $params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
-          data-rating="{{ $params.rating | default 0 }}" data-origin="{{ $params.origin | lower }}"
-          data-developer="{{ $params.developer | lower }}">
-          <div class="game-card-content">
-            <div class="game-cover-wrapper">
-              {{ with $params.cover.image }}
-              <img src="{{ . }}" alt="{{ $game.Title }}" loading="lazy">
+        <a href="{{ $game.RelPermalink }}" class="game-card-link">
+          <article class="game-card {{ if ge $params.rating 10 }}is-masterpiece{{ end }}"
+            style="--hover-glow: {{ $glow | safeCSS }};"
+            data-platforms="{{ with $params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
+            data-rating="{{ $params.rating | default 0 }}" data-origin="{{ $params.origin | lower }}"
+            data-developer="{{ $params.developer | lower }}">
+            <div class="game-card-content">
+              <div class="game-cover-wrapper">
+                {{ with $params.cover.image }}
+                <img src="{{ . }}" alt="{{ $game.Title }}" loading="lazy">
+                {{ end }}
+                {{ with $params.rating }}
+                <span class="game-rating-badge">{{ . }}</span>
+                {{ end }}
+              </div>
+
+              <h3 class="game-title">{{ $game.Title }}</h3>
+
+              {{ if or $params.origin $params.aliases }}
+              <p class="game-origin">
+                {{ with $params.origin }}<span class="game-flag" data-filter-type="origin"
+                  data-filter-value="{{ . | lower }}">{{ . }}</span>{{ end }}
+                {{ with $params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
+              </p>
               {{ end }}
-              {{ with $params.rating }}
-              <span class="game-rating-badge">{{ . }}</span>
+
+              <p class="game-meta">
+                <span class="game-developer" data-filter-type="developer"
+                  data-filter-value="{{ $params.developer | lower }}">{{ $params.developer }}</span> · {{ $params.year }}
+              </p>
+
+              {{ with $params.platform }}
+              <div class="game-platforms">
+                {{ range . }}
+                <span class="game-platform {{ . | urlize }}" data-filter-type="platform"
+                  data-filter-value="{{ . | lower }}">{{ . }}</span>
+                {{ end }}
+              </div>
               {{ end }}
             </div>
-
-            <h3 class="game-title">{{ $game.Title }}</h3>
-
-            {{ if or $params.origin $params.aliases }}
-            <p class="game-origin">
-              {{ with $params.origin }}<span class="game-flag" data-filter-type="origin"
-                data-filter-value="{{ . | lower }}">{{ . }}</span>{{ end }}
-              {{ with $params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
-            </p>
-            {{ end }}
-
-            <p class="game-meta">
-              <span class="game-developer" data-filter-type="developer"
-                data-filter-value="{{ $params.developer | lower }}">{{ $params.developer }}</span> · {{ $params.year }}
-            </p>
-
-            {{ with $params.platform }}
-            <div class="game-platforms">
-              {{ range . }}
-              <span class="game-platform {{ . | urlize }}" data-filter-type="platform"
-                data-filter-value="{{ . | lower }}">{{ . }}</span>
-              {{ end }}
-            </div>
-            {{ end }}
-          </div>
-        </article>
+          </article>
+        </a>
         {{ end }}
       </div>
     </details>
@@ -403,48 +405,50 @@
             {{- $glow = delimit $shadows ", " -}}
           {{- end -}}
 
-          <article class="game-card {{ if ge $params.rating 10 }}is-masterpiece{{ end }}"
-            style="--hover-glow: {{ $glow | safeCSS }};"
-            data-platforms="{{ with $params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
-            data-rating="{{ $params.rating | default 0 }}" data-origin="{{ $params.origin | lower }}"
-            data-developer="{{ $params.developer | lower }}">
-            <div class="game-card-content">
+          <a href="{{ $game.RelPermalink }}" class="game-card-link">
+            <article class="game-card {{ if ge $params.rating 10 }}is-masterpiece{{ end }}"
+              style="--hover-glow: {{ $glow | safeCSS }};"
+              data-platforms="{{ with $params.platform }}{{ range $i, $p := . }}{{ if $i }},{{ end }}{{ $p | lower }}{{ end }}{{ end }}"
+              data-rating="{{ $params.rating | default 0 }}" data-origin="{{ $params.origin | lower }}"
+              data-developer="{{ $params.developer | lower }}">
+              <div class="game-card-content">
 
-              <div class="game-cover-wrapper">
-                {{ with $params.cover.image }}
-                <img src="{{ . }}" alt="{{ $game.Title }}" loading="lazy">
+                <div class="game-cover-wrapper">
+                  {{ with $params.cover.image }}
+                  <img src="{{ . }}" alt="{{ $game.Title }}" loading="lazy">
+                  {{ end }}
+                  {{ with $params.rating }}
+                  <span class="game-rating-badge">{{ . }}</span>
+                  {{ end }}
+                </div>
+
+                <h3 class="game-title">{{ $game.Title }}</h3>
+
+                {{ if or $params.origin $params.aliases }}
+                <p class="game-origin">
+                  {{ with $params.origin }}<span class="game-flag" data-filter-type="origin"
+                    data-filter-value="{{ . | lower }}">{{ . }}</span>{{ end }}
+                  {{ with $params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
+                </p>
                 {{ end }}
-                {{ with $params.rating }}
-                <span class="game-rating-badge">{{ . }}</span>
+
+                <p class="game-meta">
+                  <span class="game-developer" data-filter-type="developer"
+                    data-filter-value="{{ $params.developer | lower }}">{{ $params.developer }}</span> · {{ $params.year
+                  }}
+                </p>
+                <p class="game-finished">{{ $currentDate | time.Format (default "January 2, 2006" site.Params.DateFormat) }}</p>
+                {{ with $params.platform }}
+                <div class="game-platforms">
+                  {{ range . }}
+                  <span class="game-platform {{ . | urlize }}" data-filter-type="platform"
+                    data-filter-value="{{ . | lower }}">{{ . }}</span>
+                  {{ end }}
+                </div>
                 {{ end }}
               </div>
-
-              <h3 class="game-title">{{ $game.Title }}</h3>
-
-              {{ if or $params.origin $params.aliases }}
-              <p class="game-origin">
-                {{ with $params.origin }}<span class="game-flag" data-filter-type="origin"
-                  data-filter-value="{{ . | lower }}">{{ . }}</span>{{ end }}
-                {{ with $params.aliases }}<span class="game-alias">{{ index . 0 }}</span>{{ end }}
-              </p>
-              {{ end }}
-
-              <p class="game-meta">
-                <span class="game-developer" data-filter-type="developer"
-                  data-filter-value="{{ $params.developer | lower }}">{{ $params.developer }}</span> · {{ $params.year
-                }}
-              </p>
-              <p class="game-finished">{{ $currentDate | time.Format (default "January 2, 2006" site.Params.DateFormat) }}</p>
-              {{ with $params.platform }}
-              <div class="game-platforms">
-                {{ range . }}
-                <span class="game-platform {{ . | urlize }}" data-filter-type="platform"
-                  data-filter-value="{{ . | lower }}">{{ . }}</span>
-                {{ end }}
-              </div>
-              {{ end }}
-            </div>
-          </article>
+            </article>
+          </a>
           {{ end }}
         </div>
       </details>
@@ -469,6 +473,23 @@
     </div>
   </div>
 </div>
+
+<style>
+  .game-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease;
+  }
+
+  .game-card-link:hover {
+    transform: translateY(-2px);
+  }
+
+  .game-card-link:active {
+    transform: translateY(0);
+  }
+</style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -509,14 +530,16 @@
         const title = card.querySelector('.game-title').innerText;
         if (!seenTitles.has(title)) {
           seenTitles.add(title);
-          const clone = card.cloneNode(true);
+          const link = card.closest('.game-card-link');
+          const clone = link ? link.cloneNode(true) : card.cloneNode(true);
           uniqueMatches.push(clone);
         }
       });
 
       uniqueMatches.forEach(match => {
         filteredGrid.appendChild(match);
-        attachListeners(match);
+        const cardInMatch = match.classList.contains('game-card') ? match : match.querySelector('.game-card');
+        if (cardInMatch) attachListeners(cardInMatch);
       });
 
       displayNameNode.innerText = (type === 'platform') ? displayLabel.toUpperCase() : displayLabel;
@@ -550,8 +573,10 @@
           const title = card.querySelector('.game-title').innerText;
           if (!seenTitles.has(title)) {
             seenTitles.add(title);
-            const clone = card.cloneNode(true);
-            clone.style.removeProperty('--hover-glow');
+            const link = card.closest('.game-card-link');
+            const clone = link ? link.cloneNode(true) : card.cloneNode(true);
+            const clonedCard = clone.classList.contains('game-card') ? clone : clone.querySelector('.game-card');
+            if (clonedCard) clonedCard.style.removeProperty('--hover-glow');
             uniqueCards.push(clone);
           }
         });
@@ -571,7 +596,8 @@
         const grid = section.querySelector('.game-grid');
         uniqueCards.forEach(c => {
           grid.appendChild(c);
-          attachListeners(c);
+          const cardInC = c.classList.contains('game-card') ? c : c.querySelector('.game-card');
+          if (cardInC) attachListeners(cardInC);
         });
         ratingView.appendChild(section);
       });

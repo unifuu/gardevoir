@@ -13,6 +13,4 @@ platform:
   - PC
 cover:
   image: https://images.igdb.com/igdb/image/upload/t_cover_big/co7zjb.webp
-searchHidden: true
-draft: true
 ---
