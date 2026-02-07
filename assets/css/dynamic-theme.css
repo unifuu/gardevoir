@@ -3,6 +3,15 @@
 {{- $customColors := .Site.Params.customThemeColors -}}
 
 {{- $presets := dict 
+    "default" (dict 
+        "theme" "rgb(255, 255, 255)"
+        "entry" "rgb(255, 255, 255)"
+        "primary" "rgb(30, 30, 30)"
+        "secondary" "rgb(108, 108, 108)"
+        "tertiary" "rgb(214, 214, 214)"
+        "content" "rgb(30, 30, 30)"
+        "border" "rgb(238, 238, 238)"
+    )
     "beige" (dict 
         "theme" "rgb(238, 234, 225)"
         "entry" "rgb(248, 245, 238)"
@@ -32,7 +41,47 @@
     )
 -}}
 
+{{- $darkPresets := dict 
+    "default" (dict 
+        "theme" "rgb(22, 22, 22)"
+        "entry" "rgb(46, 46, 51)"
+        "primary" "rgb(218, 218, 219)"
+        "secondary" "rgb(155, 156, 157)"
+        "tertiary" "rgb(65, 66, 68)"
+        "content" "rgb(196, 196, 197)"
+        "border" "rgb(51, 51, 51)"
+    )
+    "beige" (dict 
+        "theme" "rgb(30, 28, 25)"
+        "entry" "rgb(40, 38, 35)"
+        "primary" "rgb(220, 220, 220)"
+        "secondary" "rgb(170, 170, 170)"
+        "tertiary" "rgb(60, 58, 55)"
+        "content" "rgb(200, 200, 200)"
+        "border" "rgb(50, 48, 45)"
+    )
+    "pink" (dict 
+        "theme" "rgb(30, 20, 25)"
+        "entry" "rgb(40, 30, 35)"
+        "primary" "rgb(220, 220, 220)"
+        "secondary" "rgb(170, 170, 170)"
+        "tertiary" "rgb(60, 45, 52)"
+        "content" "rgb(200, 200, 200)"
+        "border" "rgb(50, 38, 45)"
+    )
+    "lavender" (dict 
+        "theme" "rgb(25, 20, 35)"
+        "entry" "rgb(35, 28, 45)"
+        "primary" "rgb(220, 210, 235)"
+        "secondary" "rgb(170, 160, 190)"
+        "tertiary" "rgb(50, 42, 65)"
+        "content" "rgb(200, 190, 215)"
+        "border" "rgb(45, 38, 60)"
+    )
+-}}
+
 {{- $colors := index $presets $themeColor -}}
+{{- $darkColors := index $darkPresets $themeColor -}}
 {{- if $customColors -}}
     {{- $colors = $customColors -}}
 {{- end -}}
@@ -69,6 +118,43 @@ body[data-theme='light'] {
     }
     html:not([data-theme='dark']), 
     body:not([data-theme='dark']) {
+        background: var(--theme);
+    }
+}
+{{- end -}}
+
+{{- /* Dark Mode Colors */ -}}
+{{- if $darkColors -}}
+/* Apply custom colors in Dark mode */
+:root[data-theme='dark'] {
+    --theme: {{ $darkColors.theme | safeCSS }};
+    --entry: {{ $darkColors.entry | safeCSS }};
+    --primary: {{ $darkColors.primary | safeCSS }};
+    --secondary: {{ $darkColors.secondary | safeCSS }};
+    --tertiary: {{ $darkColors.tertiary | safeCSS }};
+    --content: {{ $darkColors.content | safeCSS }};
+    --border: {{ $darkColors.border | safeCSS }};
+}
+
+/* Ensure background color is applied correctly */
+html[data-theme='dark'], 
+body[data-theme='dark'] {
+    background: var(--theme);
+}
+
+/* Fallback for when system preference is dark and no data-theme is set yet */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+        --theme: {{ $darkColors.theme | safeCSS }};
+        --entry: {{ $darkColors.entry | safeCSS }};
+        --primary: {{ $darkColors.primary | safeCSS }};
+        --secondary: {{ $darkColors.secondary | safeCSS }};
+        --tertiary: {{ $darkColors.tertiary | safeCSS }};
+        --content: {{ $darkColors.content | safeCSS }};
+        --border: {{ $darkColors.border | safeCSS }};
+    }
+    html:not([data-theme='light']), 
+    body:not([data-theme='light']) {
         background: var(--theme);
     }
 }
