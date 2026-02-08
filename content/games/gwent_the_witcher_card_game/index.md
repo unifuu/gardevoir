@@ -5,9 +5,9 @@ aliases:
 origin: 🇵🇱
 developer: CD Projekt RED
 year: 2018
-is_playing: true
+is_playing: false
 dates:
-  - 2026-01-01
+  - 2026-02-07
 rating: 10
 platform:
   - Mobile

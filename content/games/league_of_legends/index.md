@@ -7,7 +7,7 @@ developer: Riot Games
 year: 2009
 is_playing: false
 dates:
-  - 2026-01-01
+  - 2026-01-02
 rating: 8
 platform:
   - PC
